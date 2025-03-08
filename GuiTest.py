@@ -6,7 +6,6 @@ pygame.init()
 pygame.display.set_caption('Quick Start')
 windowSurface = pygame.display.set_mode((1080, 640))
 
-
 background = pygame.Surface((1080, 640))
 background.fill(pygame.Color('#FFE0E3'))
 
@@ -57,7 +56,7 @@ textLineInputRect = pygame.Rect((0, 0), (340, 40))
 usernameLabelRect = textLineLabelRect
 usernameLabelRect.topleft = (0, 50)
 usernameLabel = pygame_gui.elements.UILabel(relative_rect=usernameLabelRect,
-                                            text="USERNAME:",
+                                            text="TEST:",
                                             manager=manager,
                                             object_id=pygame_gui.core.ObjectID(
                                                 class_id="@mainLabel",
@@ -182,6 +181,18 @@ registerButton = pygame_gui.elements.UIButton(relative_rect=registerButtonRect,
                                             container=mainMenu,
                                             anchors={'centerx': 'centerx',
                                                      'bottom': 'bottom'})
+
+loginButtonRect = pygame.Rect((-30, 0), (259, 76))
+loginButtonRect.bottom = -120
+loginButton = pygame_gui.elements.UIButton(relative_rect=loginButtonRect,
+                                            text="",
+                                            manager=manager,
+                                            object_id=pygame_gui.core.ObjectID(
+                                                class_id="@mainButton",
+                                                object_id="#loginButton"),
+                                            container=mainMenu,
+                                            anchors={'centerx': 'centerx',
+                                                     'bottom': 'bottom'})
 #
 # loginButton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 100), (226, 76)),
 #                                             text="",
@@ -197,15 +208,16 @@ is_running = True
 while is_running:
     time_delta = clock.tick(60) / 1000.0
     for ev in pygame.event.get():
+        manager.process_events(ev)
         match ev.type:
             case pygame.QUIT:
                 is_running = False
 
             case pygame_gui.UI_BUTTON_PRESSED:
-                match ev.ui_element.object_ids[0]:
+                print(ev.ui_element.object_ids)
+                match ev.ui_element.object_ids[1]:
                     case "#loginButton":
                         print("Hello World!")
-
                     case "#registerButton":
                         print("Hello Gay!")
 
@@ -217,3 +229,4 @@ while is_running:
     manager.draw_ui(windowSurface)
 
     pygame.display.update()
+
