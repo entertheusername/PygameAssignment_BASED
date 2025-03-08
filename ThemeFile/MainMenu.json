@@ -1,0 +1,59 @@
+{
+    "panel":
+    {
+        "colours":
+        {
+            "dark_bg": "#FF9696",
+            "normal_border": "#FF7474"
+        },
+        "misc":
+        {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "3",
+            "shadow_width": "25"
+        }
+    },
+    "@mainLabel":
+    {
+        "colours":
+        {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFDFE1",
+            "text_shadow": "#BE9693"
+        },
+        "font":
+        {
+            "name": "tiny5",
+            "size": "40",
+            "regular_path": "Assets/Tiny5.ttf"
+        },
+        "misc":
+        {
+            "text_shadow": "1",
+            "text_shadow_size": "2",
+            "text_shadow_offset": "2,2",
+            "text_horiz_alignment": "right"
+        }
+    },
+    "@mainTextEntryLine":
+    {
+        "colours":
+        {
+            "dark_bg": "#C51D1D",
+            "normal_text": "#FFDFE1",
+            "normal_border": "#000000"
+        },
+        "font":
+        {
+            "name": "pixeltype",
+            "size": "30",
+            "regular_path": "Assets/Pixeltype.ttf"
+        },
+        "misc":
+         {
+             "shape": "rounded_rectangle",
+             "shape_corner_radius": 25
+         }
+    }
+}
