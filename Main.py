@@ -28,7 +28,7 @@ class Main:
                 self.testMenu = TestMenu(self.switchScreen, self.display, self.manager)
 
     def gameLoop(self):
-        print(self.screen)
+        # print(self.screen)
         timeDelta = self.clock.tick(60) / 1000.0
         for ev in pygame.event.get():
             self.manager.process_events(ev)
