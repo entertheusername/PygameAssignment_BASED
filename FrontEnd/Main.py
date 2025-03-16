@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
-from MainMenu import MainMenu
-from TestMenu import TestMenu
+from RegisterMenu import RegisterMenu
+from LoginMenu import LoginMenu
 
 
 class Main:
@@ -15,17 +15,16 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
-        self.mainMenu = MainMenu(self.switchScreen, self.display, self.manager)
-        self.testMenu = None
+        self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
 
     def switchScreen(self, screen):
         self.screen = screen
         self.manager = pygame_gui.UIManager((1080, 640))
         match self.screen:
-            case "mainMenu":
-                self.mainMenu = MainMenu(self.switchScreen, self.display, self.manager)
-            case "testMenu":
-                self.testMenu = TestMenu(self.switchScreen, self.display, self.manager)
+            case "registerMenu":
+                self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
+            case "loginMenu":
+                self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
 
     def gameLoop(self):
         # print(self.screen)
@@ -37,19 +36,10 @@ class Main:
                 self.isRunning = False
                 break
 
-            match self.screen:
-                case "mainMenu":
-                    self.mainMenu.eventCheck(ev)
-                case "testMenu":
-                    self.testMenu.eventCheck(ev)
+            self.currentDisplay.eventCheck(ev)
 
-        match self.screen:
-            case "mainMenu":
-                self.mainMenu.update(timeDelta)
-            case "testMenu":
-                self.testMenu.update(timeDelta)
+            self.currentDisplay.update(timeDelta)
 
-        # self.display.fill(self.black)
         self.window.blit(self.display, (0, 0))
         self.manager.draw_ui(self.window)
         pygame.display.update()
