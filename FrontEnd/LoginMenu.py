@@ -32,8 +32,8 @@ class LoginMenu:
                                            anchors={'centerx': 'centerx',
                                                     'top': 'top'})
 
-        # Neuro Img
-        neuroImage = pygame.image.load("../Assets/NeuroDeath.png")
+        # Character Img
+        neuroImage = pygame.image.load("../Assets/Character/NeuroAlive.png")
         neuroRect = pygame.Rect((0, 0), (256, 256))
         neuroRect.bottomright = (-80, -90)
         neuro = pygame_gui.elements.UIImage(relative_rect=neuroRect,
@@ -43,7 +43,7 @@ class LoginMenu:
                                                      'bottom': 'bottom'})
 
         # Tutel Img
-        tutelImage = pygame.image.load("../Assets/Tutel.png")
+        tutelImage = pygame.image.load("../Assets/Character/Tutel.png")
         tutelRect = pygame.Rect((0, 0), (120, 120))
         tutelRect.bottomright = (-180, -170)
         tutel = pygame_gui.elements.UIImage(relative_rect=tutelRect,

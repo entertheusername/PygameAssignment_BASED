@@ -20,7 +20,7 @@
         "font": {
             "name": "tiny5",
             "size": "40",
-            "regular_path": "../Assets/Tiny5.ttf"
+            "regular_path": "../Assets/Text/Tiny5.ttf"
         },
         "misc": {
             "text_shadow": "1",
@@ -38,7 +38,7 @@
         "font": {
             "name": "pixeltype",
             "size": "30",
-            "regular_path": "../Assets/Pixeltype.ttf"
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
         },
         "misc": {
             "shape": "rounded_rectangle",
@@ -74,12 +74,12 @@
     "#loginButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons.png",
+                "path": "../Assets/Buttons/Buttons.png",
                 "sub_surface_rect": "0, 0, 226, 76",
                 "premultiplied": "0"
             },
             "selected_image": {
-                "path": "../Assets/Buttons.png",
+                "path": "../Assets/Buttons/Buttons.png",
                 "sub_surface_rect": "258, 0, 226, 76",
                 "premultiplied": "0"
             }
@@ -88,12 +88,12 @@
     "#registerButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons.png",
+                "path": "../Assets/Buttons/Buttons.png",
                 "sub_surface_rect": "0, 120, 259, 76",
                 "premultiplied": "0"
             },
             "selected_image": {
-                "path": "../Assets/Buttons.png",
+                "path": "../Assets/Buttons/Buttons.png",
                 "sub_surface_rect": "294, 120, 259, 76",
                 "premultiplied": "0"
             }
