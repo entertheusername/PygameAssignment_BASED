@@ -184,18 +184,18 @@ class LoginMenu:
                 print(ev.ui_element.object_ids)
                 match ev.ui_element.object_ids[1]:
                     case "#loginButton":
-                        self.passwordError.set_text("")
                         self.usernameError.set_text("")
+                        self.passwordError.set_text("")
                         auth = Authentication()
                         status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text())
 
                         match status:
-                            case "Login successful!":
-                                print("hello")
-                            case "Invalid password.":
-                                self.passwordError.set_text(status)
                             case "User does not exist.":
                                 self.usernameError.set_text(status)
+                            case "Invalid password.":
+                                self.passwordError.set_text(status)
+                            case "Login successful!":
+                                print("Login successful")
 
                     case "#registerButton":
                         print("Hello World!")

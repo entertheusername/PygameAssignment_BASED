@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+from BackEnd.Authentication import Authentication
 
 
 class RegisterMenu:
@@ -17,9 +18,12 @@ class RegisterMenu:
         self.usernameInput = None
         self.emailInput = None
 
+        self.usernameError = None
+        self.emailError = None
+        self.passwordError = None
+        self.confirmPasswordError = None
+
         self.uiSetup()
-
-
 
     def uiSetup(self):
         self.display.fill(pygame.Color('#FFE0E3'))
@@ -86,27 +90,27 @@ class RegisterMenu:
         usernameInputRect = textLineInputRect
         usernameInputRect.topright = (-90, initialYInput)
         self.usernameInput = pygame_gui.elements.UITextEntryLine(relative_rect=usernameInputRect,
-                                                            manager=self.manager,
-                                                            object_id=pygame_gui.core.ObjectID(
-                                                                class_id="@mainTextEntryLine",
-                                                                object_id="#usernameInput"),
-                                                            container=mainMenu,
-                                                            anchors={
-                                                                'right': 'right',
-                                                                'top': 'top'})
+                                                                 manager=self.manager,
+                                                                 object_id=pygame_gui.core.ObjectID(
+                                                                     class_id="@mainTextEntryLine",
+                                                                     object_id="#usernameInput"),
+                                                                 container=mainMenu,
+                                                                 anchors={
+                                                                     'right': 'right',
+                                                                     'top': 'top'})
 
         usernameErrorRect = textLineErrorRect
         usernameErrorRect.topleft = (270, initialYError)
-        usernameError = pygame_gui.elements.UILabel(relative_rect=usernameErrorRect,
-                                                    text="",
-                                                    manager=self.manager,
-                                                    object_id=pygame_gui.core.ObjectID(
-                                                        class_id="@mainError",
-                                                        object_id="#usernameError"),
-                                                    container=mainMenu,
-                                                    anchors={
-                                                        'left': 'left',
-                                                        'top': 'top'})
+        self.usernameError = pygame_gui.elements.UILabel(relative_rect=usernameErrorRect,
+                                                         text="",
+                                                         manager=self.manager,
+                                                         object_id=pygame_gui.core.ObjectID(
+                                                             class_id="@mainError",
+                                                             object_id="#usernameError"),
+                                                         container=mainMenu,
+                                                         anchors={
+                                                             'left': 'left',
+                                                             'top': 'top'})
 
         # Email Label & Input
         emailLabelRect = textLineLabelRect
@@ -125,27 +129,27 @@ class RegisterMenu:
         emailInputRect = textLineInputRect
         emailInputRect.topright = (-90, initialYInput + stackY)
         self.emailInput = pygame_gui.elements.UITextEntryLine(relative_rect=emailInputRect,
-                                                         manager=self.manager,
-                                                         object_id=pygame_gui.core.ObjectID(
-                                                             class_id="@mainTextEntryLine",
-                                                             object_id="#emailInput"),
-                                                         container=mainMenu,
-                                                         anchors={
-                                                             'right': 'right',
-                                                             'top': 'top'})
+                                                              manager=self.manager,
+                                                              object_id=pygame_gui.core.ObjectID(
+                                                                  class_id="@mainTextEntryLine",
+                                                                  object_id="#emailInput"),
+                                                              container=mainMenu,
+                                                              anchors={
+                                                                  'right': 'right',
+                                                                  'top': 'top'})
 
         emailErrorRect = textLineErrorRect
         emailErrorRect.topleft = (270, initialYError + stackY)
-        emailError = pygame_gui.elements.UILabel(relative_rect=emailErrorRect,
-                                                    text="qwdqwdqwdqdwqwdqwdqdwqdw",
-                                                    manager=self.manager,
-                                                    object_id=pygame_gui.core.ObjectID(
-                                                        class_id="@mainError",
-                                                        object_id="#emailError"),
-                                                    container=mainMenu,
-                                                    anchors={
-                                                        'left': 'left',
-                                                        'top': 'top'})
+        self.emailError = pygame_gui.elements.UILabel(relative_rect=emailErrorRect,
+                                                      text="qwdqwdqwdqdwqwdqwdqdwqdw",
+                                                      manager=self.manager,
+                                                      object_id=pygame_gui.core.ObjectID(
+                                                          class_id="@mainError",
+                                                          object_id="#emailError"),
+                                                      container=mainMenu,
+                                                      anchors={
+                                                          'left': 'left',
+                                                          'top': 'top'})
 
         # Password Label & Input
         passwordLabelRect = textLineLabelRect
@@ -164,27 +168,27 @@ class RegisterMenu:
         passwordInputRect = textLineInputRect
         passwordInputRect.topright = (-90, initialYInput + (stackY * 2))
         self.passwordInput = pygame_gui.elements.UITextEntryLine(relative_rect=passwordInputRect,
-                                                            manager=self.manager,
-                                                            object_id=pygame_gui.core.ObjectID(
-                                                                class_id="@mainTextEntryLinePassword",
-                                                                object_id="#passwordInput"),
-                                                            container=mainMenu,
-                                                            anchors={
-                                                                'right': 'right',
-                                                                'top': 'top'})
+                                                                 manager=self.manager,
+                                                                 object_id=pygame_gui.core.ObjectID(
+                                                                     class_id="@mainTextEntryLinePassword",
+                                                                     object_id="#passwordInput"),
+                                                                 container=mainMenu,
+                                                                 anchors={
+                                                                     'right': 'right',
+                                                                     'top': 'top'})
 
         passwordErrorRect = textLineErrorRect
         passwordErrorRect.topleft = (270, initialYError + (stackY * 2))
-        passwordError = pygame_gui.elements.UILabel(relative_rect=passwordErrorRect,
-                                                    text="qwdqwdqwd",
-                                                    manager=self.manager,
-                                                    object_id=pygame_gui.core.ObjectID(
-                                                        class_id="@mainError",
-                                                        object_id="#passwordError"),
-                                                    container=mainMenu,
-                                                    anchors={
-                                                        'left': 'left',
-                                                        'top': 'top'})
+        self.passwordError = pygame_gui.elements.UILabel(relative_rect=passwordErrorRect,
+                                                         text="qwdqwdqwd",
+                                                         manager=self.manager,
+                                                         object_id=pygame_gui.core.ObjectID(
+                                                             class_id="@mainError",
+                                                             object_id="#passwordError"),
+                                                         container=mainMenu,
+                                                         anchors={
+                                                             'left': 'left',
+                                                             'top': 'top'})
 
         # Confirm Password Label & Input
         confirmPasswordTopLabelRect = textLineLabelRect
@@ -216,27 +220,27 @@ class RegisterMenu:
         confirmPasswordInputRect = textLineInputRect
         confirmPasswordInputRect.topright = (-90, initialYInput + (stackY * 3))
         self.confirmPasswordInput = pygame_gui.elements.UITextEntryLine(relative_rect=confirmPasswordInputRect,
-                                                                   manager=self.manager,
-                                                                   object_id=pygame_gui.core.ObjectID(
-                                                                       class_id="@mainTextEntryLinePassword",
-                                                                       object_id="#confirmPasswordInput"),
-                                                                   container=mainMenu,
-                                                                   anchors={
-                                                                       'right': 'right',
-                                                                       'top': 'top'})
+                                                                        manager=self.manager,
+                                                                        object_id=pygame_gui.core.ObjectID(
+                                                                            class_id="@mainTextEntryLinePassword",
+                                                                            object_id="#confirmPasswordInput"),
+                                                                        container=mainMenu,
+                                                                        anchors={
+                                                                            'right': 'right',
+                                                                            'top': 'top'})
 
         confirmPasswordErrorRect = textLineErrorRect
         confirmPasswordErrorRect.topleft = (270, initialYError + (stackY * 3))
-        confirmPasswordError = pygame_gui.elements.UILabel(relative_rect=confirmPasswordErrorRect,
-                                                    text="qwdqwdqwd",
-                                                    manager=self.manager,
-                                                    object_id=pygame_gui.core.ObjectID(
-                                                        class_id="@mainError",
-                                                        object_id="#confirmPasswordError"),
-                                                    container=mainMenu,
-                                                    anchors={
-                                                        'left': 'left',
-                                                        'top': 'top'})
+        self.confirmPasswordError = pygame_gui.elements.UILabel(relative_rect=confirmPasswordErrorRect,
+                                                                text="qwdqwdqwd",
+                                                                manager=self.manager,
+                                                                object_id=pygame_gui.core.ObjectID(
+                                                                    class_id="@mainError",
+                                                                    object_id="#confirmPasswordError"),
+                                                                container=mainMenu,
+                                                                anchors={
+                                                                    'left': 'left',
+                                                                    'top': 'top'})
 
         #Login Link
         loginLinkRect = pygame.Rect((0, 0), (350, 40))
@@ -277,6 +281,25 @@ class RegisterMenu:
                         print("Hello World!")
 
                     case "#registerButton":
+                        self.usernameError.set_text("")
+                        self.emailError.set_text("")
+                        self.passwordError.set_text("")
+                        self.confirmPasswordError.set_text("")
+                        auth = Authentication()
+                        status = auth.registerCheck(self.usernameInput.get_text(), self.emailInput.get_text(),
+                                                    self.passwordInput.get_text(), self.confirmPasswordInput.get_text())
+
+                        for i in status:
+                            if "Invalid username!" == i or "Username taken!" == i:
+                                self.usernameError.set_text(i)
+                            elif "Invalid email!" == i or "Email taken!" == i:
+                                self.emailError.set_text(i)
+                            elif "Invalid password!" == i or "Passwords does not match!" == i:
+                                self.passwordError.set_text(i)
+                                self.confirmPasswordError.set_text(i)
+                            elif "Register successful!" == i:
+                                print("Register successful")
+
                         print(self.usernameInput.get_text())
                         print(self.emailInput.get_text())
                         print(self.passwordInput.get_text())

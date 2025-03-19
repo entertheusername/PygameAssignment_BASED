@@ -1,5 +1,6 @@
 import pymysql
 import bcrypt
+import re
 
 class Authentication:
     def __init__(self):
@@ -27,6 +28,44 @@ class Authentication:
         except:
             print('query failed')
 
-    def register(self, username, email, password, confirmPassword):
-        pass
+    def registerCheck(self, username, email, password, confirmPassword):
+        errorList = []
+
+        try:
+            usernameQuery = 'SELECT * FROM users WHERE Username = %s;'
+            self.cursor.execute(usernameQuery, (username,))
+            usernameData = self.cursor.fetchall()
+
+            if not username or username == "":
+                errorList.append("Invalid username!")
+            elif usernameData:
+                errorList.append("Username taken!")
+
+            emailQuery = 'SELECT * FROM users WHERE Email = %s;'
+            self.cursor.execute(emailQuery, (email,))
+            emailData = self.cursor.fetchall()
+
+            pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+            if not email or email == "" or not (re.match(pattern, email)):
+                errorList.append("Invalid email!")
+            elif emailData:
+                errorList.append("Email taken!")
+
+            if not password or password == "":
+                errorList.append("Invalid password!")
+            elif password != confirmPassword:
+                errorList.append("Passwords does not match!")
+
+            if len(errorList) == 0:
+                # errorList.append("Register successful!")
+                # emailQuery = 'SELECT * FROM users WHERE Email = %s;'
+                # self.cursor.execute(emailQuery, (email,)
+                return errorList
+            else:
+                return errorList
+
+
+        except:
+            print('query failed')
 
