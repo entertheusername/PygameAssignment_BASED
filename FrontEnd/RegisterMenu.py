@@ -299,11 +299,7 @@ class RegisterMenu:
                                 self.confirmPasswordError.set_text(i)
                             elif "Register successful!" == i:
                                 print("Register successful")
-
-                        print(self.usernameInput.get_text())
-                        print(self.emailInput.get_text())
-                        print(self.passwordInput.get_text())
-                        print(self.confirmPasswordInput.get_text())
+                                self.screen("loginMenu")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("loginMenu")

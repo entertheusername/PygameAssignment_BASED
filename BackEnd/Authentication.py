@@ -58,9 +58,8 @@ class Authentication:
                 errorList.append("Passwords does not match!")
 
             if len(errorList) == 0:
-                # errorList.append("Register successful!")
-                # emailQuery = 'SELECT * FROM users WHERE Email = %s;'
-                # self.cursor.execute(emailQuery, (email,)
+                errorList.append("Register successful!")
+                self.register(username, email, password)
                 return errorList
             else:
                 return errorList
@@ -68,4 +67,10 @@ class Authentication:
 
         except:
             print('query failed')
+
+    def register(self, username, email, password):
+        passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+        emailQuery = "INSERT INTO users (Username, Email, Password, Role) VALUES (%s, %s, %s, 'Student')"
+        self.cursor.execute(emailQuery, (username, email, passwordHash,))
 
