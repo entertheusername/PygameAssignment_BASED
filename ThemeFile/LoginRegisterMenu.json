@@ -29,7 +29,7 @@
             "text_horiz_alignment": "right"
         }
     },
-    "@mainTextEntryLine": {
+    "text_entry_line": {
         "colours": {
             "dark_bg": "#C51D1D",
             "normal_text": "#FFDFE1",
@@ -43,6 +43,13 @@
         "misc": {
             "shape": "rounded_rectangle",
             "shape_corner_radius": 25
+        }
+    },
+    "@mainTextEntryLinePassword": {
+        "font": {
+            "name": "pixeltype_all_asterisk",
+            "size": "30",
+            "regular_path": "../Assets/Text/PixeltypeAllAsterisk.ttf"
         }
     },
     "text_box": {

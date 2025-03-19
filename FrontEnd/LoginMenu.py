@@ -106,7 +106,7 @@ class LoginMenu:
         passwordInput = pygame_gui.elements.UITextEntryLine(relative_rect=passwordInputRect,
                                                             manager=self.manager,
                                                             object_id=pygame_gui.core.ObjectID(
-                                                                class_id="@mainTextEntryLine",
+                                                                class_id="@mainTextEntryLinePassword",
                                                                 object_id="#passwordInput"),
                                                             container=mainMenu,
                                                             anchors={
