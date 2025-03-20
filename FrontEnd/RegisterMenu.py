@@ -141,7 +141,7 @@ class RegisterMenu:
         emailErrorRect = textLineErrorRect
         emailErrorRect.topleft = (270, initialYError + stackY)
         self.emailError = pygame_gui.elements.UILabel(relative_rect=emailErrorRect,
-                                                      text="qwdqwdqwdqdwqwdqwdqdwqdw",
+                                                      text="",
                                                       manager=self.manager,
                                                       object_id=pygame_gui.core.ObjectID(
                                                           class_id="@mainError",
@@ -180,7 +180,7 @@ class RegisterMenu:
         passwordErrorRect = textLineErrorRect
         passwordErrorRect.topleft = (270, initialYError + (stackY * 2))
         self.passwordError = pygame_gui.elements.UILabel(relative_rect=passwordErrorRect,
-                                                         text="qwdqwdqwd",
+                                                         text="",
                                                          manager=self.manager,
                                                          object_id=pygame_gui.core.ObjectID(
                                                              class_id="@mainError",
@@ -232,7 +232,7 @@ class RegisterMenu:
         confirmPasswordErrorRect = textLineErrorRect
         confirmPasswordErrorRect.topleft = (270, initialYError + (stackY * 3))
         self.confirmPasswordError = pygame_gui.elements.UILabel(relative_rect=confirmPasswordErrorRect,
-                                                                text="qwdqwdqwd",
+                                                                text="",
                                                                 manager=self.manager,
                                                                 object_id=pygame_gui.core.ObjectID(
                                                                     class_id="@mainError",
