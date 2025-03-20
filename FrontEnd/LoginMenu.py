@@ -156,7 +156,7 @@ class LoginMenu:
         loginLinkRect.bottomleft = 40, -30
         loginLink = pygame_gui.elements.UITextBox(relative_rect=loginLinkRect,
                                                   html_text="<font face='pixeltype' pixel_size=25>"
-                                                            "Don't have and account? Register "
+                                                            "Don't have an account? Register "
                                                             "<a href='toLogin'>here!</a>"
                                                             "</font>",
                                                   wrap_to_height=True,
