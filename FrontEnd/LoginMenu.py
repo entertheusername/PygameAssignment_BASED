@@ -25,6 +25,7 @@ class LoginMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        # Background
         self.display.fill(pygame.Color('#FFE0E3'))
 
         # MainMenu Panel
@@ -199,6 +200,7 @@ class LoginMenu:
                                 self.passwordError.set_text(status)
                             case "Login successful!":
                                 print("Login successful")
+                                self.screen("gameMenu")
 
                     case "#registerButton":
                         print("Hello World!")

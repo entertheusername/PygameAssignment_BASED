@@ -5,6 +5,7 @@ import pygame
 import pygame_gui
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
+from GameMenu import GameMenu
 
 
 class Main:
@@ -28,6 +29,8 @@ class Main:
                 self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
             case "loginMenu":
                 self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
+            case "gameMenu":
+                self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager)
 
     def gameLoop(self):
         # print(self.screen)
@@ -46,6 +49,7 @@ class Main:
         self.window.blit(self.display, (0, 0))
         self.manager.draw_ui(self.window)
         pygame.display.update()
+
 
 if __name__ == "__main__":
     main = Main()

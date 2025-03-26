@@ -29,7 +29,12 @@ class Authentication:
             print('query failed')
 
     def registerCheck(self, username, email, password, confirmPassword):
-        errorList = []
+        errorDict = {
+            "username": None,
+            "email": None,
+            "password": None,
+            "successful": False
+        }
 
         try:
             usernameQuery = 'SELECT * FROM users WHERE Username = %s;'
@@ -37,9 +42,11 @@ class Authentication:
             usernameData = self.cursor.fetchall()
 
             if not username or username == "":
-                errorList.append("Invalid username!")
+                errorDict['username'] = "Invalid username!"
+            elif len(username) > 15:
+                errorDict['username'] = "Username too long!"
             elif usernameData:
-                errorList.append("Username taken!")
+                errorDict['username'] = "Username taken!"
 
             emailQuery = 'SELECT * FROM users WHERE Email = %s;'
             self.cursor.execute(emailQuery, (email,))
@@ -48,21 +55,25 @@ class Authentication:
             pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
             if not email or email == "" or not (re.match(pattern, email)):
-                errorList.append("Invalid email!")
+                errorDict['email'] = "Invalid email!"
+            elif len(email) > 40:
+                errorDict['email'] = "Email too long!"
             elif emailData:
-                errorList.append("Email taken!")
+                errorDict['email'] = "Email taken!"
 
             if not password or password == "":
-                errorList.append("Invalid password!")
+                errorDict['password'] = "Invalid password!"
+            elif len(password) > 30:
+                errorDict['password'] = "Password too long!"
             elif password != confirmPassword:
-                errorList.append("Passwords does not match!")
+                errorDict['password'] = "Passwords does not match!"
 
-            if len(errorList) == 0:
-                errorList.append("Register successful!")
+            if errorDict['username'] is None and errorDict['email'] is None and errorDict['password'] is None:
+                errorDict['successful'] = True
                 self.register(username, email, password)
-                return errorList
+                return errorDict
             else:
-                return errorList
+                return errorDict
 
 
         except:

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="84c55f9c-ee1f-41c1-b27b-fd8b35f79b1c" name="Changes" comment="Authentication done" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2sqOc5bDEtJjxyfc0h904c7jg9m" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.Authentication.executor": "Run",
+    "Python.LoginMenu.executor": "Run",
+    "Python.Main.executor": "Run",
+    "Python.MainMenu.executor": "Run",
+    "Python.RegisterMenu.executor": "Run",
+    "Python.asd.executor": "Run",
+    "Python.gui test.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "<unknown>",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/ASUS/OneDrive/linux_live_storage/PycharmProjects/pygameTest/FrontEnd",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\FrontEnd" />
+      <recent name="$PROJECT_DIR$/Assets" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\Assets\Text" />
+      <recent name="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\Assets\Character" />
+      <recent name="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\Assets\Neuro" />
+      <recent name="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\Assets\Buttons" />
+      <recent name="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\Assets" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="gui test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pygameTest" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\.venv\gui test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="pygameTest" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\ASUS\OneDrive\linux_live_storage\PycharmProjects\pygameTest\.venv\test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.gui test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.gui test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-14705d77f0bb-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.25659.43" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="84c55f9c-ee1f-41c1-b27b-fd8b35f79b1c" name="Changes" comment="" />
+      <created>1739179716235</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739179716235</updated>
+    </task>
+    <task id="LOCAL-00001" summary="finished frontend for RegisterMenu.py n LoginMenu.py">
+      <option name="closed" value="true" />
+      <created>1742112565633</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742112565633</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Slight changes and reorganisation">
+      <option name="closed" value="true" />
+      <created>1742112969364</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742112969364</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added asterisk file for password (pure insanity)">
+      <option name="closed" value="true" />
+      <created>1742358786639</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742358786639</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Login done (refactoring needed)">
+      <option name="closed" value="true" />
+      <created>1742369000461</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742369000461</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Register need refactoring">
+      <option name="closed" value="true" />
+      <created>1742401787337</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742401787337</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Authentication done">
+      <option name="closed" value="true" />
+      <created>1742403290391</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1742403290391</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="finished frontend for RegisterMenu.py n LoginMenu.py" />
+    <MESSAGE value="Slight changes and reorganisation" />
+    <MESSAGE value="Added asterisk file for password (pure insanity)" />
+    <MESSAGE value="Login done (refactoring needed)" />
+    <MESSAGE value="Register need refactoring" />
+    <MESSAGE value="Authentication done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Authentication done" />
+  </component>
+</project>

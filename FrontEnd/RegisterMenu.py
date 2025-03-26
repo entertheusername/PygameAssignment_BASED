@@ -29,6 +29,7 @@ class RegisterMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        # Background
         self.display.fill(pygame.Color('#FFE0E3'))
 
         # MainMenu Panel
@@ -292,17 +293,16 @@ class RegisterMenu:
                         status = auth.registerCheck(self.usernameInput.get_text(), self.emailInput.get_text(),
                                                     self.passwordInput.get_text(), self.confirmPasswordInput.get_text())
 
-                        for i in status:
-                            if "Invalid username!" == i or "Username taken!" == i:
-                                self.usernameError.set_text(i)
-                            elif "Invalid email!" == i or "Email taken!" == i:
-                                self.emailError.set_text(i)
-                            elif "Invalid password!" == i or "Passwords does not match!" == i:
-                                self.passwordError.set_text(i)
-                                self.confirmPasswordError.set_text(i)
-                            elif "Register successful!" == i:
-                                print("Register successful")
-                                self.screen("loginMenu")
+                        if status['username'] is not None:
+                            self.usernameError.set_text(status['username'])
+                        if status['email'] is not None:
+                            self.emailError.set_text(status['email'])
+                        if status['password'] is not None:
+                            self.passwordError.set_text(status['password'])
+                            self.confirmPasswordError.set_text(status['password'])
+                        if status['successful'] is True:
+                            print("Register successful")
+                            self.screen("loginMenu")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("loginMenu")
