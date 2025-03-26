@@ -19,6 +19,8 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
+        # need to chane the startup by seeing if the user is signed in
+        # session based cache need to be implemented for this (keyring implementation)
         self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
 
     def switchScreen(self, screen):
@@ -30,7 +32,10 @@ class Main:
             case "loginMenu":
                 self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
             case "gameMenu":
-                self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager)
+                self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
+
+    def endGame(self):
+        self.isRunning = False
 
     def gameLoop(self):
         # print(self.screen)

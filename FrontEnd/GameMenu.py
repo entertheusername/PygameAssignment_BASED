@@ -7,12 +7,12 @@ import pygame_gui
 
 
 class GameMenu:
-    def __init__(self, screen, display, manager):
+    def __init__(self, screen, display, manager, endGame):
         pygame.init()
         self.screen = screen
         self.display = display
         self.manager = manager
-        self.isRunning = True
+        self.endGame = endGame
 
         self.manager.get_theme().load_theme("../ThemeFile/GameMenu.json")
 
@@ -86,6 +86,8 @@ class GameMenu:
                         print("leaderboards")
                     case self.exitButton:
                         print("exits")
+                        #need to change this to a popup function (exit or exit with logout)
+                        self.endGame()
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)

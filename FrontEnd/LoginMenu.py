@@ -12,7 +12,6 @@ class LoginMenu:
         self.screen = screen
         self.display = display
         self.manager = manager
-        self.isRunning = True
 
         self.manager.get_theme().load_theme("../ThemeFile/LoginRegisterMenu.json")
 
