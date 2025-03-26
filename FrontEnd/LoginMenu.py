@@ -22,6 +22,8 @@ class LoginMenu:
         self.usernameError = None
         self.passwordError = None
 
+        self.loginButton = None
+
         self.uiSetup()
 
     def uiSetup(self):
@@ -172,7 +174,7 @@ class LoginMenu:
         # Login Button
         loginButtonRect = pygame.Rect((-30, 0), (226, 76))
         loginButtonRect.bottom = -80
-        loginButton = pygame_gui.elements.UIButton(relative_rect=loginButtonRect,
+        self.loginButton = pygame_gui.elements.UIButton(relative_rect=loginButtonRect,
                                                       text="",
                                                       manager=self.manager,
                                                       object_id=pygame_gui.core.ObjectID(
@@ -185,9 +187,9 @@ class LoginMenu:
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
-                print(ev.ui_element.object_ids)
-                match ev.ui_element.object_ids[1]:
-                    case "#loginButton":
+                print(ev.ui_element)
+                match ev.ui_element:
+                    case self.loginButton:
                         self.usernameError.set_text("")
                         self.passwordError.set_text("")
                         auth = Authentication()
@@ -201,9 +203,6 @@ class LoginMenu:
                             case "Login successful!":
                                 print("Login successful")
                                 self.screen("gameMenu")
-
-                    case "#registerButton":
-                        print("Hello World!")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("registerMenu")

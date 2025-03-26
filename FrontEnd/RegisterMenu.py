@@ -26,6 +26,8 @@ class RegisterMenu:
         self.passwordError = None
         self.confirmPasswordError = None
 
+        self.registerButton = None
+
         self.uiSetup()
 
     def uiSetup(self):
@@ -266,7 +268,7 @@ class RegisterMenu:
         # Register Button
         registerButtonRect = pygame.Rect((-30, 0), (259, 76))
         registerButtonRect.bottom = -80
-        registerButton = pygame_gui.elements.UIButton(relative_rect=registerButtonRect,
+        self.registerButton = pygame_gui.elements.UIButton(relative_rect=registerButtonRect,
                                                       text="",
                                                       manager=self.manager,
                                                       object_id=pygame_gui.core.ObjectID(
@@ -279,12 +281,9 @@ class RegisterMenu:
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
-                print(ev.ui_element.object_ids)
-                match ev.ui_element.object_ids[1]:
-                    case "#loginButton":
-                        print("Hello World!")
-
-                    case "#registerButton":
+                print(ev.ui_element)
+                match ev.ui_element:
+                    case self.registerButton:
                         self.usernameError.set_text("")
                         self.emailError.set_text("")
                         self.passwordError.set_text("")
