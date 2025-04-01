@@ -1,11 +1,13 @@
 import sys
 import os
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
 from GameMenu import GameMenu
+from GameModeSelectMenu import GameModeSelectMenu
 
 
 class Main:
@@ -33,6 +35,8 @@ class Main:
                 self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
             case "gameMenu":
                 self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
+            case "gameModeSelectMenu":
+                self.currentDisplay = GameModeSelectMenu(self.switchScreen, self.display, self.manager)
 
     def endGame(self):
         self.isRunning = False
@@ -46,6 +50,8 @@ class Main:
             if ev.type == pygame.QUIT:
                 self.isRunning = False
                 break
+            # if ev.type == pygame.:
+            #     self.window = pygame.display.set_mode((self.displayWidth, self.displayHeight), pygame.FULLSCREEN)
 
             self.currentDisplay.eventCheck(ev)
 

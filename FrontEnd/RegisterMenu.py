@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
@@ -247,7 +248,7 @@ class RegisterMenu:
                                                                     'left': 'left',
                                                                     'top': 'top'})
 
-        #Login Link
+        # Login Link
         loginLinkRect = pygame.Rect((0, 0), (350, 40))
         loginLinkRect.bottomleft = 40, -30
         loginLink = pygame_gui.elements.UITextBox(relative_rect=loginLinkRect,
@@ -268,14 +269,14 @@ class RegisterMenu:
         registerButtonRect = pygame.Rect((-30, 0), (259, 76))
         registerButtonRect.bottom = -80
         self.registerButton = pygame_gui.elements.UIButton(relative_rect=registerButtonRect,
-                                                      text="",
-                                                      manager=self.manager,
-                                                      object_id=pygame_gui.core.ObjectID(
-                                                          class_id="@mainButton",
-                                                          object_id="#registerButton"),
-                                                      container=mainMenu,
-                                                      anchors={'centerx': 'centerx',
-                                                               'bottom': 'bottom'})
+                                                           text="",
+                                                           manager=self.manager,
+                                                           object_id=pygame_gui.core.ObjectID(
+                                                               class_id="@mainButton",
+                                                               object_id="#registerButton"),
+                                                           container=mainMenu,
+                                                           anchors={'centerx': 'centerx',
+                                                                    'bottom': 'bottom'})
 
     def eventCheck(self, ev):
         match ev.type:

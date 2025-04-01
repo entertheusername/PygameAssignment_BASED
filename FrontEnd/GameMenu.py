@@ -43,37 +43,37 @@ class GameMenu:
         playButtonRect = pygame.Rect((0, 0), (350, 70))
         playButtonRect.top = initialYElement + (stackY * 2)
         self.playButton = pygame_gui.elements.UIButton(relative_rect=playButtonRect,
-                                                  text="PLAY",
-                                                  manager=self.manager,
-                                                  object_id=pygame_gui.core.ObjectID(
-                                                      class_id="@gameButton",
-                                                      object_id="#playButton"),
-                                                  anchors={'centerx': 'centerx',
-                                                           'top': 'top'})
+                                                       text="PLAY",
+                                                       manager=self.manager,
+                                                       object_id=pygame_gui.core.ObjectID(
+                                                           class_id="@gameButton",
+                                                           object_id="#playButton"),
+                                                       anchors={'centerx': 'centerx',
+                                                                'top': 'top'})
 
         # Leaderboard button
         leaderboardButtonRect = pygame.Rect((0, 0), (350, 70))
         leaderboardButtonRect.top = initialYElement + (stackY * 3)
         self.leaderboardButton = pygame_gui.elements.UIButton(relative_rect=leaderboardButtonRect,
-                                                         text="LEADER BOARD",
-                                                         manager=self.manager,
-                                                         object_id=pygame_gui.core.ObjectID(
-                                                             class_id="@gameButton",
-                                                             object_id="#leaderboardButton"),
-                                                         anchors={'centerx': 'centerx',
-                                                                  'top': 'top'})
+                                                              text="LEADER BOARD",
+                                                              manager=self.manager,
+                                                              object_id=pygame_gui.core.ObjectID(
+                                                                  class_id="@gameButton",
+                                                                  object_id="#leaderboardButton"),
+                                                              anchors={'centerx': 'centerx',
+                                                                       'top': 'top'})
 
         # Exit button
         exitButtonRect = pygame.Rect((0, 0), (350, 76))
         exitButtonRect.top = initialYElement + (stackY * 4)
         self.exitButton = pygame_gui.elements.UIButton(relative_rect=exitButtonRect,
-                                                  text="EXIT",
-                                                  manager=self.manager,
-                                                  object_id=pygame_gui.core.ObjectID(
-                                                      class_id="@gameButton",
-                                                      object_id="#exitButton"),
-                                                  anchors={'centerx': 'centerx',
-                                                           'top': 'top'})
+                                                       text="EXIT",
+                                                       manager=self.manager,
+                                                       object_id=pygame_gui.core.ObjectID(
+                                                           class_id="@gameButton",
+                                                           object_id="#exitButton"),
+                                                       anchors={'centerx': 'centerx',
+                                                                'top': 'top'})
 
     def eventCheck(self, ev):
         match ev.type:
@@ -82,11 +82,12 @@ class GameMenu:
                 match ev.ui_element:
                     case self.playButton:
                         print("plays")
+                        self.screen("gameModeSelectMenu")
                     case self.leaderboardButton:
                         print("leaderboards")
                     case self.exitButton:
                         print("exits")
-                        #need to change this to a popup function (exit or exit with logout)
+                        # need to change this to a popup function (exit or exit with logout)
                         self.endGame()
 
     def update(self, timeDelta):
