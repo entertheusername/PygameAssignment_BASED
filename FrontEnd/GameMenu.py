@@ -4,6 +4,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+from BackEnd.Authentication import Authentication
 
 
 class GameMenu:
@@ -88,6 +89,8 @@ class GameMenu:
                     case self.exitButton:
                         print("exits")
                         # need to change this to a popup function (exit or exit with logout)
+                        auth = Authentication()
+                        auth.logout()
                         self.endGame()
 
     def update(self, timeDelta):

@@ -4,15 +4,16 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+from BackEnd.Authentication import Authentication
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 
-
 class Main:
     def __init__(self):
         pygame.init()
+        pygame.display.set_caption("BASED")
         self.isRunning = True
         self.screen = "mainMenu"
         self.displayWidth, self.displayHeight = 1080, 640
@@ -21,9 +22,8 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
-        # need to chane the startup by seeing if the user is signed in
-        # session based cache need to be implemented for this (keyring implementation)
-        self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
+        auth = Authentication()
+        self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen, self.display, self.manager)
 
     def switchScreen(self, screen):
         self.screen = screen

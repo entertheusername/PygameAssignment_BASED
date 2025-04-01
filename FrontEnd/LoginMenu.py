@@ -192,7 +192,7 @@ class LoginMenu:
                         self.usernameError.set_text("")
                         self.passwordError.set_text("")
                         auth = Authentication()
-                        status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text())
+                        status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text(), True)
 
                         match status:
                             case "User does not exist.":

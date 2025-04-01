@@ -16,8 +16,8 @@ class GameModeSelectMenu:
         self.manager.get_theme().load_theme("../ThemeFile/GameMenu.json")
 
         self.conversionButton = None
-        self.additionButton = None
-        self.subtractionButton = None
+        self.calculationButton = None
+        self.mixedCalculationButton = None
         self.backButton = None
 
         self.uiSetup()
@@ -51,27 +51,27 @@ class GameModeSelectMenu:
                                                              anchors={'centerx': 'centerx',
                                                                       'top': 'top'})
 
-        # Addition button
-        additionButtonRect = pygame.Rect((0, 0), (350, 70))
-        additionButtonRect.top = initialYElement + (stackY * 3)
-        self.additionButton = pygame_gui.elements.UIButton(relative_rect=additionButtonRect,
-                                                           text="ADDITION",
+        # Calculation button
+        calculationButtonRect = pygame.Rect((0, 0), (350, 70))
+        calculationButtonRect.top = initialYElement + (stackY * 3)
+        self.calculationButton = pygame_gui.elements.UIButton(relative_rect=calculationButtonRect,
+                                                           text="CALCULATION",
                                                            manager=self.manager,
                                                            object_id=pygame_gui.core.ObjectID(
                                                                class_id="@gameModeSelectButton",
-                                                               object_id="#additionButton"),
+                                                               object_id="#calculationButton"),
                                                            anchors={'centerx': 'centerx',
                                                                     'top': 'top'})
 
-        # Subtract button
-        subtractionButtonRect = pygame.Rect((0, 0), (350, 76))
-        subtractionButtonRect.top = initialYElement + (stackY * 4)
-        self.subtractionButton = pygame_gui.elements.UIButton(relative_rect=subtractionButtonRect,
-                                                              text="SUBTRACTION",
+        # Mixed Calculation button
+        mixedCalculationButtonRect = pygame.Rect((0, 0), (480, 76))
+        mixedCalculationButtonRect.top = initialYElement + (stackY * 4)
+        self.mixedCalculationButton = pygame_gui.elements.UIButton(relative_rect=mixedCalculationButtonRect,
+                                                              text="MIXED CALCULATION",
                                                               manager=self.manager,
                                                               object_id=pygame_gui.core.ObjectID(
                                                                   class_id="@gameModeSelectButton",
-                                                                  object_id="#subtractionButton"),
+                                                                  object_id="#mixedCalculationButton"),
                                                               anchors={'centerx': 'centerx',
                                                                        'top': 'top'})
 
@@ -91,9 +91,9 @@ class GameModeSelectMenu:
                 match ev.ui_element:
                     case self.conversionButton:
                         print("plays")
-                    case self.additionButton:
+                    case self.calculationButton:
                         print("leaderboards")
-                    case self.subtractionButton:
+                    case self.mixedCalculationButton:
                         print("exits")
                     case self.backButton:
                         self.screen("gameMenu")

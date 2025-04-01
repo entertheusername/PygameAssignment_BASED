@@ -1,13 +1,22 @@
 import pymysql
 import bcrypt
 import re
+import keyring
+import json
 
 class Authentication:
     def __init__(self):
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
         self.cursor = self.conn.cursor()
 
-    def login(self, username, password):
+    def login(self, username, password, save):
+        """
+        Login function to check from the database.
+        :param username: str username from user
+        :param password: str password from user should correspondent of the user in database
+        :param save: bool save password for silent login
+        :return: str error msg or confirmation msg
+        """
         try:
             query = 'SELECT * FROM users WHERE Username = %s;'
             self.cursor.execute(query, (username,))
@@ -18,6 +27,14 @@ class Authentication:
                 password = password.strip()
 
                 if bcrypt.checkpw(password.encode("utf-8"), dbPass.encode("utf-8")):
+                    if save:
+                        file = open("../loggedInUser.json", "w")
+                        data = {
+                            "username": username
+                        }
+                        json.dump(data, file, indent=4)
+                        file.close()
+                        keyring.set_password("BASED", username, password)
                     return 'Login successful!'
                 else:
                     return 'Invalid password.'
@@ -28,7 +45,38 @@ class Authentication:
         except:
             print('query failed')
 
+    def silentLogin(self):
+        file = open("../loggedInUser.json", "r")
+        data = json.load(file)
+        file.close()
+        password = keyring.get_password("BASED", data['username'])
+        status = self.login(data['username'], password, False)
+        if status == 'Login successful!':
+            return True
+        else:
+            return False
+
+    def logout(self):
+        file = open("../loggedInUser.json", "r")
+        data = json.load(file)
+        file.close()
+        keyring.delete_password("BASED", data['username'])
+        file = open("../loggedInUser.json", "w")
+        data = {
+            "username": ""
+        }
+        json.dump(data, file, indent=4)
+        file.close()
+
     def registerCheck(self, username, email, password, confirmPassword):
+        """
+        Confirmation check that registration is valid for system.
+        :param username: str username from user
+        :param email: str email from user
+        :param password: str password from user
+        :param confirmPassword: str confirm password from user
+        :return: dict dictionary of error msgs
+        """
         errorDict = {
             "username": None,
             "email": None,
@@ -80,6 +128,13 @@ class Authentication:
             print('query failed')
 
     def register(self, username, email, password):
+        """
+        Registration function from system to the database.
+        :param username: str username from user
+        :param email: str email from user
+        :param password: str password from user
+        :return: None
+        """
         passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
         emailQuery = "INSERT INTO users (Username, Email, Password, Role) VALUES (%s, %s, %s, 'Student')"
