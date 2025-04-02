@@ -1,4 +1,8 @@
 # This file is for generating questions and apples
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import random
 from BackEnd.GameEngine_apple import Apple

@@ -1,5 +1,8 @@
 # This file is for whole game logic
+import sys
+import os
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import sys
 from BackEnd.GameEngine_basket import Basket

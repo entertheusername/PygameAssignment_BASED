@@ -1,4 +1,8 @@
 # This file is for question generation logic
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import random
 from BackEnd.GameEngine_question import Question
