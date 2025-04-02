@@ -11,8 +11,8 @@ class Colors:
 # Game Settings
 class GameSettings:
     WIDTH, HEIGHT = 1080, 640
-    BASKET_WIDTH, BASKET_HEIGHT = 128, 128
-    APPLE_RADIUS = 64
+    BASKET_WIDTH, BASKET_HEIGHT = 128, 120
+    APPLE_RADIUS = 32
     SPEED = 5
 
 WIDTH = GameSettings.WIDTH

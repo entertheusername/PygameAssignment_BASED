@@ -4,7 +4,6 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
-import sys
 from BackEnd.GameEngine_basket import Basket
 from BackEnd.GameEngine_game_generator import GameGenerator
 from BackEnd.GameEngine_constants import *
@@ -88,7 +87,9 @@ class Game:
         self.final_message = f"{message} Final Score: {self.score}. Press R to restart"
 
     def draw(self):
-        self.display.fill(Colors.BLACK)
+        # Background
+        self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
+        self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
 
         # Draw basket and apples
         self.basket.draw(self.display)
@@ -110,14 +111,3 @@ class Game:
                                HEIGHT // 2 - game_over_text.get_height() // 2))
 
         pygame.display.update()
-
-    def run(self):
-        running = True
-        while running:
-            running = self.handle_events()
-            self.update()
-            self.draw()
-            self.clock.tick(60)
-
-        pygame.quit()
-        sys.exit()
