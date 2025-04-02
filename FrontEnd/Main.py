@@ -52,7 +52,7 @@ class Main:
         self.isRunning = False
 
     def gameLoop(self):
-        timeDelta = self.clock.tick(60) / 1000.0
+        timeDelta = self.clock.tick(60)
         for ev in pygame.event.get():
             self.manager.process_events(ev)
 
@@ -66,7 +66,6 @@ class Main:
         self.window.blit(self.display, (0, 0))
         self.manager.draw_ui(self.window)
         self.currentDisplay.draw()
-        self.clock.tick(60)
         pygame.display.update()
 
 
