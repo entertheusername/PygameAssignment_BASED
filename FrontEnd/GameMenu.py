@@ -25,6 +25,7 @@ class GameMenu:
 
     def uiSetup(self):
         # Background
+        self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
 
         initialYElement = 100
