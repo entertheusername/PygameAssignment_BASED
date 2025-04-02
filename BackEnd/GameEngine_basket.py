@@ -1,7 +1,7 @@
 # This file is for handling player movement
 
 import pygame
-from GameEngine_constants import GameSettings, Colors, WIDTH
+from BackEnd.GameEngine_constants import GameSettings, Colors, WIDTH
 
 class Basket:
     def __init__(self, game):

@@ -24,6 +24,7 @@ class GameModeSelectMenu:
 
     def uiSetup(self):
         # Background
+        self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
 
         initialYElement = 100
@@ -90,13 +91,16 @@ class GameModeSelectMenu:
                 print(ev.ui_element)
                 match ev.ui_element:
                     case self.conversionButton:
-                        print("plays")
+                        self.screen("gameConversion")
                     case self.calculationButton:
-                        print("leaderboards")
+                        self.screen("gameCalculation")
                     case self.mixedCalculationButton:
-                        print("exits")
+                        self.screen("gameMixedCalculation")
                     case self.backButton:
                         self.screen("gameMenu")
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
+
+    def draw(self):
+        pass

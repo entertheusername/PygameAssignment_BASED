@@ -1,7 +1,7 @@
 # This file is for question generation logic
 
 import random
-from GameEngine_question import Question
+from BackEnd.GameEngine_question import Question
 
 class Generator:
     def __init__(self):

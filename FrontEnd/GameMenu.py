@@ -96,3 +96,6 @@ class GameMenu:
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
+
+    def draw(self):
+        pass

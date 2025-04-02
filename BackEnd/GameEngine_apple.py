@@ -1,7 +1,7 @@
 # This file is for apple logic
 
 import pygame
-from GameEngine_constants import *
+from BackEnd.GameEngine_constants import *
 
 class Apple:
     def __init__(self, game, x, y, value, is_correct):

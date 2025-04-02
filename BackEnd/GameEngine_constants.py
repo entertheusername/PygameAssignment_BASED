@@ -13,7 +13,7 @@ class GameSettings:
     WIDTH, HEIGHT = 1080, 640
     BASKET_WIDTH, BASKET_HEIGHT = 128, 128
     APPLE_RADIUS = 64
-    SPEED = 5
+    SPEED = 10
 
 WIDTH = GameSettings.WIDTH
 HEIGHT = GameSettings.HEIGHT

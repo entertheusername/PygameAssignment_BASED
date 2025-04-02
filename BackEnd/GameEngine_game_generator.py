@@ -1,9 +1,9 @@
 # This file is for generating questions and apples
 
 import random
-from GameEngine_apple import Apple
-from GameEngine_question_generator import Generator
-from GameEngine_constants import *
+from BackEnd.GameEngine_apple import Apple
+from BackEnd.GameEngine_question_generator import Generator
+from BackEnd.GameEngine_constants import *
 
 
 class GameGenerator:
@@ -12,7 +12,7 @@ class GameGenerator:
         self.generator = Generator()
         self.question = None
         match gamemode:
-            case "convesion":
+            case "conversion":
                 self.question_generator = self.generator.generate_conversion
             case "calculation":
                 self.question_generator = self.generator.generate_calculation

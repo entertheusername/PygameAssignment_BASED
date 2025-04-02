@@ -9,6 +9,8 @@ from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
+from GameEngine_game import Game
+
 
 class Main:
     def __init__(self):
@@ -23,7 +25,9 @@ class Main:
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
         auth = Authentication()
-        self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen, self.display, self.manager)
+        self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
+                                       self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen,
+                                                                                             self.display, self.manager)
 
     def switchScreen(self, screen):
         self.screen = screen
@@ -37,12 +41,17 @@ class Main:
                 self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
             case "gameModeSelectMenu":
                 self.currentDisplay = GameModeSelectMenu(self.switchScreen, self.display, self.manager)
+            case "gameConversion":
+                self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "conversion")
+            case "gameCalculation":
+                self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "calculation")
+            case "gameMixedCalculation":
+                self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "mixed_calculation")
 
     def endGame(self):
         self.isRunning = False
 
     def gameLoop(self):
-        # print(self.screen)
         timeDelta = self.clock.tick(60) / 1000.0
         for ev in pygame.event.get():
             self.manager.process_events(ev)
@@ -50,15 +59,14 @@ class Main:
             if ev.type == pygame.QUIT:
                 self.isRunning = False
                 break
-            # if ev.type == pygame.:
-            #     self.window = pygame.display.set_mode((self.displayWidth, self.displayHeight), pygame.FULLSCREEN)
 
             self.currentDisplay.eventCheck(ev)
 
-            self.currentDisplay.update(timeDelta)
-
+        self.currentDisplay.update(timeDelta)
         self.window.blit(self.display, (0, 0))
         self.manager.draw_ui(self.window)
+        self.currentDisplay.draw()
+        self.clock.tick(60)
         pygame.display.update()
 
 
