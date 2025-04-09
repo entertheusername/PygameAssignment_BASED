@@ -1,6 +1,7 @@
 # This file is for question generation logic
 import sys
 import os
+import random
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -12,24 +13,60 @@ class Generator:
         self.BASES = [2, 8, 10, 16]
 
     def generate_mixed_calculation(self) -> Question:
-        """
-        Generate either addition, subtraction or conversion question.
-        :return: Question random choice
-        """
-        return random.choice([self.generate_addition(), self.generate_subtraction(), self.generate_conversion()])
-    
+        
+        type = random.choice([1, 2, 3, 4, 5]) # Picking 5 different type of choices
+        
+        if type == 5:
+            return self.generate_conversion() # 5 for conversion
+        
+        if type in (3, 4): # 3 & 4 for arithmetic logic involving same number bases 
+            base = random.choice(self.BASES)
+            num1 = random.randint(5, 30)
+            num2 = random.randint(5, num1) if type == 4 else random.randint(5, 30)
+
+            if type == 4 and num1 < num2: #Swapping number to make sure subtraction always get positive answer
+                num1, num2 = num2, num1 
+
+            op = '+' if type == 3 else '-'
+
+            str1 = self.to_base(num1, base)
+            str2 = self.to_base(num2, base)
+            result = num1 + num2 if op == '+' else num1 - num2
+            answer = self.to_base(result, base)
+
+            text = (f"{'Add' if op == '+' else 'Subtract'} "
+                    f"{str1} (base {base}) {op} {str2} (base {base})")
+
+
+            return Question(text, answer, "MIXED", base)
+
+        base1, base2 = random.sample(self.BASES, 2) 
+        target = 10 # Making sure question answer to be number base 10 
+        num1 = random.randint(5, 30)
+        num2 = random.randint(5, 30)
+        
+        if type == 2 and num1 < num2:
+            num1, num2 = num2, num1 #Swapping number to make sure subtraction always get positive answer
+        
+        op = '+' if type == 1 else '-'
+        str1 = self.to_base(num1, base1)
+        str2 = self.to_base(num2, base2)
+        result = num1 + num2 if op == '+' else num1 - num2
+        answer = self.to_base(result, target)  # Always base 10
+
+        text = (f"{'Add' if op == '+' else 'Subtract'} "
+                f"{str1} (base {base1}) {op} {str2} (base {base2}) "
+                f"and give the answer in base {target}")
+
+        return Question(text, answer, "MIXED", target)
+        
     def generate_calculation(self) -> Question:
-        """
-        Generate either addition or subtraction question.
-        :return: Question random choice
-        """
+        # Generating addition or subtraction
         return random.choice([self.generate_addition, self.generate_subtraction])()
     
     def generate_addition(self) -> Question:
-        """
-        Generate addition question in random base.
-        :return: Question addition based
-        """
+        # Generating addition question using random base
+
         base = random.choice(self.BASES)
         num1 = random.randint(5, 20)
         num2 = random.randint(5, 20)
@@ -38,18 +75,11 @@ class Generator:
         str_num2 = self.to_base(num2, base)
         correct_answer = self.to_base(num1 + num2, base)
         
-        return Question(
-            f"Add {str_num1} + {str_num2} (base {base})",
-            correct_answer,
-            "ADDITION",
-            base
-        )
+        return Question(f"Add {str_num1} + {str_num2} (base {self.format_base_subscript(base)})", # To be fixed
+               correct_answer, "ADDITION", base)
     
     def generate_subtraction(self) -> Question:
-        """
-        Generate subtraction question in random base.
-        :return: Question subtraction based
-        """
+        # Generating subtraction question using random base
         base = random.choice(self.BASES)
         num1 = random.randint(10, 30)
         num2 = random.randint(5, num1 - 1)  # Ensure positive result
@@ -59,17 +89,11 @@ class Generator:
         correct_answer = self.to_base(num1 - num2, base)
         
         return Question(
-            f"Subtract {str_num1} - {str_num2} (base {base})",
-            correct_answer,
-            "SUBTRACTION",
-            base
-        )
+            f"Subtract {str_num1} - {str_num2} (base {base})", correct_answer, "SUBTRACTION", base)
 
     def generate_conversion(self) -> Question:
-        """
-        Generate a base conversion question.
-        :return: Question conversion based
-        """
+        # Generate a base conversion question
+
         source_base, target_base = random.sample(self.BASES, 2)
         decimal_num = random.randint(5, 30)
 
@@ -84,12 +108,7 @@ class Generator:
         return Question(question_text, correct_answer, "CONVERSION", target_base)
 
     def to_base(self, number: int, base: int) -> str:
-        """
-        Convert number to specified base as string.
-        :param number: int normal decimal number
-        :param base: int base to convert to
-        :return: bin, oct, str, hex converted number
-        """
+        # Converting number to specified base as string
         match base:
             case 2:
                 return bin(number)[2:]
