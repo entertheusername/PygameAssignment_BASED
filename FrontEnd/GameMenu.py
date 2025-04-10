@@ -83,10 +83,9 @@ class GameMenu:
                 print(ev.ui_element)
                 match ev.ui_element:
                     case self.playButton:
-                        print("plays")
                         self.screen("gameModeSelectMenu")
                     case self.leaderboardButton:
-                        print("leaderboards")
+                        self.screen("leaderboardSelectMenu")
                     case self.exitButton:
                         print("exits")
                         # need to change this to a popup function (exit or exit with logout)

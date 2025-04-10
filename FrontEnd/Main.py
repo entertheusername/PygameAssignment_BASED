@@ -11,6 +11,7 @@ from DatabaseBombed import DatabaseBombed
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from GameEngine_game import Game
+from LeaderboardSelectMenu import LeaderboardSelectMenu
 
 
 class Main:
@@ -54,6 +55,8 @@ class Main:
                 self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "calculation")
             case "gameMixedCalculation":
                 self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "mixed_calculation")
+            case "leaderboardSelectMenu":
+                self.currentDisplay = LeaderboardSelectMenu(self.switchScreen, self.display, self.manager)
 
     def endGame(self):
         self.isRunning = False
