@@ -7,6 +7,7 @@ import pygame_gui
 from BackEnd.Authentication import Authentication
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
+from DatabaseBombed import DatabaseBombed
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from GameEngine_game import Game
@@ -24,10 +25,14 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
-        auth = Authentication()
-        self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
-                                       self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen,
-                                                                                             self.display, self.manager)
+        try:
+            auth = Authentication()
+            self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
+                                           self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen,
+                                                                                                 self.display,
+                                                                                                 self.manager)
+        except:
+            self.currentDisplay = DatabaseBombed(self.switchScreen, self.display, self.manager)
 
     def switchScreen(self, screen):
         self.screen = screen
@@ -37,6 +42,8 @@ class Main:
                 self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
             case "loginMenu":
                 self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
+            case "DatabaseBombed":
+                self.currentDisplay = DatabaseBombed(self.switchScreen, self.display, self.manager)
             case "gameMenu":
                 self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
             case "gameModeSelectMenu":

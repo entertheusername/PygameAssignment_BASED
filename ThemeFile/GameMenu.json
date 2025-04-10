@@ -14,15 +14,50 @@
             "normal_text_shadow": "#D9908C",
             "hovered_text_shadow": "#966360"
         },
-        "font": {
-            "name": "tiny5",
-            "size": "50",
-            "regular_path": "../Assets/Text/Tiny5.ttf"
-        },
         "misc": {
-            "shadow_width": "0",
-            "text_shadow_size": "2",
-            "text_shadow_offset": "2, 2"
+            "shadow_width": "0"
+        }
+    },
+    "#playButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GameMenuButtons.png",
+                "sub_surface_rect": "0, 0, 360, 62",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GameMenuButtons.png",
+                "sub_surface_rect": "395, 0, 360, 62",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#leaderboardButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GameMenuButtons.png",
+                "sub_surface_rect": "0, 89, 360, 62",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GameMenuButtons.png",
+                "sub_surface_rect": "395, 89, 360, 62",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#exitButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GameMenuButtons.png",
+                "sub_surface_rect": "0, 178, 360, 62",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GameMenuButtons.png",
+                "sub_surface_rect": "395, 178, 360, 62",
+                "premultiplied": "0"
+            }
         }
     }
 }

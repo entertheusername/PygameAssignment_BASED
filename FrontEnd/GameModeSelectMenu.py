@@ -13,7 +13,7 @@ class GameModeSelectMenu:
         self.display = display
         self.manager = manager
 
-        self.manager.get_theme().load_theme("../ThemeFile/GameMenu.json")
+        self.manager.get_theme().load_theme("../ThemeFile/GameSelectMenu.json")
 
         self.conversionButton = None
         self.calculationButton = None
@@ -27,60 +27,83 @@ class GameModeSelectMenu:
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
 
-        initialYElement = 100
-        stackY = 90
+        initialXElement = 45
+        stackX = 291
 
-        # Logo Img
-        logoImage = pygame.image.load("../Assets/Logo.png")
-        logoRect = pygame.Rect((-5, 0), (363, 138))
-        logoRect.top = initialYElement
-        logo = pygame_gui.elements.UIImage(relative_rect=logoRect,
-                                           image_surface=logoImage,
-                                           manager=self.manager,
-                                           anchors={'centerx': 'centerx',
-                                                    'top': 'top'})
+        # Background Img
+        backgroundRect = pygame.Rect((0, 0), (948, 451))
+        background = pygame_gui.elements.UIPanel(relative_rect=backgroundRect,
+                                                 manager=self.manager,
+                                                 starting_height= 0,
+                                                 anchors={'centerx': 'centerx',
+                                                          'centery': 'centery'})
+
+        backgroundImage = pygame.image.load("../Assets/WindowElements/BackWindow.png")
+        pygame_gui.elements.UIImage(
+            relative_rect=pygame.Rect((0, 0), backgroundImage.get_size()),
+            image_surface=backgroundImage,
+            starting_height=0,
+            manager=self.manager,
+            container=background
+        )
+
+        # Title Img
+        titleImage = pygame.image.load("../Assets/WindowElements/GameSelectTitle.png")
+        titleRect = pygame.Rect((-5, 0), (422, 89))
+        titleRect.top = 50
+        title = pygame_gui.elements.UIImage(relative_rect=titleRect,
+                                            image_surface=titleImage,
+                                            manager=self.manager,
+                                            anchors={'centerx': 'centerx',
+                                                     'top': 'top'})
 
         # Conversion button
-        conversionButtonRect = pygame.Rect((0, 0), (350, 70))
-        conversionButtonRect.top = initialYElement + (stackY * 2)
+        conversionButtonRect = pygame.Rect((0, 0), (268, 293))
+        conversionButtonRect.left = initialXElement
         self.conversionButton = pygame_gui.elements.UIButton(relative_rect=conversionButtonRect,
-                                                             text="CONVERSION",
+                                                             text="",
                                                              manager=self.manager,
                                                              object_id=pygame_gui.core.ObjectID(
                                                                  class_id="@gameModeSelectButton",
                                                                  object_id="#conversionButton"),
-                                                             anchors={'centerx': 'centerx',
-                                                                      'top': 'top'})
+                                                             container=background,
+                                                             anchors={'left': 'left',
+                                                                      'centery': 'centery'})
 
         # Calculation button
-        calculationButtonRect = pygame.Rect((0, 0), (350, 70))
-        calculationButtonRect.top = initialYElement + (stackY * 3)
+        calculationButtonRect = pygame.Rect((0, 0), (268, 293))
+        calculationButtonRect.left = initialXElement + stackX
         self.calculationButton = pygame_gui.elements.UIButton(relative_rect=calculationButtonRect,
-                                                           text="CALCULATION",
-                                                           manager=self.manager,
-                                                           object_id=pygame_gui.core.ObjectID(
-                                                               class_id="@gameModeSelectButton",
-                                                               object_id="#calculationButton"),
-                                                           anchors={'centerx': 'centerx',
-                                                                    'top': 'top'})
-
-        # Mixed Calculation button
-        mixedCalculationButtonRect = pygame.Rect((0, 0), (480, 76))
-        mixedCalculationButtonRect.top = initialYElement + (stackY * 4)
-        self.mixedCalculationButton = pygame_gui.elements.UIButton(relative_rect=mixedCalculationButtonRect,
-                                                              text="MIXED CALCULATION",
+                                                              text="",
                                                               manager=self.manager,
                                                               object_id=pygame_gui.core.ObjectID(
                                                                   class_id="@gameModeSelectButton",
-                                                                  object_id="#mixedCalculationButton"),
-                                                              anchors={'centerx': 'centerx',
-                                                                       'top': 'top'})
+                                                                  object_id="#calculationButton"),
+                                                              container=background,
+                                                              anchors={'left': 'left',
+                                                                      'centery': 'centery'})
+
+        # Mixed Calculation button
+        mixedCalculationButtonRect = pygame.Rect((0, 0), (268, 293))
+        mixedCalculationButtonRect.left = initialXElement + (stackX * 2)
+        self.mixedCalculationButton = pygame_gui.elements.UIButton(relative_rect=mixedCalculationButtonRect,
+                                                                   text="",
+                                                                   manager=self.manager,
+                                                                   object_id=pygame_gui.core.ObjectID(
+                                                                       class_id="@gameModeSelectButton",
+                                                                       object_id="#mixedCalculationButton"),
+                                                                   container=background,
+                                                                   anchors={'left': 'left',
+                                                                      'centery': 'centery'})
 
         # Back button
-        backButtonRect = pygame.Rect((0, 0), (50, 50))
-        backButtonRect.topright = -50, 50
+        backButtonRect = pygame.Rect((0, 0), (56, 56))
+        backButtonRect.topright = -50, 75
         self.backButton = pygame_gui.elements.UIButton(relative_rect=backButtonRect,
-                                                       text="Back",
+                                                       text="",
+                                                       object_id=pygame_gui.core.ObjectID(
+                                                           class_id="@gameModeSelectButton",
+                                                           object_id="#backButton"),
                                                        manager=self.manager,
                                                        anchors={'right': 'right',
                                                                 'top': 'top'})

@@ -1,0 +1,87 @@
+{
+    "panel": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "button": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "active_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)",
+            "hovered_border": "rgba(0, 0, 0, 0)",
+            "selected_border": "rgba(0, 0, 0, 0)",
+            "active_border": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFFFFF",
+            "hovered_text": "#AAAAAA",
+            "normal_text_shadow": "#D9908C",
+            "hovered_text_shadow": "#966360"
+        },
+        "misc": {
+            "shadow_width": "0"
+        }
+    },
+    "#conversionButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GameSelectMenuButtons.png",
+                "sub_surface_rect": "0, 0, 268, 293",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GameSelectMenuButtons.png",
+                "sub_surface_rect": "0, 324, 268, 293",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#calculationButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GameSelectMenuButtons.png",
+                "sub_surface_rect": "294, 0, 268, 293",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GameSelectMenuButtons.png",
+                "sub_surface_rect": "294, 324, 268, 293",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#mixedCalculationButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GameSelectMenuButtons.png",
+                "sub_surface_rect": "586, 0, 268, 293",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GameSelectMenuButtons.png",
+                "sub_surface_rect": "586, 324, 268, 293",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#backButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/BackButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/BackButtons.png",
+                "sub_surface_rect": "79, 0, 56, 56",
+                "premultiplied": "0"
+            }
+        }
+    }
+}

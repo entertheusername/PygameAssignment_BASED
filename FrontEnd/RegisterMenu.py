@@ -288,20 +288,23 @@ class RegisterMenu:
                         self.emailError.set_text("")
                         self.passwordError.set_text("")
                         self.confirmPasswordError.set_text("")
-                        auth = Authentication()
-                        status = auth.registerCheck(self.usernameInput.get_text(), self.emailInput.get_text(),
-                                                    self.passwordInput.get_text(), self.confirmPasswordInput.get_text())
+                        try:
+                            auth = Authentication()
+                            status = auth.registerCheck(self.usernameInput.get_text(), self.emailInput.get_text(),
+                                                        self.passwordInput.get_text(), self.confirmPasswordInput.get_text())
 
-                        if status['username'] is not None:
-                            self.usernameError.set_text(status['username'])
-                        if status['email'] is not None:
-                            self.emailError.set_text(status['email'])
-                        if status['password'] is not None:
-                            self.passwordError.set_text(status['password'])
-                            self.confirmPasswordError.set_text(status['password'])
-                        if status['successful'] is True:
-                            print("Register successful")
-                            self.screen("loginMenu")
+                            if status['username'] is not None:
+                                self.usernameError.set_text(status['username'])
+                            if status['email'] is not None:
+                                self.emailError.set_text(status['email'])
+                            if status['password'] is not None:
+                                self.passwordError.set_text(status['password'])
+                                self.confirmPasswordError.set_text(status['password'])
+                            if status['successful'] is True:
+                                print("Register successful")
+                                self.screen("loginMenu")
+                        except:
+                            self.screen("DatabaseBombed")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("loginMenu")
