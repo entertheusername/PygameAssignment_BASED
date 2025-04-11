@@ -30,6 +30,9 @@ class Authentication:
                 dbPass = data[0][columns.index('Password')]
                 password = password.strip()
 
+                if data[0][columns.index('BanStatus')] != 0:
+                    return 'Banned!'
+
                 if bcrypt.checkpw(password.encode("utf-8"), dbPass.encode("utf-8")):
                     if save:
                         file = open("../loggedInUser.json", "w")
@@ -141,6 +144,6 @@ class Authentication:
         """
         passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-        emailQuery = "INSERT INTO users (Username, Email, Password, Role) VALUES (%s, %s, %s, 'Student')"
+        emailQuery = "INSERT INTO users (Username, Email, Password) VALUES (%s, %s, %s)"
         self.cursor.execute(emailQuery, (username, email, passwordHash,))
 
