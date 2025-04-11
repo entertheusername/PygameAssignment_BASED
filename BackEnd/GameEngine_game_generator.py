@@ -55,7 +55,7 @@ class GameGenerator:
         return apples
 
     def generate_wrong_answer(self, existing_wrong_answer):
-        """Generate a wrong answer that's different from the correct one"""
+        # Generating wrong answer 
         while True:
             value = random.randint(-10, 10)
             if value == 0:
@@ -73,7 +73,7 @@ class GameGenerator:
                 return str(based_wrong_answer)
 
     def get_valid_x_position(self, existing_positions):
-        """Find a valid x position that doesn't overlap with existing apples"""
+        # Making sure apples do not overlap each other
         while True:
             x = random.randint(APPLE_RADIUS, WIDTH - APPLE_RADIUS)
             # Ensure minimum spacing between apples (2*radius + 20px buffer)
