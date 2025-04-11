@@ -191,17 +191,20 @@ class LoginMenu:
                     case self.loginButton:
                         self.usernameError.set_text("")
                         self.passwordError.set_text("")
-                        auth = Authentication()
-                        status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text(), True)
+                        try:
+                            auth = Authentication()
+                            status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text(), True)
 
-                        match status:
-                            case "User does not exist.":
-                                self.usernameError.set_text(status)
-                            case "Invalid password.":
-                                self.passwordError.set_text(status)
-                            case "Login successful!":
-                                print("Login successful")
-                                self.screen("gameMenu")
+                            match status:
+                                case "User does not exist.":
+                                    self.usernameError.set_text(status)
+                                case "Invalid password.":
+                                    self.passwordError.set_text(status)
+                                case "Login successful!":
+                                    print("Login successful")
+                                    self.screen("gameMenu")
+                        except:
+                            self.screen("DatabaseBombed")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("registerMenu")

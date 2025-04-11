@@ -42,10 +42,10 @@ class GameMenu:
                                                     'top': 'top'})
 
         # Play button
-        playButtonRect = pygame.Rect((0, 0), (350, 70))
+        playButtonRect = pygame.Rect((0, 0), (360, 70))
         playButtonRect.top = initialYElement + (stackY * 2)
         self.playButton = pygame_gui.elements.UIButton(relative_rect=playButtonRect,
-                                                       text="PLAY",
+                                                       text="",
                                                        manager=self.manager,
                                                        object_id=pygame_gui.core.ObjectID(
                                                            class_id="@gameButton",
@@ -54,10 +54,10 @@ class GameMenu:
                                                                 'top': 'top'})
 
         # Leaderboard button
-        leaderboardButtonRect = pygame.Rect((0, 0), (350, 70))
+        leaderboardButtonRect = pygame.Rect((0, 0), (360, 70))
         leaderboardButtonRect.top = initialYElement + (stackY * 3)
         self.leaderboardButton = pygame_gui.elements.UIButton(relative_rect=leaderboardButtonRect,
-                                                              text="LEADER BOARD",
+                                                              text="",
                                                               manager=self.manager,
                                                               object_id=pygame_gui.core.ObjectID(
                                                                   class_id="@gameButton",
@@ -66,10 +66,10 @@ class GameMenu:
                                                                        'top': 'top'})
 
         # Exit button
-        exitButtonRect = pygame.Rect((0, 0), (350, 76))
+        exitButtonRect = pygame.Rect((0, 0), (360, 70))
         exitButtonRect.top = initialYElement + (stackY * 4)
         self.exitButton = pygame_gui.elements.UIButton(relative_rect=exitButtonRect,
-                                                       text="EXIT",
+                                                       text="",
                                                        manager=self.manager,
                                                        object_id=pygame_gui.core.ObjectID(
                                                            class_id="@gameButton",
@@ -83,10 +83,9 @@ class GameMenu:
                 print(ev.ui_element)
                 match ev.ui_element:
                     case self.playButton:
-                        print("plays")
                         self.screen("gameModeSelectMenu")
                     case self.leaderboardButton:
-                        print("leaderboards")
+                        self.screen("leaderboardSelectMenu")
                     case self.exitButton:
                         print("exits")
                         # need to change this to a popup function (exit or exit with logout)

@@ -4,12 +4,15 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+import re
 from BackEnd.Authentication import Authentication
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
+from DatabaseBombed import DatabaseBombed
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from GameEngine_game import Game
+from LeaderboardSelectMenu import LeaderboardSelectMenu
 
 
 class Main:
@@ -24,29 +27,41 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
-        auth = Authentication()
-        self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
-                                       self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen,
-                                                                                             self.display, self.manager)
+        try:
+            auth = Authentication()
+            self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
+                                           self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen,
+                                                                                                 self.display,
+                                                                                                 self.manager)
+        except:
+            self.currentDisplay = DatabaseBombed(self.switchScreen, self.display, self.manager)
 
     def switchScreen(self, screen):
         self.screen = screen
         self.manager = pygame_gui.UIManager((1080, 640))
-        match self.screen:
-            case "registerMenu":
-                self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
-            case "loginMenu":
-                self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
-            case "gameMenu":
-                self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
-            case "gameModeSelectMenu":
-                self.currentDisplay = GameModeSelectMenu(self.switchScreen, self.display, self.manager)
-            case "gameConversion":
-                self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "conversion")
-            case "gameCalculation":
-                self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "calculation")
-            case "gameMixedCalculation":
-                self.currentDisplay = Game(self.switchScreen, self.display, self.manager, "mixed_calculation")
+        if re.match(r"^\w+:\w+:\w+$", self.screen):
+            variables = self.screen.split(":")
+            match variables[0]:
+                case "game":
+                    self.currentDisplay = Game(self.switchScreen, self.display, self.manager, variables[1])
+                case "leaderboard":
+                    # self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1],
+                    #                                   variables[2])
+                    pass
+        else:
+            match self.screen:
+                case "registerMenu":
+                    self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
+                case "loginMenu":
+                    self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
+                case "DatabaseBombed":
+                    self.currentDisplay = DatabaseBombed(self.switchScreen, self.display, self.manager)
+                case "gameMenu":
+                    self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
+                case "gameModeSelectMenu":
+                    self.currentDisplay = GameModeSelectMenu(self.switchScreen, self.display, self.manager)
+                case "leaderboardSelectMenu":
+                    self.currentDisplay = LeaderboardSelectMenu(self.switchScreen, self.display, self.manager)
 
     def endGame(self):
         self.isRunning = False

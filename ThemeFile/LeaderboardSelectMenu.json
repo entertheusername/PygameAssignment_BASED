@@ -1,4 +1,14 @@
 {
+    "panel": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
     "button": {
         "colours": {
             "normal_bg": "rgba(0, 0, 0, 0)",
@@ -18,44 +28,44 @@
             "shadow_width": "0"
         }
     },
-    "#playButton": {
+    "@monthSelectButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons/GameMenuButtons.png",
-                "sub_surface_rect": "0, 0, 360, 62",
+                "path": "../Assets/Buttons/LeaderboardSelectMenuButtons.png",
+                "sub_surface_rect": "0, 0, 197, 57",
                 "premultiplied": "0"
             },
             "hovered_image": {
-                "path": "../Assets/Buttons/GameMenuButtons.png",
-                "sub_surface_rect": "395, 0, 360, 62",
+                "path": "../Assets/Buttons/LeaderboardSelectMenuButtons.png",
+                "sub_surface_rect": "219, 0, 197, 57",
                 "premultiplied": "0"
             }
         }
     },
-    "#leaderboardButton": {
+    "@alltimeSelectButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons/GameMenuButtons.png",
-                "sub_surface_rect": "0, 89, 360, 62",
+                "path": "../Assets/Buttons/LeaderboardSelectMenuButtons.png",
+                "sub_surface_rect": "0, 71, 197, 57",
                 "premultiplied": "0"
             },
             "hovered_image": {
-                "path": "../Assets/Buttons/GameMenuButtons.png",
-                "sub_surface_rect": "395, 89, 360, 62",
+                "path": "../Assets/Buttons/LeaderboardSelectMenuButtons.png",
+                "sub_surface_rect": "219, 71, 197, 57",
                 "premultiplied": "0"
             }
         }
     },
-    "#exitButton": {
+    "#backButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons/GameMenuButtons.png",
-                "sub_surface_rect": "0, 178, 360, 62",
+                "path": "../Assets/Buttons/BackButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
                 "premultiplied": "0"
             },
             "hovered_image": {
-                "path": "../Assets/Buttons/GameMenuButtons.png",
-                "sub_surface_rect": "395, 178, 360, 62",
+                "path": "../Assets/Buttons/BackButtons.png",
+                "sub_surface_rect": "79, 0, 56, 56",
                 "premultiplied": "0"
             }
         }
