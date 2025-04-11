@@ -4,15 +4,14 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
-from BackEnd.Authentication import Authentication
 
-
-class DatabaseBombed:
-    def __init__(self, screen, display, manager):
+class Error:
+    def __init__(self, screen, display, manager, errorMsg):
         pygame.init()
         self.screen = screen
         self.display = display
         self.manager = manager
+        self.errorMsg = errorMsg
 
         self.manager.get_theme().load_theme("../ThemeFile/LoginRegisterMenu.json")
 
@@ -59,7 +58,7 @@ class DatabaseBombed:
 
         # Database Issue Label
         errorLabel = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((-20, 100), (400,60)),
-                                                    text="Database Error Occured:",
+                                                    text=self.errorMsg[0],
                                                     manager=self.manager,
                                                     object_id=pygame_gui.core.ObjectID(
                                                         class_id="@errorLabel",
@@ -70,7 +69,7 @@ class DatabaseBombed:
                                                         'centerx': 'centerx'})
 
         errorLabel = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((-20, 140), (600, 60)),
-                                                 text="Please contact Admin to resolve the matter.",
+                                                 text=self.errorMsg[1],
                                                  manager=self.manager,
                                                  object_id=pygame_gui.core.ObjectID(
                                                      class_id="@errorLabel",
