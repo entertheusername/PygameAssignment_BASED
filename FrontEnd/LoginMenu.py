@@ -201,10 +201,11 @@ class LoginMenu:
                                 case "Invalid password.":
                                     self.passwordError.set_text(status)
                                 case "Login successful!":
-                                    print("Login successful")
                                     self.screen("gameMenu")
+                                case "Banned!":
+                                    self.screen("error;Banned!:;Please contact Admin to resolve the matter.")
                         except:
-                            self.screen("DatabaseBombed")
+                            self.screen("error;Database Error Occured:;Please contact Admin to resolve the matter.")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("registerMenu")

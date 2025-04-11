@@ -22,13 +22,16 @@ class Authentication:
         :return: str error msg or confirmation msg
         """
         try:
-            query = 'SELECT * FROM users WHERE Username = %s;'
+            query = 'SELECT * FROM students WHERE Username = %s;'
             self.cursor.execute(query, (username,))
             data = self.cursor.fetchall()
             if data:
                 columns = [column[0] for column in self.cursor.description]
                 dbPass = data[0][columns.index('Password')]
                 password = password.strip()
+
+                if data[0][columns.index('BanStatus')] != 0:
+                    return 'Banned!'
 
                 if bcrypt.checkpw(password.encode("utf-8"), dbPass.encode("utf-8")):
                     if save:
@@ -89,7 +92,7 @@ class Authentication:
         }
 
         try:
-            usernameQuery = 'SELECT * FROM users WHERE Username = %s;'
+            usernameQuery = 'SELECT * FROM students WHERE Username = %s;'
             self.cursor.execute(usernameQuery, (username,))
             usernameData = self.cursor.fetchall()
 
@@ -100,7 +103,7 @@ class Authentication:
             elif usernameData:
                 errorDict['username'] = "Username taken!"
 
-            emailQuery = 'SELECT * FROM users WHERE Email = %s;'
+            emailQuery = 'SELECT * FROM students WHERE Email = %s;'
             self.cursor.execute(emailQuery, (email,))
             emailData = self.cursor.fetchall()
 
@@ -141,6 +144,6 @@ class Authentication:
         """
         passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-        emailQuery = "INSERT INTO users (Username, Email, Password, Role) VALUES (%s, %s, %s, 'Student')"
+        emailQuery = "INSERT INTO students (Username, Email, Password) VALUES (%s, %s, %s)"
         self.cursor.execute(emailQuery, (username, email, passwordHash,))
 

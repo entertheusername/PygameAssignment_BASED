@@ -8,7 +8,7 @@ import re
 from BackEnd.Authentication import Authentication
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
-from DatabaseBombed import DatabaseBombed
+from Error import Error
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from GameEngine_game import Game
@@ -34,14 +34,17 @@ class Main:
                                                                                                  self.display,
                                                                                                  self.manager)
         except:
-            self.currentDisplay = DatabaseBombed(self.switchScreen, self.display, self.manager)
+            self.currentDisplay = Error(self.switchScreen, self.display, self.manager)
 
     def switchScreen(self, screen):
         self.screen = screen
         self.manager = pygame_gui.UIManager((1080, 640))
-        if re.match(r"^\w+:\w+:\w+$", self.screen):
-            variables = self.screen.split(":")
+        if re.match(r"^.+;.+;.+$", self.screen):
+            variables = self.screen.split(";")
             match variables[0]:
+                case "error":
+                    errorMsg = [variables[1], variables[2]]
+                    self.currentDisplay = Error(self.switchScreen, self.display, self.manager, errorMsg)
                 case "game":
                     self.currentDisplay = Game(self.switchScreen, self.display, self.manager, variables[1])
                 case "leaderboard":
@@ -54,8 +57,6 @@ class Main:
                     self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
                 case "loginMenu":
                     self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
-                case "DatabaseBombed":
-                    self.currentDisplay = DatabaseBombed(self.switchScreen, self.display, self.manager)
                 case "gameMenu":
                     self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
                 case "gameModeSelectMenu":
