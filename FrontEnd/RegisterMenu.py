@@ -301,10 +301,9 @@ class RegisterMenu:
                                 self.passwordError.set_text(status['password'])
                                 self.confirmPasswordError.set_text(status['password'])
                             if status['successful'] is True:
-                                print("Register successful")
                                 self.screen("loginMenu")
                         except:
-                            self.screen("DatabaseBombed")
+                            self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("loginMenu")

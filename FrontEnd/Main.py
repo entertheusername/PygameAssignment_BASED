@@ -34,7 +34,8 @@ class Main:
                                                                                                  self.display,
                                                                                                  self.manager)
         except:
-            self.currentDisplay = Error(self.switchScreen, self.display, self.manager)
+            errorMsg = ["Database Error Occurred:", "Please contact Admin to resolve the matter."]
+            self.currentDisplay = Error(self.switchScreen, self.display, self.manager, errorMsg)
 
     def switchScreen(self, screen):
         self.screen = screen

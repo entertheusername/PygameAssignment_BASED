@@ -146,4 +146,5 @@ class Authentication:
 
         emailQuery = "INSERT INTO students (Username, Email, Password) VALUES (%s, %s, %s)"
         self.cursor.execute(emailQuery, (username, email, passwordHash,))
+        self.conn.commit()
 

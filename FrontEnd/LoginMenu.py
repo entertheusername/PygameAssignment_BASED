@@ -205,7 +205,7 @@ class LoginMenu:
                                 case "Banned!":
                                     self.screen("error;Banned!:;Please contact Admin to resolve the matter.")
                         except:
-                            self.screen("error;Database Error Occured:;Please contact Admin to resolve the matter.")
+                            self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("registerMenu")
