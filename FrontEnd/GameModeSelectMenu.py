@@ -114,11 +114,11 @@ class GameModeSelectMenu:
                 print(ev.ui_element)
                 match ev.ui_element:
                     case self.conversionButton:
-                        self.screen("gameConversion")
+                        self.screen("game:conversion:none")
                     case self.calculationButton:
-                        self.screen("gameCalculation")
+                        self.screen("game:calculation:none")
                     case self.mixedCalculationButton:
-                        self.screen("gameMixedCalculation")
+                        self.screen("game:mixed_calculation:none")
                     case self.backButton:
                         self.screen("gameMenu")
 
