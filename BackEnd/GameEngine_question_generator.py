@@ -43,7 +43,7 @@ class Generator:
         result = num1 + num2 if op == '+' else num1 - num2
         answer = self.to_base(result, target)
 
-        text = f"{'Add' if op == '+' else 'Subtract'} {str1} {op} {str2} and give the answer in  base {target}"
+        text = f"{'Add' if op == '+' else 'Subtract'} {str1} {op} {str2}"
 
         return Question(text, answer, "MIXED", target)
 
@@ -58,7 +58,7 @@ class Generator:
         str_num1, str_num2 = self.to_base_with_small(num1, base), self.to_base_with_small(num2, base)
         correct_answer = self.to_base(num1 + num2, base)
 
-        return Question(f"Add {str_num1} + {str_num2}", correct_answer, "ADDITION", base)
+        return Question(f"Add {str_num1} + {str_num2}", correct_answer, "ADDITION")
 
     def generate_subtraction(self) -> Question:
         base = random.choice(self.BASES)
@@ -68,7 +68,7 @@ class Generator:
         str_num1, str_num2 = self.to_base_with_small(num1, base), self.to_base_with_small(num2, base)
         correct_answer = self.to_base(num1 - num2, base)
 
-        return Question(f"Subtract {str_num1} - {str_num2}", correct_answer, "SUBTRACTION", base)
+        return Question(f"Subtract {str_num1} - {str_num2}", correct_answer, "SUBTRACTION")
 
     def generate_conversion(self) -> Question:
         source_base, target_base = random.sample(self.BASES, 2)
