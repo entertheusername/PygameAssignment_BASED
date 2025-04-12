@@ -78,9 +78,10 @@ class Game:
             else:
                 self.game_over("Wrong answer!")
 
-        # End game if all apples fell
+        # Continue if didin't catch any falling apples
         if self.apples_fell == 3 and len(self.apples) == 0:
-            self.game_over("Missed all apples!")
+            self.apples_fell = 0
+            self.setup_new_question()
 
     def game_over(self, message):
         self.game_active = False
@@ -99,10 +100,16 @@ class Game:
         if self.game_active:
             # Draw score and question during gameplay
             score_text = self.font.render(f"Score: {self.score}", True, Colors.WHITE)
-            question_text = self.font.render(self.current_question, True, Colors.WHITE)
-
             self.display.blit(score_text, (10, 10))
-            self.display.blit(question_text, (WIDTH // 2 - question_text.get_width() // 2, 10))
+
+            small_font = pygame.font.SysFont(None, 22)
+            question_x = 20
+            question_y = 60
+            self.game_generator.generator.render_question_with_base(
+            self.display, self.current_question, question_x, question_y, self.font, small_font)
+
+
+            
         else:
             # Draw game over message
             game_over_text = self.font.render(self.final_message, True, Colors.WHITE)
