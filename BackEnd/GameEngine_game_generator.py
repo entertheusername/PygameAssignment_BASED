@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import random
-from BackEnd.GameEngine_apple import Apple
+from BackEnd.GameEngine_apple import *
 from BackEnd.GameEngine_question_generator import Generator
 from BackEnd.GameEngine_constants import *
 
@@ -50,8 +50,7 @@ class GameGenerator:
             x = self.get_valid_x_position(positions)
             positions.append(x)
             y = random.randint(1, 30)
-            apples.append(Apple(self.game, x, y, value, is_correct))
-
+            apples.append(Apple(self.game, x, y, value, self.question.base, is_correct))
         return apples
 
     def generate_wrong_answer(self, existing_wrong_answer):
