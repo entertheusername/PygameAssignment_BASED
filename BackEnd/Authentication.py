@@ -28,7 +28,6 @@ class Authentication:
             if data:
                 columns = [column[0] for column in self.cursor.description]
                 dbPass = data[0][columns.index('Password')]
-                password = password.strip()
 
                 if data[0][columns.index('BanStatus')] != 0:
                     return 'Banned!'
@@ -53,6 +52,10 @@ class Authentication:
             print('query failed')
 
     def silentLogin(self):
+        """
+        Logs in user without password (cookie like behaviour)
+        :return: None
+        """
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         file.close()
@@ -64,6 +67,10 @@ class Authentication:
             return False
 
     def logout(self):
+        """
+        Logout user from game
+        :return: None
+        """
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         file.close()
@@ -144,7 +151,7 @@ class Authentication:
         """
         passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-        emailQuery = "INSERT INTO students (Username, Email, Password) VALUES (%s, %s, %s)"
-        self.cursor.execute(emailQuery, (username, email, passwordHash,))
+        registerQuery = "INSERT INTO students (Username, Email, Password) VALUES (%s, %s, %s)"
+        self.cursor.execute(registerQuery, (username, email, passwordHash,))
         self.conn.commit()
 
