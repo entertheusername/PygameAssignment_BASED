@@ -13,13 +13,16 @@ from BackEnd.Question_generator import Question
 from BackEnd import Constants
 
 # Helper function skibidi ahhhhhh (To avoid repetition of code in draw_question)
-def render_number_with_base(screen, value: str, base: int, x: int, y: int, font: pygame.font.Font, sub_font: pygame.font.Font, color) -> int:
+def render_number_with_base(screen, value: str, base: int, x: int, y: int, font: pygame.font.Font, sub_font: pygame.font.Font, color, offset: tuple[int, int]) -> int:
     """Renders value and base subscript."""
+    offset_x, offset_y = offset
     value_surf = font.render(value, True, color)
     base_surf = sub_font.render(str(base), True, color)
     base_x = x + value_surf.get_width()
     base_y = y + value_surf.get_height() - base_surf.get_height()
 
+    screen.blit(value_surf, (x + offset_x, y + offset_y))
+    screen.blit(base_surf, (base_x + offset_x, base_y + offset_y))
     screen.blit(value_surf, (x, y))
     screen.blit(base_surf, (base_x, base_y))
 
@@ -36,11 +39,18 @@ class Game:
         self.basket = Basket(self)  # Pass game reference to basket
         self.apples = []
 
-        self.font_size = 36
+        self.font_size = 38
         self.sub_font_size = int(self.font_size * 0.6)
-        self.font = pygame.font.SysFont(None, self.font_size)
-        self.sub_font = pygame.font.SysFont(None, self.sub_font_size)
         self.text_color = Constants.COLOR_BLACK
+        self.bold_offset = (1, 1)
+
+        try:
+            self.font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.font_size)
+            self.sub_font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.sub_font_size)
+        except pygame.error as e:
+            print(f"Error loading font: {e}")
+            self.font = pygame.font.SysFont(None, self.font_size)
+            self.sub_font = pygame.font.SysFont(None, self.sub_font_size)
 
         self.score = 0
         self.game_active = True
@@ -54,7 +64,7 @@ class Game:
         self.max_apples_on_screen = 8
         self.spawn_interval = 1 # Time between each spawn
         self.spawn_timer = 1.5 # Timer until next spawn wave
-        self.prob_correct_spawn = 0.35 # Probability of spawning the correct answer randomly
+        self.prob_correct_spawn = 0.5 # Probability of spawning the correct answer
 
         self.background_img = None
         try:
@@ -85,30 +95,24 @@ class Game:
         if not self.current_question_obj: return
         value_to_spawn = None
         spawn_is_correct = False
-        correct_on_screen = any(apple.is_correct for apple in self.apples)
         target_base = self.current_question_obj.target_base
+        spawn_correct = random.random() < self.prob_correct_spawn
 
-        if not correct_on_screen:
-            # Force spawn the correct answer
+        # Spawn the correct answer
+        if spawn_correct:
             value_to_spawn = self.correct_answer_value
             spawn_is_correct = True
         else:
-            # Random spawn the correct answer
-            random_spawn_correct = random.random() < self.prob_correct_spawn
-            if random_spawn_correct:
-                value_to_spawn = self.correct_answer_value
-                spawn_is_correct = True
-            else:
-                # Spawn a wrong answer
-                if self.wrong_answer_values:
-                    # Ignore values that are already on screen
-                    wrong_on_screen = {apple.value for apple in self.apples if not apple.is_correct}
-                    available_wrong_values = [value for value in self.wrong_answer_values if value not in wrong_on_screen]
+            # Spawn a wrong answer
+            if self.wrong_answer_values:
+                # Ignore values that are already on screen
+                wrong_on_screen = {apple.value for apple in self.apples if not apple.is_correct}
+                available_wrong_values = [value for value in self.wrong_answer_values if value not in wrong_on_screen]
 
-                    if available_wrong_values:
-                        # Randomly spawn from list of available wrong answers
-                        value_to_spawn = random.choice(available_wrong_values)
-                        spawn_is_correct = False
+                if available_wrong_values:
+                    # Randomly spawn from list of available wrong answers
+                    value_to_spawn = random.choice(available_wrong_values)
+                    spawn_is_correct = False
 
         if value_to_spawn is None:
              print("Error. No answer to be spawned.")
@@ -182,70 +186,78 @@ class Game:
         """Render questions with subscript bases"""
         if not self.game_active or not self.current_question_obj:
             return
-        
+
         ques = self.current_question_obj
-        y_pos = 15
-        padding = 8
+        y_pos = 38
+        x_padding = 30
+        y_padding = 15
+        corner_radius = 15
+        text_padding = 10
+        offset = self.bold_offset
 
-        # Render CONVERSION
+        total_text_width = 0
+        max_text_height = self.font.get_height() # Base height
+        elements_to_render = []
+
         if ques.question_type == "CONVERSION":
-            text_p1 = "Convert "
-            text_p2 = f" to base {ques.target_base}"
+            # Text for conversion
+            elements_to_render.append({'type': 'op', 'text': "Convert "})
+            elements_to_render.append({'type': 'num', 'value': ques.operand1, 'base': ques.base1})
+            elements_to_render.append({'type': 'op', 'text': f" to base {ques.target_base}"})
+        else: # Calculation
+            elements_to_render.append({'type': 'num', 'value': ques.operand1, 'base': ques.base1})
+            elements_to_render.append({'type': 'op', 'text': f" {ques.operator} "})
+            if ques.operand2 is not None and ques.base2 is not None:
+                elements_to_render.append({'type': 'num', 'value': ques.operand2, 'base': ques.base2})
+            elements_to_render.append({'type': 'op', 'text': " = ?"})
 
-            surf_p1 = self.font.render(text_p1, True, self.text_color)
-            surf_p2 = self.font.render(text_p2, True, self.text_color)
+        # Draw
+        for element in elements_to_render:
+            width = 0
+            if element['type'] == 'num':
+                val_surf = self.font.render(element['value'], True, self.text_color)
+                sub_surf = self.sub_font.render(str(element['base']), True, self.text_color)
+                width = val_surf.get_width() + sub_surf.get_width()
+            else: # op
+                op_surf = self.font.render(element['text'], True, self.text_color)
+                width = op_surf.get_width()
+            element['width'] = width
+            total_text_width += width
+        total_text_width += text_padding * (len(elements_to_render) - 1)
 
-            val_surf_temp = self.font.render(ques.operand1, True, self.text_color)
-            sub_surf_temp = self.sub_font.render(str(ques.base1), True, self.text_color)
-            num_width = val_surf_temp.get_width() + sub_surf_temp.get_width()
-            total_width = surf_p1.get_width() + num_width + surf_p2.get_width()
-            start_x = (Constants.SCREEN_WIDTH - total_width) // 2
-            current_x = start_x
+        # Draw semi transparent curved edge rectangle panel (long ahhhh name)
+        panel_width = total_text_width + x_padding * 2
+        panel_height = max_text_height + y_padding * 2
+        panel_x = (Constants.SCREEN_WIDTH - panel_width) // 2
+        panel_y = y_pos - y_padding
+        panel_surf = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
+        panel_surf.fill((0,0,0,0))
+        panel_color = (255,255,255)
+        pygame.draw.rect(panel_surf, panel_color, (corner_radius, 0, max(0, panel_width - 2 * corner_radius), panel_height))
+        pygame.draw.rect(panel_surf, panel_color, (0, corner_radius, panel_width, max(0, panel_height - 2 * corner_radius)))
+        pygame.draw.circle(panel_surf, panel_color, (corner_radius, corner_radius), corner_radius)
+        pygame.draw.circle(panel_surf, panel_color, (panel_width - corner_radius, corner_radius), corner_radius)
+        pygame.draw.circle(panel_surf, panel_color, (corner_radius, panel_height - corner_radius), corner_radius)
+        pygame.draw.circle(panel_surf, panel_color, (panel_width - corner_radius, panel_height - corner_radius), corner_radius)
+        panel_surf.set_alpha(100)
+        self.display.blit(panel_surf, (panel_x, panel_y))
+        
+        # Draw text inside panel
+        start_x = panel_x + x_padding
+        current_x = start_x
+        text_y_pos = panel_y + y_padding
 
-            self.display.blit(surf_p1, (current_x, y_pos))
-            current_x += surf_p1.get_width() + padding
-            width_drawn = render_number_with_base(self.display, ques.operand1, ques.base1, current_x, y_pos, self.font, self.sub_font, self.text_color)
-            current_x += width_drawn + padding
-
-            self.display.blit(surf_p2, (current_x, y_pos))
-
-        else: # Render BASIC / MIXED CALCULATION
-            render_elements = []
-            render_elements.append({'type': 'num', 'value': ques.operand1, 'base': ques.base1}) # OP1
-            render_elements.append({'type': 'op', 'text': f" {ques.operator} "}) # Operator
-            if ques.operand2 is not None and ques.base2 is not None: # OP2
-                render_elements.append({'type': 'num', 'value': ques.operand2, 'base': ques.base2})
-            render_elements.append({'type': 'op', 'text': " = ?"}) # Question mark wtsigma
-
-            total_width = 0
-            calculated_widths = [] # Store widths
-            for element in render_elements:
-                width = 0
-                if element['type'] == 'num':
-                    val_surf = self.font.render(element['value'], True, self.text_color)
-                    sub_surf = self.sub_font.render(str(element['base']), True, self.text_color)
-                    width = val_surf.get_width() + sub_surf.get_width()
-                else: # OP
-                    op_surf = self.font.render(element['text'], True, self.text_color)
-                    width = op_surf.get_width()
-                calculated_widths.append(width)
-                total_width += width + padding
-            total_width -= padding # Remove last padding
-
-            start_x = (Constants.SCREEN_WIDTH - total_width) // 2
-            current_x = start_x
-
-            # Draw
-            for i, element in enumerate(render_elements):
-                element_width = calculated_widths[i]
-                if element['type'] == 'num':
-                    render_number_with_base(self.display, element['value'], element['base'], current_x, y_pos, self.font, self.sub_font, self.text_color)
-                    current_x += element_width + padding
-                else: # OP
-                    op_surf = self.font.render(element['text'], True, self.text_color)
-                    op_y = y_pos + (self.font_size - op_surf.get_height()) // 2
-                    self.display.blit(op_surf, (current_x, op_y))
-                    current_x += element_width + padding
+        for i, element in enumerate(elements_to_render):
+            element_width = element['width'] 
+            if element['type'] == 'num':
+                render_number_with_base(self.display, element['value'], element['base'], current_x, text_y_pos, self.font, self.sub_font, self.text_color, offset)
+                current_x += element_width + text_padding
+            else: # op
+                op_surf = self.font.render(element['text'], True, self.text_color)
+                op_y = text_y_pos + (max_text_height - op_surf.get_height()) // 2
+                self.display.blit(op_surf, (current_x + offset[1], op_y + offset[1]))
+                self.display.blit(op_surf, (current_x, op_y))
+                current_x += element_width + text_padding
 
     def draw(self):
         # Background
@@ -263,7 +275,7 @@ class Game:
         if self.game_active:
             # Draw score and question during gameplay
             score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
-            self.display.blit(score_text, (10, 10))
+            self.display.blit(score_text, (925, 35))
             self.draw_question()
         else:
             # Draw game over message
