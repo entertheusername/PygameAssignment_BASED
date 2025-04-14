@@ -3,6 +3,7 @@ import sys
 import os
 import pygame
 import random
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -11,6 +12,7 @@ from BackEnd.Apple import Apple
 from BackEnd.Answer_generator import AnswerGenerator
 from BackEnd.Question_generator import Question
 from BackEnd import Constants
+from BackEnd.LeaderboardManage import LeaderboardManage
 
 # Helper function skibidi ahhhhhh (To avoid repetition of code in draw_question)
 def render_number_with_base(screen, value: str, base: int, x: int, y: int, font: pygame.font.Font, sub_font: pygame.font.Font, color, offset: tuple[int, int]) -> int:
@@ -35,6 +37,9 @@ class Game:
         self.screen = screen
         self.display = display
         self.manager = manager
+
+        self.start_time = None
+        self.end_time = None
 
         self.basket = Basket(self)  # Pass game reference to basket
         self.apples = []
@@ -178,10 +183,6 @@ class Game:
                 # Caught wrong apple -> Game over
                 self.game_over(f"Wrong Apple! The answer is {self.correct_answer_value}.")
 
-    def game_over(self, message):
-        self.game_active = False
-        self.final_message = f"\n{message} Final Score: {self.score}. Press R to restart"
-
     def draw_question(self):
         """Render questions with subscript bases"""
         if not self.game_active or not self.current_question_obj:
@@ -259,6 +260,24 @@ class Game:
                 self.display.blit(op_surf, (current_x, op_y))
                 current_x += element_width + text_padding
 
+    def game_over(self, message):
+        self.game_active = False
+        self.end_time = time.time() # End timer
+        timer_text = self.timer()
+        leaderboard_manager = LeaderboardManage()
+        leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.question_type.lower(), self.timer())
+        self.final_message = f"{message} \nTime Taken: {timer_text} \nFinal Score: {self.score}. \nPress R to restart"
+
+    def timer(self):
+        if self.start_time is None:
+            return "00:00:00"
+        current_time = self.end_time if self.end_time else time.time()
+        elapsed = current_time - self.start_time
+        hours = int(elapsed // 3600)
+        minutes = int((elapsed % 3600) // 60)
+        seconds = int(elapsed % 60)
+        return f"{hours:02}:{minutes:02}:{seconds:02}"
+
     def draw(self):
         # Background
         try:
@@ -277,6 +296,10 @@ class Game:
             score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
             self.display.blit(score_text, (925, 35))
             self.draw_question()
+
+            if self.start_time is None:
+                self.start_time = time.time()
+
         else:
             # Draw game over message
             game_over_surf = self.font.render(self.final_message, True, Constants.COLOR_WHITE)
@@ -285,3 +308,4 @@ class Game:
 
         self.manager.draw_ui(self.display)
         pygame.display.update()
+
