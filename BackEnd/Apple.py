@@ -23,12 +23,12 @@ class Apple:
 
         self.rect = self.image.get_rect(center=(x, y))
         self.mask = pygame.mask.from_surface(self.image)
-        self.font_size = 28
+        self.font_size = 30
         self.subscript_size = int(self.font_size * 0.6)
-        self.font = pygame.font.SysFont(None, self.font_size)
-        self.sub_font = pygame.font.SysFont(None, self.subscript_size)
-        self.text_color = (255, 255, 255)
-
+        self.font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.font_size)
+        self.sub_font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.subscript_size)
+        self.text_color = (255, 206, 27)
+        self.sub_font.set_bold(True)
         self.text_surf = self.font.render(self.value, True, Constants.COLOR_WHITE)
         self.text_rect = self.text_surf.get_rect()
 
@@ -41,7 +41,7 @@ class Apple:
         combined_text_rect.center = (self.rect.centerx + 10, self.rect.centery - 5)
         value_pos = combined_text_rect.topleft
         base_x = value_pos[0] + value_surf.get_width()
-        base_y = value_pos[1] + value_surf.get_height() - base_surf.get_height()
+        base_y = value_pos[1] + value_surf.get_height() - base_surf.get_height() + 1
         # Correct indicators (FOR TESTING, COMMENT IF NOT NEEDED)
         pygame.draw.circle(screen, self.color, combined_text_rect.center, 25)
         screen.blit(value_surf, value_pos)
