@@ -27,6 +27,8 @@ class Game:
 
         self.basket = Basket(self)  # Pass game reference to basket
         self.apples = []
+        self.speed_increment = 0.3  # Speed increase per 5 points
+        self.last_speed_update_score = 0
 
         self.font_size = 38
         self.sub_font_size = int(self.font_size * 0.6)
@@ -148,6 +150,12 @@ class Game:
         if self.spawn_timer <= 0 and len(self.apples) < self.max_apples_on_screen:
             self.spawn_apple()
             self.spawn_timer = self.spawn_interval # Reset timer
+
+        # Update apples drop speed
+        if self.score // 5 > self.last_speed_update_score:
+            self.last_speed_update_score = self.score // 5
+            for apple in self.apples:
+                apple.speed = apple.base_speed + (self.speed_increment * self.last_speed_update_score)
 
         # Check collision and update position
         collided_apple = None
