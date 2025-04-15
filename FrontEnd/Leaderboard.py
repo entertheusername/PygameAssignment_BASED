@@ -60,8 +60,9 @@ class Leaderboard:
         )
 
         # title Img
-        titleImage = pygame.image.load("../Assets/WindowElements/GameSelectTitle.png")
-        titleRect = pygame.Rect((-5, 0), (422, 89))
+        titlename = self.gameMode + self.timeFrame
+        titleImage = pygame.image.load(f"../Assets/WindowElements/{titlename}.png")
+        titleRect = pygame.Rect((-5, 0), (331, 89))
         titleRect.top = 30
         title = pygame_gui.elements.UIImage(relative_rect=titleRect,
                                             image_surface=titleImage,
