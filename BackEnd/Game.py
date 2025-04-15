@@ -14,22 +14,6 @@ from BackEnd.Question_generator import Question
 from BackEnd import Constants
 from BackEnd.LeaderboardManage import LeaderboardManage
 
-# Helper function skibidi ahhhhhh (To avoid repetition of code in draw_question)
-def render_number_with_base(screen, value: str, base: int, x: int, y: int, font: pygame.font.Font, sub_font: pygame.font.Font, color, offset: tuple[int, int]) -> int:
-    """Renders value and base subscript."""
-    offset_x, offset_y = offset
-    value_surf = font.render(value, True, color)
-    base_surf = sub_font.render(str(base), True, color)
-    base_x = x + value_surf.get_width()
-    base_y = y + value_surf.get_height() - base_surf.get_height()
-
-    screen.blit(value_surf, (x + offset_x, y + offset_y))
-    screen.blit(base_surf, (base_x + offset_x, base_y + offset_y))
-    screen.blit(value_surf, (x, y))
-    screen.blit(base_surf, (base_x, base_y))
-
-    return value_surf.get_width() + base_surf.get_width()
-
 class Game:
     def __init__(self, screen, display, manager, gamemode: str):
         pygame.init()
@@ -183,89 +167,12 @@ class Game:
                 # Caught wrong apple -> Game over
                 self.game_over(f"Wrong Apple! The answer is {self.correct_answer_value}.")
 
-    def draw_question(self):
-        """Render questions with subscript bases"""
-        if not self.game_active or not self.current_question_obj:
-            return
-
-        ques = self.current_question_obj
-        y_pos = 38
-        x_padding = 30
-        y_padding = 15
-        corner_radius = 15
-        text_padding = 10
-        offset = self.bold_offset
-
-        total_text_width = 0
-        max_text_height = self.font.get_height() # Base height
-        elements_to_render = []
-
-        if ques.question_type == "CONVERSION":
-            # Text for conversion
-            elements_to_render.append({'type': 'op', 'text': "Convert "})
-            elements_to_render.append({'type': 'num', 'value': ques.operand1, 'base': ques.base1})
-            elements_to_render.append({'type': 'op', 'text': f" to base {ques.target_base}"})
-        else: # Calculation
-            elements_to_render.append({'type': 'num', 'value': ques.operand1, 'base': ques.base1})
-            elements_to_render.append({'type': 'op', 'text': f" {ques.operator} "})
-            if ques.operand2 is not None and ques.base2 is not None:
-                elements_to_render.append({'type': 'num', 'value': ques.operand2, 'base': ques.base2})
-            elements_to_render.append({'type': 'op', 'text': " = ?"})
-
-        # Draw
-        for element in elements_to_render:
-            width = 0
-            if element['type'] == 'num':
-                val_surf = self.font.render(element['value'], True, self.text_color)
-                sub_surf = self.sub_font.render(str(element['base']), True, self.text_color)
-                width = val_surf.get_width() + sub_surf.get_width()
-            else: # op
-                op_surf = self.font.render(element['text'], True, self.text_color)
-                width = op_surf.get_width()
-            element['width'] = width
-            total_text_width += width
-        total_text_width += text_padding * (len(elements_to_render) - 1)
-
-        # Draw semi transparent curved edge rectangle panel (long ahhhh name)
-        panel_width = total_text_width + x_padding * 2
-        panel_height = max_text_height + y_padding * 2
-        panel_x = (Constants.SCREEN_WIDTH - panel_width) // 2
-        panel_y = y_pos - y_padding
-        panel_surf = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
-        panel_surf.fill((0,0,0,0))
-        panel_color = (255,255,255)
-        pygame.draw.rect(panel_surf, panel_color, (corner_radius, 0, max(0, panel_width - 2 * corner_radius), panel_height))
-        pygame.draw.rect(panel_surf, panel_color, (0, corner_radius, panel_width, max(0, panel_height - 2 * corner_radius)))
-        pygame.draw.circle(panel_surf, panel_color, (corner_radius, corner_radius), corner_radius)
-        pygame.draw.circle(panel_surf, panel_color, (panel_width - corner_radius, corner_radius), corner_radius)
-        pygame.draw.circle(panel_surf, panel_color, (corner_radius, panel_height - corner_radius), corner_radius)
-        pygame.draw.circle(panel_surf, panel_color, (panel_width - corner_radius, panel_height - corner_radius), corner_radius)
-        panel_surf.set_alpha(100)
-        self.display.blit(panel_surf, (panel_x, panel_y))
-        
-        # Draw text inside panel
-        start_x = panel_x + x_padding
-        current_x = start_x
-        text_y_pos = panel_y + y_padding
-
-        for i, element in enumerate(elements_to_render):
-            element_width = element['width'] 
-            if element['type'] == 'num':
-                render_number_with_base(self.display, element['value'], element['base'], current_x, text_y_pos, self.font, self.sub_font, self.text_color, offset)
-                current_x += element_width + text_padding
-            else: # op
-                op_surf = self.font.render(element['text'], True, self.text_color)
-                op_y = text_y_pos + (max_text_height - op_surf.get_height()) // 2
-                self.display.blit(op_surf, (current_x + offset[1], op_y + offset[1]))
-                self.display.blit(op_surf, (current_x, op_y))
-                current_x += element_width + text_padding
-
     def game_over(self, message):
         self.game_active = False
         self.end_time = time.time() # End timer
         timer_text = self.timer()
         leaderboard_manager = LeaderboardManage()
-        leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.question_type.lower(), self.timer())
+        leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.gamemode, self.timer())
         self.final_message = f"{message} \nTime Taken: {timer_text} \nFinal Score: {self.score}. \nPress R to restart"
 
     def timer(self):
@@ -295,7 +202,9 @@ class Game:
             # Draw score and question during gameplay
             score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
             self.display.blit(score_text, (925, 35))
-            self.draw_question()
+            
+            if self.current_question_obj:
+                self.current_question_obj.draw_question(self.display, self.font, self.sub_font, self.text_color, self.bold_offset)
 
             if self.start_time is None:
                 self.start_time = time.time()
