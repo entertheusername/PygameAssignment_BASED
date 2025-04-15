@@ -116,7 +116,7 @@ class GameModeSelectMenu:
                     case self.conversionButton:
                         self.screen("game;conversion;none")
                     case self.calculationButton:
-                        self.screen("game;calculation;none")
+                        self.screen("game;basic_calculation;none")
                     case self.mixedCalculationButton:
                         self.screen("game;mixed_calculation;none")
                     case self.backButton:
