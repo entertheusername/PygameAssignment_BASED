@@ -11,7 +11,7 @@ from LoginMenu import LoginMenu
 from Error import Error
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
-from GameEngine_game import Game
+from BackEnd.Game import Game
 from LeaderboardSelectMenu import LeaderboardSelectMenu
 
 
