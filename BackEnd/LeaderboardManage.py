@@ -46,11 +46,13 @@ class LeaderboardManage:
         self.cursor.execute(submissionQuery, (StudentID, score, gameMode, timeTaken, date,))
         self.conn.commit()
 
-    def retrieveLeaderboard(self, gameMode, monthly=False):
+    def retrieveLeaderboard(self, gameMode, page, monthly=False):
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         username = data['username']
         extraQuery = ""
+
+        offset = (page - 1) * 5
 
         if monthly:
             extraQuery = ("AND YEAR(DateSubmitted) = YEAR(CURDATE())"
@@ -64,14 +66,12 @@ class LeaderboardManage:
                               "WHERE s.ScoreID = ( "
                               "SELECT ScoreID "
                               "FROM scores "
-                              "WHERE StudentID = s.StudentID "
+                              f"WHERE StudentID = s.StudentID AND GameMode = '{gameMode}'"
                               f"{extraQuery}"
                               "ORDER BY Score DESC "
                               "LIMIT 1 "
                               ") "
-                              "AND "
-                              f"s.Gamemode = '{gameMode}'"
-                              "LIMIT 5; ")
+                              f"LIMIT 6 OFFSET {offset}; ")
 
         self.cursor.execute(retrieveOtherQuery)
         leaderboardData = self.cursor.fetchall()
@@ -80,14 +80,15 @@ class LeaderboardManage:
 
         for i in leaderboardData:
             leaderboardRow = list(i)
+            leaderboardRow[0] = str(leaderboardRow[0])
+            leaderboardRow[-1] = str(leaderboardRow[-1])
             if leaderboardRow[1] == username:
                 inBoard = True
             else:
                 pass
             leaderboard.append(leaderboardRow)
 
-        if not inBoard and len(leaderboard) > 4:
-            leaderboard.pop(-1)
+        if not inBoard and len(leaderboard) > 5:
             studentQuery = ("SELECT Placement, Username, TimeTaken, Score "
                             "FROM ( "
                             "SELECT "
@@ -98,20 +99,27 @@ class LeaderboardManage:
                             "WHERE s.ScoreID = ( "
                             "SELECT ScoreID "
                             "FROM scores "
-                            "WHERE StudentID = s.StudentID "
+                            f"WHERE StudentID = s.StudentID AND GameMode = '{gameMode}'"
                             f"{extraQuery}"
                             "ORDER BY Score DESC "
                             "LIMIT 1 "
                             ") "
-                            "AND "
-                            f"s.Gamemode = '{gameMode}' "
                             ") AS PlacementScores "
-                            f"WHERE Username = '{username}' {extraQuery};")
+                            f"WHERE Username = '{username}';")
             self.cursor.execute(studentQuery)
             studentData = self.cursor.fetchall()
-            studentRow = list(studentData[0])
-            leaderboard.append(studentRow)
-        print(leaderboard)
+            print(studentData)
+
+            if studentData:
+                leaderboard.pop(-1)
+                studentRow = list(studentData[0])
+                studentRow[0] = str(studentRow[0])
+                studentRow[-1] = str(studentRow[-1])
+                if int(studentRow[0]) < int(leaderboard[0][0]):
+                    leaderboard.insert(0, studentRow)
+                else:
+                    leaderboard.append(studentRow)
+        return leaderboard
 
 
 # if __name__ == "__main__":

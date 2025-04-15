@@ -52,7 +52,7 @@ class LeaderboardSelectMenu:
 
         # Title Img
         titleImage = pygame.image.load("../Assets/WindowElements/LeaderboardSelectTitle.png")
-        titleRect = pygame.Rect((-5, 0), (422, 89))
+        titleRect = pygame.Rect((-5, 0), (331, 89))
         titleRect.top = 50
         title = pygame_gui.elements.UIImage(relative_rect=titleRect,
                                             image_surface=titleImage,
@@ -163,17 +163,17 @@ class LeaderboardSelectMenu:
                 print(ev.ui_element)
                 match ev.ui_element:
                     case self.conversionMonthButton:
-                        self.screen("leaderboard:conversion:month")
+                        self.screen("leaderboard;conversion;month")
                     case self.calculationMonthButton:
-                        self.screen("leaderboard:calculation:month")
+                        self.screen("leaderboard;basic_calculation;month")
                     case self.mixedCalculationMonthButton:
-                        self.screen("leaderboard:mixedcalculation:month")
+                        self.screen("leaderboard;mixed_calculation;month")
                     case self.conversionAllButton:
-                        self.screen("leaderboard:conversion:all")
+                        self.screen("leaderboard;conversion;all")
                     case self.calculationAllButton:
-                        self.screen("leaderboard:calculation:all")
+                        self.screen("leaderboard;basic_calculation;all")
                     case self.mixedCalculationAllButton:
-                        self.screen("leaderboard:mixedcalculation:all")
+                        self.screen("leaderboard;mixed_calculation;all")
                     case self.backButton:
                         self.screen("gameMenu")
 

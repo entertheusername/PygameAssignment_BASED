@@ -13,6 +13,7 @@ from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from BackEnd.Game import Game
 from LeaderboardSelectMenu import LeaderboardSelectMenu
+from Leaderboard import Leaderboard
 
 
 class Main:
@@ -49,8 +50,8 @@ class Main:
                 case "game":
                     self.currentDisplay = Game(self.switchScreen, self.display, self.manager, variables[1])
                 case "leaderboard":
-                    # self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1],
-                    #                                   variables[2])
+                    self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1],
+                                                      variables[2])
                     pass
         else:
             match self.screen:

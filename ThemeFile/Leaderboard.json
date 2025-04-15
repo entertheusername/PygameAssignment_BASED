@@ -1,0 +1,188 @@
+{
+    "@mainPanel": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "@line": {
+        "colours": {
+            "dark_bg": "#B38186",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "@regularPanel": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "@youPanel": {
+        "colours": {
+            "dark_bg": "rgba(255, 255, 255, 50)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "@titleFont": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#000000",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "pixeltype",
+            "size": "40",
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
+        },
+        "misc": {
+            "text_shadow": "0",
+            "text_horiz_alignment": "left"
+        }
+    },
+    "@regularFont": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFFFFF",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "pixeltype",
+            "size": "30",
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
+        },
+        "misc": {
+            "text_shadow": "0",
+            "text_shadow_size": "1",
+            "text_horiz_alignment": "left"
+        }
+    },
+    "@youFont": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFFFFF",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "pixeltype",
+            "size": "30",
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
+        },
+        "misc": {
+            "text_shadow": "1",
+            "text_shadow_size": "2",
+            "text_horiz_alignment": "left"
+        }
+    },
+    "#1": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#C9B037",
+            "text_shadow": "#C4AB32"
+        }
+    },
+    "#2": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#B4B4B4",
+            "text_shadow": "#AFAFAF"
+        }
+    },
+    "#3": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#784D21",
+            "text_shadow": "#73481B"
+        }
+    },
+    "button": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "active_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)",
+            "hovered_border": "rgba(0, 0, 0, 0)",
+            "selected_border": "rgba(0, 0, 0, 0)",
+            "active_border": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFFFFF",
+            "hovered_text": "#AAAAAA",
+            "normal_text_shadow": "#D9908C",
+            "hovered_text_shadow": "#966360"
+        },
+        "misc": {
+            "shadow_width": "0"
+        }
+    },
+    "#backButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/LeaderboardBackButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/LeaderboardBackButtons.png",
+                "sub_surface_rect": "71, 0, 56, 56",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#homeButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/HomeButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/HomeButtons.png",
+                "sub_surface_rect": "81, 0, 56, 56",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#rightPageButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "102, 0, 44, 78",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "102, 100, 44, 78",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#leftPageButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "0, 0, 44, 78",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "0, 100, 44, 78",
+                "premultiplied": "0"
+            }
+        }
+    }
+}
