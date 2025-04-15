@@ -3,21 +3,10 @@ import random
 
 from BackEnd.Question_generator import Generator, Question
 
-class GameGenerator:
+class AnswerGenerator:
     def __init__(self, gamemode: str):
         self.base_generator = Generator()
-        self.gamemode(gamemode)
-
-    def gamemode(self, gamemode: str):
-        match gamemode:
-            case "conversion":
-                self.question_generator = self.base_generator.generate_conversion
-            case "calculation":
-                self.question_generator = self.base_generator.generate_calculation
-            case "mixed_calculation":
-                self.question_generator = self.base_generator.generate_mixed_calculation
-            case _:
-                print("Error generating gamemode.")
+        self.gamemode = gamemode
 
     def generate_question_data(self) -> tuple[Question | None, list[str]]:
         """
@@ -26,7 +15,7 @@ class GameGenerator:
         Returns:
             tuple: (question_text, correct_answer, wrong_answers)
         """
-        question_obj: Question | None = self.question_generator()
+        question_obj: Question | None = self.base_generator.generate_question(self.gamemode)
 
         if not question_obj:
             print ("Error generating question.")
