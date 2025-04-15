@@ -14,7 +14,17 @@ class Apple:
         self.base = base
         self.is_correct = is_correct
         self.color = Constants.COLOR_GREEN if is_correct else Constants.COLOR_RED
-        self.speed = 2.5
+        
+        # Base speed based on gamemode
+        if self.game.current_question_obj.gamemode == "conversion":
+            self.base_speed = 3.0  # Fastest
+        elif self.game.current_question_obj.gamemode == "basic_calculation":
+            self.base_speed = 2.5  # Medium speed
+        else:  # mixed_calculation
+            self.base_speed = 2.0  # Slowest
+            
+        # Calculate current speed with score-based increment
+        self.speed = self.base_speed + (0.3 * (self.game.score // 5))
 
         try:
             self.image = pygame.image.load("../Assets/Character/GameTutel.png").convert_alpha()
