@@ -1,6 +1,7 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
@@ -12,6 +13,7 @@ from Error import Error
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from BackEnd.Game import Game
+from BackEnd.Tutorial import TutorialEngine
 from LeaderboardSelectMenu import LeaderboardSelectMenu
 from Leaderboard import Leaderboard
 

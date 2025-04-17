@@ -161,7 +161,7 @@ class Leaderboard:
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
-                print(ev.ui_element)
+                # print(ev.ui_element)
                 match ev.ui_element:
                     case self.homeButton:
                         self.screen("gameMenu")

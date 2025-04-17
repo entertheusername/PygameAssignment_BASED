@@ -108,7 +108,7 @@ class LeaderboardManage:
                             f"WHERE Username = '{username}';")
             self.cursor.execute(studentQuery)
             studentData = self.cursor.fetchall()
-            print(studentData)
+            # print(studentData)
 
             if studentData:
                 leaderboard.pop(-1)

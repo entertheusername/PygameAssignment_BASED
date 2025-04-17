@@ -80,14 +80,13 @@ class GameMenu:
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
-                print(ev.ui_element)
+                # print(ev.ui_element)
                 match ev.ui_element:
                     case self.playButton:
                         self.screen("gameModeSelectMenu")
                     case self.leaderboardButton:
                         self.screen("leaderboardSelectMenu")
                     case self.exitButton:
-                        print("exits")
                         # need to change this to a popup function (exit or exit with logout)
                         auth = Authentication()
                         auth.logout()
