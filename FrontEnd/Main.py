@@ -13,10 +13,10 @@ from Error import Error
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from BackEnd.Game import Game
-from Tutorial import Tutorial
-from BackEnd.TutorialEngine import TutorialEngine
+from BackEnd.Tutorial import TutorialEngine
 from LeaderboardSelectMenu import LeaderboardSelectMenu
 from Leaderboard import Leaderboard
+from GameOverMenu import GameOverMenu
 
 
 class Main:
@@ -54,11 +54,11 @@ class Main:
                     self.currentDisplay = Game(self.switchScreen, self.display, self.manager, variables[1])
                 case "tutorialEngine":
                     self.currentDisplay = TutorialEngine(self.switchScreen, self.display, self.manager, variables[1])
-                case "tutorial":
-                    self.currentDisplay = Tutorial(self.switchScreen, self.display, self.manager, variables[1])
                 case "leaderboard":
-                    self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1],
-                                                      variables[2])
+                    self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1], variables[2])
+                case "gameOver":
+                    self.currentDisplay = GameOverMenu(self.switchScreen, self.display, self.manager, score=int(variables[1]), timeTaken=variables[2], highScore=int(variables[3]), gameMode=variables[4])
+
         else:
             match self.screen:
                 case "registerMenu":
@@ -84,7 +84,6 @@ class Main:
             if ev.type == pygame.QUIT:
                 self.isRunning = False
                 break
-
             self.currentDisplay.eventCheck(ev)
 
         self.currentDisplay.update(timeDelta)
