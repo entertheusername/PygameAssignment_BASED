@@ -132,13 +132,13 @@
     "#backButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons/LeaderboardBackButtons.png",
+                "path": "../Assets/Buttons/BackButtons.png",
                 "sub_surface_rect": "0, 0, 56, 56",
                 "premultiplied": "0"
             },
             "hovered_image": {
-                "path": "../Assets/Buttons/LeaderboardBackButtons.png",
-                "sub_surface_rect": "71, 0, 56, 56",
+                "path": "../Assets/Buttons/BackButtons.png",
+                "sub_surface_rect": "75, 0, 56, 56",
                 "premultiplied": "0"
             }
         }
@@ -152,7 +152,7 @@
             },
             "hovered_image": {
                 "path": "../Assets/Buttons/HomeButtons.png",
-                "sub_surface_rect": "81, 0, 56, 56",
+                "sub_surface_rect": "75, 0, 56, 56",
                 "premultiplied": "0"
             }
         }
