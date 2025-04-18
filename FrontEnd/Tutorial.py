@@ -1,7 +1,9 @@
+import json
 import sys
 import os
 import pygame
 import pygame_gui
+from pygame.display import update
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -13,12 +15,20 @@ class Tutorial:
         self.screen = screen
         self.display = display
         self.manager = manager
-
-        self.manager.get_theme().load_theme("../ThemeFile/LeaderboardSelectMenu.json")
-
         self.stage = stage
-        self.page = 1
 
+        self.manager.get_theme().load_theme("../ThemeFile/Tutorial.json")
+
+        file = open("../tutorial.json", "r")
+        self.dialogs = json.load(file)
+        file.close()
+
+        self.page = 1
+        self.dialog = self.dialogs[self.stage][str(self.page)]
+        self.wordCount = 1
+        self.currentDialog = ""
+
+        self.dialogBox = None
         self.nextButton = None
 
         self.uiSetup()
@@ -46,10 +56,11 @@ class Tutorial:
         )
 
         # Diplay words
-        dialogRect = pygame.Rect((0, 0), (500, 300))
-        dialog = pygame_gui.elements.UILabel(relative_rect=dialogRect,
+        dialogRect = pygame.Rect((0, 0), (900, 440))
+        self.dialogBox = pygame_gui.elements.UITextBox(relative_rect=dialogRect,
                                              manager=self.manager,
-                                             text="test",
+                                                       starting_height=0,
+                                             html_text=self.dialog[self.wordCount],
                                              object_id=pygame_gui.core.ObjectID(
                                                  class_id="@tutorialDialog",
                                                  object_id="#dialog"),
@@ -61,7 +72,7 @@ class Tutorial:
         nextButtonRect = pygame.Rect((0, 0), (56, 56))
         nextButtonRect.bottomright = -50, -75
         self.nextButton = pygame_gui.elements.UIButton(relative_rect=nextButtonRect,
-                                                       text="hi",
+                                                       text=">",
                                                        object_id=pygame_gui.core.ObjectID(
                                                            class_id="@tutorialButton",
                                                            object_id="#nextButton"),
@@ -76,19 +87,46 @@ class Tutorial:
                 # print(ev.ui_element)
                 match ev.ui_element:
                     case self.nextButton:
-                        print(self.stage)
                         match self.stage:
                             case "1":
-                                self.screen("tutorialEngine;conversion;None")
+                                if self.page > 9:
+                                    self.screen("tutorialEngine;conversion;None")
+                                else:
+                                    self.updateDialog()
                             case "2":
-                                self.screen("tutorialEngine;basic_calculation;None")
+                                if self.page > 2:
+                                    self.screen("tutorialEngine;basic_calculation;None")
+                                else:
+                                    self.updateDialog()
                             case "3":
-                                self.screen("tutorialEngine;mixed_calculation;None")
+                                if self.page > 2:
+                                    self.screen("tutorialEngine;mixed_calculation;None")
+                                else:
+                                    self.updateDialog()
                             case "4":
-                                self.screen("gameMenu")
+                                if self.page > 3:
+                                    self.screen("gameMenu")
+                                else:
+                                    self.updateDialog()
+
+    def updateDialog(self):
+        self.page += 1
+        self.dialog = self.dialogs[self.stage][str(self.page)]
+        self.wordCount = 1
+        self.currentDialog = ""
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
+
+        if "</p>" in self.currentDialog:
+            self.currentDialog = self.dialog[:len(self.dialog)]
+            self.dialogBox.set_text(self.currentDialog)
+        elif self.wordCount <= len(self.dialog) :
+            self.wordCount += 1
+            self.currentDialog = self.dialog[:self.wordCount]
+            self.dialogBox.set_text(self.currentDialog)
+
+
 
     def draw(self):
         pass
