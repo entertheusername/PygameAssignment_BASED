@@ -91,6 +91,7 @@ class GameMenu:
                         auth = Authentication()
                         auth.logout()
                         self.endGame()
+                        # self.screen("tutorial;1;None")
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
