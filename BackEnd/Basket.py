@@ -19,6 +19,8 @@ class Basket:
 
         self.img_left = self.img
         self.img_right = pygame.transform.flip(self.img_left, True, False)
+        self.death_img = pygame.image.load("../Assets/Character/NeuroDeath.png").convert_alpha()
+        self.death_img_right = pygame.transform.flip(self.death_img, True, False)
         self.width = self.img.get_width()
         self.height = self.img.get_height()
 
@@ -54,8 +56,8 @@ class Basket:
         if not hasattr(other_sprite, 'rect') or not hasattr(other_sprite, 'mask'):
             print(f"Error checking collisions: {other_sprite} missing rect or mask.")
             return False
-        
+
         offset_x = other_sprite.rect.x - self.rect.x
         offset_y = other_sprite.rect.y - self.rect.y
         collision_point = self.mask.overlap(other_sprite.mask, (offset_x, offset_y))
-        return collision_point is not None
+        return collision_point is not None 

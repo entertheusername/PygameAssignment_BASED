@@ -63,6 +63,14 @@ class Game:
         except pygame.error as e:
             print(f"Error loading background image: {e}")
 
+        # For death animation
+        self.death_animation_timer = 0
+        self.death_animation_duration = 2
+        self.show_correct_answer = False
+        self.basket_visible = True
+        self.blink_timer = 0
+        self.blink_interval = 0.2
+
         self.setup_new_question()
 
     def setup_new_question(self):
@@ -76,9 +84,6 @@ class Game:
         self.spawn_timer = self.spawn_interval
 
     def eventCheck(self, event):
-        if event.type == pygame.KEYDOWN and not self.game_active:
-            if event.key == pygame.K_r:  # Restart game on R key
-                self.screen("gameModeSelectMenu")
         self.manager.process_events(event)
 
     def spawn_apple(self):
@@ -139,8 +144,19 @@ class Game:
         """Main game update loop logic."""
         self.manager.update(timeDelta)
 
-        if not self.game_active:
-            return
+        if not self.game_active and self.show_correct_answer:
+            # Update death animation timer
+            self.death_animation_timer += timeDelta
+            self.blink_timer += timeDelta
+            
+            # Blink blink effect
+            if self.blink_timer >= self.blink_interval:
+                self.blink_timer = 0
+                self.basket_visible = not self.basket_visible
+            # Transition to GameOverMenu
+            if self.death_animation_timer >= self.death_animation_duration:
+                self.screen(f"gameOver;{self.score};{self.timer()};{LeaderboardManage().get_high_score(self.current_question_obj.gamemode)};{self.current_question_obj.gamemode}")
+                return
 
         # Update basket position
         self.basket.update()
@@ -173,15 +189,15 @@ class Game:
                 self.setup_new_question()
             else:
                 # Caught wrong apple -> Game over
-                self.game_over(f"Wrong Apple! The answer is {self.correct_answer_value}.")
+                self.game_over()
 
-    def game_over(self, message):
+    def game_over(self):
         self.game_active = False
-        self.end_time = time.time() # End timer
-        timer_text = self.timer()
+        self.end_time = time.time()
+        self.final_message = f"Oopsie! You got it wrong! The correct answer is: {self.correct_answer_value}"
+        self.show_correct_answer = True
         leaderboard_manager = LeaderboardManage()
         leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.gamemode, self.timer())
-        self.final_message = f"{message} \nTime Taken: {timer_text} \nFinal Score: {self.score}. \nPress R to restart"
 
     def timer(self):
         if self.start_time is None:
@@ -201,10 +217,38 @@ class Game:
             print(f"Error loading background image: {e}")
             self.display.fill(pygame.Color('#FFE0E3')) # Pinky Ponky Panky Punky
 
-        # Draw basket and apples
-        self.basket.draw(self.display)
+        # Draw apples
         for apple in self.apples:
             apple.draw(self.display)
+
+        # Draw basket and death animation
+        if self.game_active:
+            self.basket.draw(self.display)
+        elif self.show_correct_answer:
+            # Twinkle twinkle little star
+            if self.basket_visible:
+                death_pos = (
+                    self.basket.rect.centerx - self.basket.death_img.get_width() // 2,
+                    self.basket.rect.centery - self.basket.death_img.get_height() // 2
+                )
+                self.display.blit(self.basket.death_img, death_pos)
+            else:
+                # Draw the flipped death image
+                death_pos = (
+                    self.basket.rect.centerx - self.basket.death_img_right.get_width() // 2,
+                    self.basket.rect.centery - self.basket.death_img_right.get_height() // 2
+                )
+                self.display.blit(self.basket.death_img_right, death_pos)
+            
+            # Draw game over message
+            game_over_surf = self.font.render(self.final_message, True, Constants.COLOR_BLACK)
+            game_over_rect = game_over_surf.get_rect(center=(Constants.SCREEN_WIDTH // 2, Constants.SCREEN_HEIGHT // 2))
+            text_background = pygame.Surface((game_over_rect.width + 20, game_over_rect.height + 20))
+            text_background.fill((255, 255, 255))
+            text_background.set_alpha(100) 
+            text_background_rect = text_background.get_rect(center=game_over_rect.center)
+            self.display.blit(text_background, text_background_rect.topleft)
+            self.display.blit(game_over_surf, game_over_rect)
 
         if self.game_active:
             # Draw score and question during gameplay
@@ -216,12 +260,6 @@ class Game:
 
             if self.start_time is None:
                 self.start_time = time.time()
-
-        else:
-            # Draw game over message
-            game_over_surf = self.font.render(self.final_message, True, Constants.COLOR_WHITE)
-            game_over_rect = game_over_surf.get_rect(center=(Constants.SCREEN_WIDTH // 2, Constants.SCREEN_HEIGHT // 2))
-            self.display.blit(game_over_surf, game_over_rect)
 
         self.manager.draw_ui(self.display)
         pygame.display.update()

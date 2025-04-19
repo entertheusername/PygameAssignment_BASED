@@ -70,16 +70,16 @@
             }
         }
     },
-    "#backButton": {
+    "#closeButton": {
         "images": {
             "normal_image": {
-                "path": "../Assets/Buttons/BackButtons.png",
+                "path": "../Assets/Buttons/CloseButtons.png",
                 "sub_surface_rect": "0, 0, 56, 56",
                 "premultiplied": "0"
             },
             "hovered_image": {
-                "path": "../Assets/Buttons/BackButtons.png",
-                "sub_surface_rect": "79, 0, 56, 56",
+                "path": "../Assets/Buttons/CloseButtons.png",
+                "sub_surface_rect": "75, 0, 56, 56",
                 "premultiplied": "0"
             }
         }

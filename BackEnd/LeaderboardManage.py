@@ -12,6 +12,7 @@ class LeaderboardManage:
     def __init__(self):
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
         self.cursor = self.conn.cursor()
+        self.high_score = {}
 
     def scoreSubmission(self, score, gameMode, timeTaken):
         """
@@ -45,6 +46,19 @@ class LeaderboardManage:
                            "VALUES (%s, %s, %s, %s, %s)")
         self.cursor.execute(submissionQuery, (StudentID, score, gameMode, timeTaken, date,))
         self.conn.commit()
+        # Get high score if this is a new record
+        current_high = self.get_high_score(gameMode)
+        if score > current_high:
+            self.high_score = score
+        else:
+            self.high_score = current_high
+
+    def get_high_score(self, game_mode):
+        query = ("SELECT MAX(Score) FROM scores "
+                 "WHERE GameMode = %s")
+        self.cursor.execute(query, (game_mode,))
+        result = self.cursor.fetchone()
+        return result[0] if result[0] is not None else 0
 
     def retrieveLeaderboard(self, gameMode, page, monthly=False):
         file = open("../loggedInUser.json", "r")
