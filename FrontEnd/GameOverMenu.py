@@ -60,7 +60,7 @@ class GameOverMenu:
         )
 
         # Stats panel - fixed position for perfect alignment
-        statsRect = pygame.Rect((Constants.SCREEN_WIDTH // 2 - 270, 220), (600, 200))
+        statsRect = pygame.Rect((Constants.SCREEN_WIDTH // 2 - 275, 220), (600, 200))
         self.statsPanel = pygame_gui.elements.UIPanel(
             relative_rect=statsRect,
             manager=self.manager,
@@ -70,14 +70,14 @@ class GameOverMenu:
 
         # Time Taken
         pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((100, 20), (200, 40)),
-            text="Time Taken :   ",
+            relative_rect=pygame.Rect((50, 20), (250, 45)),
+            text="Time Taken :  ",
             manager=self.manager,
             container=self.statsPanel,
             object_id="@statsLabel"
         )
         pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((300, 20), (200, 40)),
+            relative_rect=pygame.Rect((300, 20), (250, 45)),
             text=self.timeTaken,
             manager=self.manager,
             container=self.statsPanel,
@@ -86,14 +86,14 @@ class GameOverMenu:
 
         # Score
         pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((100, 85), (200, 40)),
-            text="Score :   ",
+            relative_rect=pygame.Rect((50, 85), (250, 45)),
+            text="Score :  ",
             manager=self.manager,
             container=self.statsPanel,
             object_id="@statsLabel"
         )
         pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((300, 85), (200, 40)),
+            relative_rect=pygame.Rect((300, 85), (250, 45)),
             text=str(self.score),
             manager=self.manager,
             container=self.statsPanel,
@@ -102,14 +102,14 @@ class GameOverMenu:
 
         # High Score
         pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((100, 150), (200, 40)),
-            text="High Score :   ",
+            relative_rect=pygame.Rect((50, 150), (250, 45)),
+            text="High Score :  ",
             manager=self.manager,
             container=self.statsPanel,
             object_id="@statsLabel"
         )
         pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((300, 150), (200, 40)),
+            relative_rect=pygame.Rect((300, 150), (250, 45)),
             text=str(self.highScore),
             manager=self.manager,
             container=self.statsPanel,
