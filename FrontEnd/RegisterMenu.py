@@ -5,6 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 from BackEnd.Authentication import Authentication
+from Popup import Popup
 
 
 class RegisterMenu:
@@ -27,6 +28,8 @@ class RegisterMenu:
         self.confirmPasswordError = None
 
         self.registerButton = None
+
+        self.popup = None
 
         self.uiSetup()
 
@@ -301,15 +304,36 @@ class RegisterMenu:
                                 self.passwordError.set_text(status['password'])
                                 self.confirmPasswordError.set_text(status['password'])
                             if status['successful'] is True:
-                                self.screen("loginMenu")
+                                message = "Register successful!"
+                                self.popup = Popup(self.manager, self.display, message, "Ok", "Register")
+                                self.disableAllElements()
                         except:
                             self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
+                    case self.popup.closeButton:
+                        self.screen("loginMenu")
+                    case self.popup.okButton:
+                        self.screen("loginMenu")
+
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("loginMenu")
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
+
+    def disableAllElements(self):
+        self.usernameInput.disable()
+        self.emailInput.disable()
+        self.passwordInput.disable()
+        self.confirmPasswordInput.disable()
+        self.registerButton.disable()
+
+    def enableAllElements(self):
+        self.usernameInput.enable()
+        self.emailInput.enable()
+        self.passwordInput.enable()
+        self.confirmPasswordInput.enable()
+        self.registerButton.enable()
 
     def draw(self):
         pass

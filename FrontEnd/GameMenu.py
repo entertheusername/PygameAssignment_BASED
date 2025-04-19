@@ -1,10 +1,13 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 from BackEnd.Authentication import Authentication
+from BackEnd.TutorialManage import TutorialManage
+from Popup import Popup
 
 
 class GameMenu:
@@ -14,12 +17,19 @@ class GameMenu:
         self.display = display
         self.manager = manager
         self.endGame = endGame
+        try:
+            tutorialManage = TutorialManage()
+            self.tutorialStat = tutorialManage.checkTutorial()
+        except:
+            self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
 
         self.manager.get_theme().load_theme("../ThemeFile/GameMenu.json")
+        self.manager.get_theme().load_theme("../ThemeFile/Popup.json")
 
         self.playButton = None
         self.leaderboardButton = None
         self.exitButton = None
+        self.popup = None
 
         self.uiSetup()
 
@@ -77,10 +87,16 @@ class GameMenu:
                                                        anchors={'centerx': 'centerx',
                                                                 'top': 'top'})
 
+        if not self.tutorialStat:
+            message = "Do you want to start the tutorial?"
+            self.popup = Popup(self.manager, self.display, message, "YesNo", "Tutorial")
+            self.disableAllElements()
+
+
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
-                # print(ev.ui_element)
+                print(ev.ui_element)
                 match ev.ui_element:
                     case self.playButton:
                         self.screen("gameModeSelectMenu")
@@ -88,13 +104,37 @@ class GameMenu:
                         self.screen("leaderboardSelectMenu")
                     case self.exitButton:
                         # need to change this to a popup function (exit or exit with logout)
-                        auth = Authentication()
-                        auth.logout()
-                        self.endGame()
-                        # self.screen("tutorial;1;None")
+                        message = "Do you want logout and exit?"
+                        self.popup = Popup(self.manager, self.display, message, "YesNo", "Logout")
+                        self.disableAllElements()
+                    case self.popup.yesButton:
+                        if self.popup.purpose == "Tutorial":
+                            self.screen("tutorial;1;None")
+                        else:
+                            auth = Authentication()
+                            auth.logout()
+                            self.endGame()
+                    case self.popup.noButton:
+                        if self.popup.purpose == "Tutorial":
+                            self.popup.killAll()
+                            self.enableAllElements()
+                        else:
+                            self.endGame()
+                    case self.popup.closeButton:
+                        self.enableAllElements()
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
+
+    def disableAllElements(self):
+        self.playButton.disable()
+        self.leaderboardButton.disable()
+        self.exitButton.disable()
+
+    def enableAllElements(self):
+        self.playButton.enable()
+        self.leaderboardButton.enable()
+        self.exitButton.enable()
 
     def draw(self):
         pass

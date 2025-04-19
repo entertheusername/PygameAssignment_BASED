@@ -3,7 +3,7 @@ import sys
 import os
 import pygame
 import pygame_gui
-from pygame.display import update
+from BackEnd.TutorialManage import TutorialManage
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -105,7 +105,12 @@ class Tutorial:
                                     self.updateDialog()
                             case "4":
                                 if self.page > 3:
-                                    self.screen("gameMenu")
+                                    try:
+                                        tutorialManage = TutorialManage()
+                                        tutorialManage.updateTutorial()
+                                        self.screen("gameMenu")
+                                    except:
+                                        self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
                                 else:
                                     self.updateDialog()
 

@@ -1,0 +1,90 @@
+{
+    "window": {
+        "colours": {
+            "dark_bg": "#DD7474",
+            "normal_border": "#DD5252"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "1",
+            "shadow_width": "5",
+            "title_bar_height": "30"
+        }
+    },
+    "window.#title_bar": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#EEEEEE",
+            "hovered_text": "#EEEEEE",
+            "normal_border": "rgba(0, 0, 0, 0)",
+            "hovered_border": "rgba(0, 0, 0, 0)"
+        },
+        "font": {
+            "name": "Pixeltype",
+            "size": "25",
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "window.#close_button": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#DDDDDD",
+            "hovered_text": "#FFFFFF",
+            "normal_border": "rgba(0, 0, 0, 0)",
+            "hovered_border": "rgba(0, 0, 0, 0)"
+        },
+        "font": {
+            "size": "25"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "@popupMessage": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#EEEEEE"
+        },
+        "font": {
+            "name": "Pixeltype",
+            "size": "25",
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
+        },
+        "misc": {
+            "text_shadow_size": "0"
+        }
+    },
+    "@popupButton": {
+        "colours": {
+            "normal_bg": "#CC6363",
+            "hovered_bg": "#FF9696",
+            "normal_text": "#DDDDDD",
+            "hovered_text": "#FFFFFF",
+            "normal_border": "#CC4141",
+            "hovered_border": "#FF7474"
+        },
+        "font": {
+            "name": "Pixeltype",
+            "size": "23",
+            "regular_path": "../Assets/Text/Pixeltype.ttf"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    }
+}

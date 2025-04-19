@@ -25,12 +25,18 @@ class Authentication:
             query = 'SELECT * FROM students WHERE Username = %s;'
             self.cursor.execute(query, (username,))
             data = self.cursor.fetchall()
+            errorMsg = {
+                "banned": False,
+                "loginMsg": ""
+            }
+
             if data:
                 columns = [column[0] for column in self.cursor.description]
                 dbPass = data[0][columns.index('Password')]
 
                 if data[0][columns.index('BanStatus')] != 0:
-                    return 'Banned!'
+                    errorMsg["banned"] = True
+                    return errorMsg
 
                 if bcrypt.checkpw(password.encode("utf-8"), dbPass.encode("utf-8")):
                     if save:
@@ -41,13 +47,15 @@ class Authentication:
                         json.dump(data, file, indent=4)
                         file.close()
                         keyring.set_password("BASED", username, password)
-                    return 'Login successful!'
+                    errorMsg["loginMsg"] = 'Login successful!'
+                    return errorMsg
                 else:
-                    return 'Invalid password.'
+                    errorMsg["loginMsg"] = 'Invalid password.'
+                    return errorMsg
 
             else:
-                return 'User does not exist.'
-
+                errorMsg["loginMsg"] = 'User does not exist.'
+                return errorMsg
         except:
             print('query failed')
 
@@ -61,7 +69,7 @@ class Authentication:
         file.close()
         password = keyring.get_password("BASED", data['username'])
         status = self.login(data['username'], password, False)
-        if status == 'Login successful!':
+        if status["loginMsg"] == 'Login successful!':
             return True
         else:
             return False

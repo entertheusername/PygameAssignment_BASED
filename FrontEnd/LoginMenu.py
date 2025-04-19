@@ -191,21 +191,24 @@ class LoginMenu:
                     case self.loginButton:
                         self.usernameError.set_text("")
                         self.passwordError.set_text("")
-                        try:
-                            auth = Authentication()
-                            status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text(), True)
+                        # try:
+                        auth = Authentication()
+                        status = auth.login(self.usernameInput.get_text(), self.passwordInput.get_text(), True)
 
-                            match status:
-                                case "User does not exist.":
-                                    self.usernameError.set_text(status)
-                                case "Invalid password.":
-                                    self.passwordError.set_text(status)
-                                case "Login successful!":
-                                    self.screen("gameMenu")
-                                case "Banned!":
-                                    self.screen("error;Banned!:;Please contact Admin to resolve the matter.")
-                        except:
-                            self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
+                        if status["banned"] == True:
+                            self.screen("error;Banned!:;Please contact Admin to resolve the matter.")
+                            return
+
+                        match status["loginMsg"]:
+                            case "User does not exist.":
+                                self.usernameError.set_text(status["loginMsg"])
+                            case "Invalid password.":
+                                self.passwordError.set_text(status["loginMsg"])
+                            case "Login successful!":
+                                self.screen("gameMenu")
+
+                        # except:
+                        #     self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
 
             case pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                 self.screen("registerMenu")
