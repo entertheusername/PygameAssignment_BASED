@@ -1,0 +1,120 @@
+{
+	"@gameOverPanel": {
+		"colours": {
+			"dark_bg": "rgba(0, 0, 0, 0)",
+			"normal_border": "rgba(0, 0, 0, 0)"
+		},
+		"misc": {
+			"border_width": "0",
+			"shadow_width": "0"
+		}
+	},
+	"@gameOverTitle": {
+		"images": {
+			"normal_image": {
+				"path": "../Assets/WindowElements/GameOver.png",
+				"premultiplied": "0"
+			}
+		},
+		"misc": {
+			"shadow_width": "0"
+		}
+	},
+	"@statsPanel": {
+		"colours": {
+			"dark_bg": "rgba(0, 0, 0, 0)",
+			"normal_border": "rgba(0, 0, 0, 0)"
+		},
+		"misc": {
+			"border_width": "0",
+			"shadow_width": "0"
+		}
+	},
+	"@statsLabel": {
+		"colours": {
+			"normal_text": "#FFFFFF"
+		},
+		"font": {
+			"name": "jersey10",
+			"size": "40",
+			"regular_path": "../Assets/Text/Jersey10-Regular.ttf"
+		},
+		"misc": {
+			"text_horiz_alignment": "right"
+		}
+	},
+	"@statsValue": {
+		"colours": {
+			"normal_text": "#FFFFFF"
+		},
+		"font": {
+			"name": "jersey10",
+			"size": "40",
+			"regular_path": "../Assets/Text/Jersey10-Regular.ttf"
+		},
+		"misc": {
+			"text_horiz_alignment": "left"
+		}
+	},
+	"button": {
+		"colours": {
+			"normal_bg": "rgba(0, 0, 0, 0)",
+			"hovered_bg": "rgba(0, 0, 0, 0)",
+			"selected_bg": "rgba(0, 0, 0, 0)",
+			"active_bg": "rgba(0, 0, 0, 0)",
+			"normal_border": "rgba(0, 0, 0, 0)",
+			"hovered_border": "rgba(0, 0, 0, 0)",
+			"selected_border": "rgba(0, 0, 0, 0)",
+			"active_border": "rgba(0, 0, 0, 0)",
+			"normal_text": "#FFFFFF",
+			"hovered_text": "#AAAAAA",
+			"normal_text_shadow": "#D9908C",
+			"hovered_text_shadow": "#966360"
+		},
+		"misc": {
+			"shadow_width": "0"
+		}
+	},
+	"#backButton": {
+		"images": {
+			"normal_image": {
+				"path": "../Assets/Buttons/BackButtons.png",
+				"sub_surface_rect": "0, 0, 56, 56",
+				"premultiplied": "0"
+			},
+			"hovered_image": {
+				"path": "../Assets/Buttons/BackButtons.png",
+				"sub_surface_rect": "75, 0, 56, 56",
+				"premultiplied": "0"
+			}
+		}
+	},
+	"#retryButton": {
+		"images": {
+			"normal_image": {
+				"path": "../Assets/Buttons/RetryButtons.png",
+				"sub_surface_rect": "0, 0, 90, 90",
+				"premultiplied": "0"
+			},
+			"hovered_image": {
+				"path": "../Assets/Buttons/RetryButtons.png",
+				"sub_surface_rect": "105, 0, 90, 90",
+				"premultiplied": "0"
+			}
+		}
+	},
+	"#homeButton": {
+		"images": {
+			"normal_image": {
+				"path": "../Assets/Buttons/HomeButtons.png",
+				"sub_surface_rect": "0, 0, 56, 56",
+				"premultiplied": "0"
+			},
+			"hovered_image": {
+				"path": "../Assets/Buttons/HomeButtons.png",
+				"sub_surface_rect": "75, 0, 56, 56",
+				"premultiplied": "0"
+			}
+		}
+	}
+}
