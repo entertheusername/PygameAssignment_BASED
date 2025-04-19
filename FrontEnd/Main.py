@@ -18,6 +18,7 @@ from BackEnd.TutorialEngine import TutorialEngine
 from LeaderboardSelectMenu import LeaderboardSelectMenu
 from Leaderboard import Leaderboard
 from GameOverMenu import GameOverMenu
+from PauseMenu import PauseMenu
 
 
 class Main:
@@ -59,6 +60,8 @@ class Main:
                     self.currentDisplay = TutorialEngine(self.switchScreen, self.display, self.manager, variables[1])
                 case "leaderboard":
                     self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1], variables[2])
+                case "pause":
+                    self.currentDisplay = PauseMenu(self.switchScreen, self.display, self.manager, variables[1])
                 case "gameOver":
                     self.currentDisplay = GameOverMenu(self.switchScreen, self.display, self.manager, score=int(variables[1]), timeTaken=variables[2], highScore=int(variables[3]), gameMode=variables[4])
 
