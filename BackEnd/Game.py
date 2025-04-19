@@ -86,6 +86,11 @@ class Game:
     def eventCheck(self, event):
         self.manager.process_events(event)
 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE and self.game_active:
+                # Pause the game
+                self.screen(f"pause;{self.current_question_obj.gamemode};none")
+
     def spawn_apple(self):
         """Creates a new apple at a random position."""
         if not self.current_question_obj: return
