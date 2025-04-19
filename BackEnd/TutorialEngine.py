@@ -18,13 +18,31 @@ class TutorialEngine(Game):
         """Main tutorial update loop logic."""
         self.manager.update(timeDelta)
 
-        if not self.game_active:
-            now = pygame.time.get_ticks()
-            if now - self.start_time >= self.end_time:
-                self.final_message = ""
+        if not self.game_active and self.show_correct_answer:
+            # Update death animation timer
+            self.death_animation_timer += timeDelta
+            self.blink_timer += timeDelta
+
+            # Blink blink effect
+            if self.blink_timer >= self.blink_interval:
+                self.blink_timer = 0
+                self.basket_visible = not self.basket_visible
+            # Transition to GameOverMenu
+            if self.death_animation_timer >= self.death_animation_duration:
                 self.game_active = True
+                self.show_correct_answer = False
+                self.death_animation_timer = 0
+                self.death_animation_duration = 2
                 self.setup_new_question()
             return
+
+        # if not self.game_active:
+        #     now = pygame.time.get_ticks()
+        #     if now - self.start_time >= self.end_time:
+        #         self.final_message = ""
+        #         self.game_active = True
+        #         self.setup_new_question()
+        #     return
 
         # Update basket position
         self.basket.update()
@@ -52,12 +70,13 @@ class TutorialEngine(Game):
 
             else:
                 # Refresh new question with small player animation and audio (if possible)
-                self.game_over(f"Ouch Wrong tutel! The answer is {self.correct_answer_value}.")
+                self.game_over()
 
-    def game_over(self, message):  # override
+    def game_over(self):  # override
         # Refresh new question with small player animation and audio (if possible)
-        self.final_message = message
+        self.final_message = f"Ouch Wrong tutel! The answer is {self.correct_answer_value}."
         self.game_active = False
+        self.show_correct_answer = True
         self.start_time = pygame.time.get_ticks()
 
     def timer(self):  # override

@@ -13,7 +13,8 @@ from Error import Error
 from GameMenu import GameMenu
 from GameModeSelectMenu import GameModeSelectMenu
 from BackEnd.Game import Game
-from BackEnd.Tutorial import TutorialEngine
+from Tutorial import Tutorial
+from BackEnd.TutorialEngine import TutorialEngine
 from LeaderboardSelectMenu import LeaderboardSelectMenu
 from Leaderboard import Leaderboard
 from GameOverMenu import GameOverMenu
@@ -52,6 +53,8 @@ class Main:
                     self.currentDisplay = Error(self.switchScreen, self.display, self.manager, errorMsg)
                 case "game":
                     self.currentDisplay = Game(self.switchScreen, self.display, self.manager, variables[1])
+                case "tutorial":
+                    self.currentDisplay = Tutorial(self.switchScreen, self.display, self.manager, variables[1])
                 case "tutorialEngine":
                     self.currentDisplay = TutorialEngine(self.switchScreen, self.display, self.manager, variables[1])
                 case "leaderboard":

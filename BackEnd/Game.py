@@ -156,7 +156,7 @@ class Game:
             # Transition to GameOverMenu
             if self.death_animation_timer >= self.death_animation_duration:
                 self.screen(f"gameOver;{self.score};{self.timer()};{LeaderboardManage().get_high_score(self.current_question_obj.gamemode)};{self.current_question_obj.gamemode}")
-                return
+            return
 
         # Update basket position
         self.basket.update()

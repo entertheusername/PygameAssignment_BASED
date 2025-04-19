@@ -18,7 +18,7 @@ class GameModeSelectMenu:
         self.conversionButton = None
         self.calculationButton = None
         self.mixedCalculationButton = None
-        self.backButton = None
+        self.closeButton = None
 
         self.uiSetup()
 
@@ -96,14 +96,14 @@ class GameModeSelectMenu:
                                                                    anchors={'left': 'left',
                                                                       'centery': 'centery'})
 
-        # Back button
-        backButtonRect = pygame.Rect((0, 0), (56, 56))
-        backButtonRect.topright = -50, 75
-        self.backButton = pygame_gui.elements.UIButton(relative_rect=backButtonRect,
+        # Close button
+        closeButtonRect = pygame.Rect((0, 0), (56, 56))
+        closeButtonRect.topright = -50, 75
+        self.closeButton = pygame_gui.elements.UIButton(relative_rect=closeButtonRect,
                                                        text="",
                                                        object_id=pygame_gui.core.ObjectID(
                                                            class_id="@gameModeSelectButton",
-                                                           object_id="#backButton"),
+                                                           object_id="#closeButton"),
                                                        manager=self.manager,
                                                        anchors={'right': 'right',
                                                                 'top': 'top'})
@@ -119,7 +119,7 @@ class GameModeSelectMenu:
                         self.screen("game;basic_calculation;none")
                     case self.mixedCalculationButton:
                         self.screen("game;mixed_calculation;none")
-                    case self.backButton:
+                    case self.closeButton:
                         self.screen("gameMenu")
 
     def update(self, timeDelta):
