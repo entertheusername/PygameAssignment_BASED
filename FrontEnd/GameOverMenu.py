@@ -59,56 +59,63 @@ class GameOverMenu:
                      'top': 'top'}
         )
 
-        # Stats panel - transparent panel for text
-        statsRect = pygame.Rect((0, 0), (600, 200))
-        statsRect.top = 230
+        # Stats panel - fixed position for perfect alignment
+        statsRect = pygame.Rect((Constants.SCREEN_WIDTH // 2 - 270, 220), (600, 200))
         self.statsPanel = pygame_gui.elements.UIPanel(
             relative_rect=statsRect,
             manager=self.manager,
             starting_height=1,
-            object_id=pygame_gui.core.ObjectID(
-                class_id="@statsPanel",
-                object_id="#statsPanel"),
-            anchors={'centerx': 'centerx',
-                     'top': 'top'}
+            object_id="@statsPanel"
         )
 
-        # Time label
-        timeLabelRect = pygame.Rect((0, 20), (600, 40))
-        timeLabel = pygame_gui.elements.UILabel(
-            relative_rect=timeLabelRect,
-            text=f"Time Taken: {self.timeTaken}",
+        # Time Taken
+        pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((100, 20), (200, 40)),
+            text="Time Taken :   ",
             manager=self.manager,
             container=self.statsPanel,
-            object_id=pygame_gui.core.ObjectID(
-                class_id="@statsFont",
-                object_id="#timeLabel")
+            object_id="@statsLabel"
+        )
+        pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((300, 20), (200, 40)),
+            text=self.timeTaken,
+            manager=self.manager,
+            container=self.statsPanel,
+            object_id="@statsValue"
         )
 
-        # Score label
-        scoreLabelRect = pygame.Rect((0, 80), (600, 40))
-        scoreLabel = pygame_gui.elements.UILabel(
-            relative_rect=scoreLabelRect,
-            text=f"Score: {self.score}",
+        # Score
+        pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((100, 85), (200, 40)),
+            text="Score :   ",
             manager=self.manager,
             container=self.statsPanel,
-            object_id=pygame_gui.core.ObjectID(
-                class_id="@statsFont",
-                object_id="#scoreLabel")
+            object_id="@statsLabel"
+        )
+        pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((300, 85), (200, 40)),
+            text=str(self.score),
+            manager=self.manager,
+            container=self.statsPanel,
+            object_id="@statsValue"
         )
 
-        # High score label
-        highScoreLabelRect = pygame.Rect((0, 140), (600, 40))
-        highScoreLabel = pygame_gui.elements.UILabel(
-            relative_rect=highScoreLabelRect,
-            text=f"High Score: {self.highScore}",
+        # High Score
+        pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((100, 150), (200, 40)),
+            text="High Score :   ",
             manager=self.manager,
             container=self.statsPanel,
-            object_id=pygame_gui.core.ObjectID(
-                class_id="@statsFont",
-                object_id="#highScoreLabel")
+            object_id="@statsLabel"
         )
-        
+        pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((300, 150), (200, 40)),
+            text=str(self.highScore),
+            manager=self.manager,
+            container=self.statsPanel,
+            object_id="@statsValue"
+        )
+    
         # Back button (left arrow)
         backButtonRect = pygame.Rect((0, 0), (56,56))
         backButtonRect.centerx = Constants.SCREEN_WIDTH//2 - 110
