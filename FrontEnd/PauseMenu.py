@@ -7,32 +7,20 @@ import pygame_gui
 from BackEnd import Constants
 
 class PauseMenu:
-    def __init__(self, screen, display, manager, gameMode):
+    def __init__(self, gameInstance, display, manager, gameMode):
         pygame.init()
-        self.screen = screen
+        self.game = gameInstance
         self.display = display
         self.manager = manager
         self.gameMode = gameMode
 
         self.manager.get_theme().load_theme("../ThemeFile/PauseMenu.json")
 
-        self.pauseButton = None
-        self.hintButton = None
-        self.quitButton = None
+        self.elements = []
 
         self.uiSetup()
 
     def uiSetup(self):
-        # Background
-        self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
-        self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
-
-		# Character
-        alive_blur = pygame.image.load("../Assets/Character/NeuroAliveBlur.png")
-        alive_rect = alive_blur.get_rect()
-        alive_rect.bottomright = (Constants.SCREEN_WIDTH - 60, Constants.SCREEN_HEIGHT)
-        self.display.blit(alive_blur, alive_rect)
-        
         initialYElement = 100
         stackY = 90
 
@@ -45,6 +33,7 @@ class PauseMenu:
                                            manager=self.manager,
                                            anchors={'centerx': 'centerx',
                                                     'top': 'top'})
+        self.elements.append(icon)
 
         # Resume button
         resumeButtonRect = pygame.Rect((0, 0), (360, 63))
@@ -57,6 +46,7 @@ class PauseMenu:
                                                            object_id="#resumeButton"),
                                                        anchors={'centerx': 'centerx',
                                                                 'top': 'top'})
+        self.elements.append(self.resumeButton)
 
         # Hint button
         hintButtonRect = pygame.Rect((0, 0), (360, 63))
@@ -69,6 +59,7 @@ class PauseMenu:
                                                                   object_id="#hintButton"),
                                                               anchors={'centerx': 'centerx',
                                                                        'top': 'top'})
+        self.elements.append(self.hintButton)
 
         # Quit button
         quitButtonRect = pygame.Rect((0, 0), (360, 63))
@@ -81,23 +72,35 @@ class PauseMenu:
                                                            object_id="#quitButton"),
                                                        anchors={'centerx': 'centerx',
                                                                 'top': 'top'})
+        self.elements.append(self.quitButton)
+
+    def killAll(self):
+        for i in self.elements:
+            i.kill()
 
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 match ev.ui_element:
                     case self.resumeButton:
-                        self.screen("resume")
+                        self.killAll()
+                        self.game.paused = False 
                     case self.hintButton:
-                        self.screen("hintMenu")
+                        self.game.screen("hintMenu")
                     case self.quitButton:
-                        self.screen("gameModeSelectMenu")
+                        self.game.screen("gameModeSelectMenu")
             case pygame.KEYDOWN:
-                if ev.key == pygame.K_ESCAPE:  # Also allow ESC to resume
-                    self.screen("resume")
+                if ev.key == pygame.K_ESCAPE:
+                    self.killAll()
+                    self.game.paused = False
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
 
     def draw(self):
-        pass
+        self.display.fill(pygame.Color('#FFE0E3'))
+        self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
+        alive_blur = pygame.image.load("../Assets/Character/NeuroAliveBlur.png")
+        alive_rect = alive_blur.get_rect()
+        alive_rect.bottomright = (Constants.SCREEN_WIDTH - 60, Constants.SCREEN_HEIGHT)
+        self.display.blit(alive_blur, alive_rect)
