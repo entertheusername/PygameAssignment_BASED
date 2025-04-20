@@ -57,6 +57,8 @@ class Game:
         self.spawn_timer = 1.5 # Timer until next spawn wave
         self.prob_correct_spawn = 0.5 # Probability of spawning the correct answer
 
+        self.paused = False
+
         self.background_img = None
         try:
             self.background_img = pygame.image.load("../Assets/Background/BackgroundBlur.png")
@@ -149,6 +151,9 @@ class Game:
         """Main game update loop logic."""
         self.manager.update(timeDelta)
 
+        if self.paused:
+            return
+
         if not self.game_active and self.show_correct_answer:
             # Update death animation timer
             self.death_animation_timer += timeDelta
@@ -161,7 +166,7 @@ class Game:
             # Transition to GameOverMenu
             if self.death_animation_timer >= self.death_animation_duration:
                 self.screen(f"gameOver;{self.score};{self.timer()};{LeaderboardManage().get_high_score(self.current_question_obj.gamemode)};{self.current_question_obj.gamemode}")
-            return
+                return
 
         # Update basket position
         self.basket.update()
@@ -199,7 +204,7 @@ class Game:
     def game_over(self):
         self.game_active = False
         self.end_time = time.time()
-        self.final_message = f"Oopsie! You got it wrong! The correct answer is: {self.correct_answer_value}"
+        self.final_message = f"Oopsie! You got it wrong! The correct answer is:  {self.correct_answer_value}"
         self.show_correct_answer = True
         leaderboard_manager = LeaderboardManage()
         leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.gamemode, self.timer())
@@ -268,4 +273,3 @@ class Game:
 
         self.manager.draw_ui(self.display)
         pygame.display.update()
-
