@@ -33,6 +33,7 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
+        self.gameInstance = None
         try:
             auth = Authentication()
             self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
@@ -46,7 +47,16 @@ class Main:
     def switchScreen(self, screen):
         self.screen = screen
         self.manager = pygame_gui.UIManager((1080, 640))
+        if screen == "resume":
+            # Restore game instance
+            if self.gameInstance:
+                self.currentDisplay = self.gameInstance
+                self.currentDisplay.paused = False
+                self.gameInstance = None
+            return
         if re.match(r"^.+;.+;.+$", self.screen):
+            if isinstance(self.currentDisplay, Game):
+                self.gameInstance = self.currentDisplay
             variables = self.screen.split(";")
             match variables[0]:
                 case "error":
@@ -61,6 +71,8 @@ class Main:
                 case "leaderboard":
                     self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1], variables[2])
                 case "pause":
+                    if isinstance(self.currentDisplay, Game):
+                        self.currentDisplay.paused = True
                     self.currentDisplay = PauseMenu(self.switchScreen, self.display, self.manager, variables[1])
                 case "gameOver":
                     self.currentDisplay = GameOverMenu(self.switchScreen, self.display, self.manager, score=int(variables[1]), timeTaken=variables[2], highScore=int(variables[3]), gameMode=variables[4])
