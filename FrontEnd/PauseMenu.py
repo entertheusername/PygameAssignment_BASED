@@ -85,17 +85,16 @@ class PauseMenu:
     def eventCheck(self, ev):
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
-                # print(ev.ui_element)
                 match ev.ui_element:
                     case self.resumeButton:
-                        self.screen(f"game;{self.gameMode};none")
+                        self.screen("resume")
                     case self.hintButton:
                         self.screen("hintMenu")
                     case self.quitButton:
                         self.screen("gameModeSelectMenu")
             case pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:  # Also allow ESC to resume
-                    self.screen(f"game;{self.gameMode};none")
+                    self.screen("resume")
 
     def update(self, timeDelta):
         self.manager.update(timeDelta)
