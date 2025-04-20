@@ -13,6 +13,7 @@ from BackEnd.Answer_generator import AnswerGenerator
 from BackEnd.Question_generator import Question
 from BackEnd import Constants
 from BackEnd.LeaderboardManage import LeaderboardManage
+from FrontEnd.PauseMenu import PauseMenu
 
 class Game:
     def __init__(self, screen, display, manager, gamemode: str):
@@ -58,6 +59,7 @@ class Game:
         self.prob_correct_spawn = 0.5 # Probability of spawning the correct answer
 
         self.paused = False
+        self.pause_menu = None
 
         self.background_img = None
         try:
@@ -88,10 +90,16 @@ class Game:
     def eventCheck(self, event):
         self.manager.process_events(event)
 
+        # switch to pause event check
+        if self.paused and self.pause_menu:
+            self.pause_menu.eventCheck(event)
+            return
+        
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE and self.game_active:
-                # Pause the game
-                self.screen(f"pause;{self.current_question_obj.gamemode};none")
+                # call pause menu
+                self.paused = True
+                self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
 
     def spawn_apple(self):
         """Creates a new apple at a random position."""
@@ -233,7 +241,18 @@ class Game:
 
         # Draw basket and death animation
         if self.game_active:
+            # Draw score and question during gameplay
+            score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
+            self.display.blit(score_text, (925, 35))
+            
+            if self.current_question_obj:
+                self.current_question_obj.draw_question(self.display, self.font, self.sub_font, self.text_color, self.bold_offset)
+
+            if self.start_time is None:
+                self.start_time = time.time()
+
             self.basket.draw(self.display)
+            
         elif self.show_correct_answer:
             # Twinkle twinkle little star
             if self.basket_visible:
@@ -260,16 +279,8 @@ class Game:
             self.display.blit(text_background, text_background_rect.topleft)
             self.display.blit(game_over_surf, game_over_rect)
 
-        if self.game_active:
-            # Draw score and question during gameplay
-            score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
-            self.display.blit(score_text, (925, 35))
-            
-            if self.current_question_obj:
-                self.current_question_obj.draw_question(self.display, self.font, self.sub_font, self.text_color, self.bold_offset)
-
-            if self.start_time is None:
-                self.start_time = time.time()
-
+        if self.paused and self.pause_menu:
+            self.pause_menu.draw()
+        
         self.manager.draw_ui(self.display)
         pygame.display.update()
