@@ -22,6 +22,7 @@ class Tutorial:
         self.cheatSheetConversion = pygame.image.load("../Assets/Background/BackgroundTutorial.png")
         self.cheatSheetBasicCalculation = pygame.image.load("../Assets/Background/BackgroundClear.png")
         self.cheatSheetMixedCalculation = pygame.image.load("../Assets/Background/BackgroundBlur.png")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         file = open("../tutorial.json", "r")
         self.dialogs = json.load(file)
@@ -170,6 +171,8 @@ class Tutorial:
                                             "error;Database Error Occurred:;Please contact Admin to resolve the matter.")
                                 else:
                                     self.updateDialog()
+            case pygame_gui.UI_BUTTON_PRESSED:
+                self.buttonClick.play()
 
     def updateDialog(self):
         self.page += 1

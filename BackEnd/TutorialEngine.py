@@ -91,3 +91,6 @@ class TutorialEngine(Game):
                 self.screen("tutorial;3;None")
             case "mixed_calculation":
                 self.screen("tutorial;4;None")
+
+    def eventCheck(self, event):
+        pass
