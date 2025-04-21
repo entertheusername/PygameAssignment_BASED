@@ -1,30 +1,30 @@
 {
     "1": {
-        "1": "<p>Welcome a BASED tutorial!<br>Let's get started!</p>",
-        "2": "<p>Look at this character, she's called neuro.</p><img src='../Assets/Tutorial/stage1page2.png' float=center>",
-        "3": "<p>You'll be the one controlling<br>her using A and D or right and left arrow keys.</p>",
-        "4": "<p>Here's a question presented on the top of the screen.</p><img src='../Assets/Tutorial/stage1page4.png' float=center>",
-        "5": "<p>Your goal here is to solve the question <br>and catch the tutel with the correct answer!</p>[image here]",
-        "6": "<p>Your get one point per correct tutel catch!</p><img src='../Assets/Tutorial/stage1page6.png' float=center>",
-        "7": "<p>If you catch the wrong tutel <br>its GAME OVER.</p><img src='../Assets/Tutorial/stage1page7.png' float=center>",
-        "8": "<p>Fortunately, this is tutorial so we will be just <br>resetting the game each time you got it wrong.</p>",
-        "9": "<p>Lets start with conversion <br>here's a hint/cheatsheet for you to calculate faster.</p>[image here]",
-        "10": "<p>Without further ado <br>LETS DIVE IN!</p>"
+        "1": "Welcome a BASED tutorial!<br>Let's get started!",
+        "2": "Look at this character, she's called neuro.",
+        "3": "You'll be the one controlling<br>her using A and D or right and left arrow keys.",
+        "4": "Here's a question presented on the top of the screen.",
+        "5": "Your goal here is to solve the question <br>and catch the tutel with the correct answer!",
+        "6": "Your get one point per correct tutel catch!",
+        "7": "If you catch the wrong tutel <br>its GAME OVER.",
+        "8": "Fortunately, this is tutorial so we will be just <br>resetting the game each time you got it wrong.",
+        "9": "Lets start with conversion <br>here's a hint/cheatsheet for you to calculate faster.",
+        "10": "Without further ado <br>LETS DIVE IN!"
     },
     "2": {
-        "1": "<p>Seem's like you've got the hang of it.</p>",
-        "2": "<p>Coming up next with basic calculation or just calculation <br>here's a hint/cheatsheet for you to calculate faster.</p>[image here]",
-        "3": "<p>LETS BEGIN!</p>"
+        "1": "Seem's like you've got the hang of it.",
+        "2": "Coming up next with basic calculation or just calculation <br>here's a hint/cheatsheet for you to calculate faster.",
+        "3": "LETS BEGIN!"
     },
     "3": {
-        "1": "<p>Wow, we've got a gamer here!</p>",
-        "2": "<p>Last but not least, mixed calculation <br>here's a hint/cheatsheet for you to calculate faster.</p>[image here]",
-        "3": "<p>GOOD LUCK!</p>"
+        "1": "Wow, we've got a gamer here!",
+        "2": "Last but not least, mixed calculation <br>here's a hint/cheatsheet for you to calculate faster.",
+        "3": "GOOD LUCK!"
     },
     "4": {
-        "1": "<p>Well done! <br>these all of the game modes we offer!</p>",
-        "2": "<p>Owh I forgot to mention <br>there's pause button so you can take breaks without losing!</p>[image here]",
-        "3": "<p>Also, the hint button is there so you can refer the <br> hint/cheatsheet that we have before.</p>[image here]",
-        "4": "<p>Welp this is the end of the tutorial <br>Good luck and have fun!!!</p>"
+        "1": "Well done! <br>these all of the game modes we offer!",
+        "2": "Owh I forgot to mention <br>there's pause button so you can take breaks without losing!",
+        "3": "Also, the hint button is in pause menu so <br>you can refer the hint/cheatsheet that we have before.",
+        "4": "Welp this is the end of the tutorial <br>Good luck and have fun!!!"
     }
 }

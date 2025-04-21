@@ -58,11 +58,18 @@ class Popup:
 
         if self.type == "YesNo":
 
+            if self.purpose == "Logout":
+                words = ("Logout", "Exit")
+                sizes = (70, 50)
+            else:
+                words = ("Yes", "No")
+                sizes = (45, 45)
+
             # Yes button
-            yesButtonRect = pygame.Rect((0, 0), (45, 35))
+            yesButtonRect = pygame.Rect((0, 0), (sizes[0], 35))
             yesButtonRect.bottomleft = 50, -10
             self.yesButton = pygame_gui.elements.UIButton(relative_rect=yesButtonRect,
-                                                          text="Yes",
+                                                          text=words[0],
                                                           manager=self.manager,
                                                           object_id=pygame_gui.core.ObjectID(
                                                               class_id="@popupButton",
@@ -73,10 +80,10 @@ class Popup:
             self.elements.append(self.yesButton)
 
             # No button
-            noButtonRect = pygame.Rect((0, 0), (45, 35))
+            noButtonRect = pygame.Rect((0, 0), (sizes[1], 35))
             noButtonRect.bottomright = -50, -10
             self.noButton = pygame_gui.elements.UIButton(relative_rect=noButtonRect,
-                                                         text="No",
+                                                         text=words[1],
                                                          manager=self.manager,
                                                          object_id=pygame_gui.core.ObjectID(
                                                              class_id="@popupButton",
