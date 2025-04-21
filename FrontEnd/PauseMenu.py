@@ -15,6 +15,7 @@ class PauseMenu:
         self.gameMode = gameMode
 
         self.manager.get_theme().load_theme("../ThemeFile/PauseMenu.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.elements = []
 
@@ -83,11 +84,14 @@ class PauseMenu:
             case pygame_gui.UI_BUTTON_PRESSED:
                 match ev.ui_element:
                     case self.resumeButton:
+                        self.buttonClick.play()
                         self.killAll()
                         self.game.paused = False 
                     case self.hintButton:
+                        self.buttonClick.play()
                         self.game.screen("hintMenu")
                     case self.quitButton:
+                        self.buttonClick.play()
                         self.game.screen("gameModeSelectMenu")
             case pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:

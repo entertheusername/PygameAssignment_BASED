@@ -16,6 +16,8 @@ class RegisterMenu:
         self.manager = manager
 
         self.manager.get_theme().load_theme("../ThemeFile/LoginRegisterMenu.json")
+        self.manager.get_theme().load_theme("../ThemeFile/Popup.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.passwordInput = None
         self.confirmPasswordInput = None
@@ -287,6 +289,7 @@ class RegisterMenu:
                 # print(ev.ui_element)
                 match ev.ui_element:
                     case self.registerButton:
+                        self.buttonClick.play()
                         self.usernameError.set_text("")
                         self.emailError.set_text("")
                         self.passwordError.set_text("")
@@ -310,8 +313,10 @@ class RegisterMenu:
                         except:
                             self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
                     case self.popup.closeButton:
+                        self.buttonClick.play()
                         self.screen("loginMenu")
                     case self.popup.okButton:
+                        self.buttonClick.play()
                         self.screen("loginMenu")
 
 

@@ -191,10 +191,7 @@ class Tutorial:
     def update(self, timeDelta):
         self.manager.update(timeDelta)
 
-        if "</p>" in self.currentDialog:
-            self.currentDialog = self.dialog[:len(self.dialog)]
-            self.dialogBox.set_text(self.currentDialog)
-        elif self.wordCount <= len(self.dialog):
+        if self.wordCount <= len(self.dialog):
             self.wordCount += 1
             self.currentDialog = self.dialog[:self.wordCount]
             self.dialogBox.set_text(self.currentDialog)

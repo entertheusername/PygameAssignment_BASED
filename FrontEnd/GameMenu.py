@@ -25,6 +25,7 @@ class GameMenu:
 
         self.manager.get_theme().load_theme("../ThemeFile/GameMenu.json")
         self.manager.get_theme().load_theme("../ThemeFile/Popup.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.playButton = None
         self.leaderboardButton = None
@@ -99,15 +100,19 @@ class GameMenu:
                 print(ev.ui_element)
                 match ev.ui_element:
                     case self.playButton:
+                        self.buttonClick.play()
                         self.screen("gameModeSelectMenu")
                     case self.leaderboardButton:
+                        self.buttonClick.play()
                         self.screen("leaderboardSelectMenu")
                     case self.exitButton:
                         # need to change this to a popup function (exit or exit with logout)
+                        self.buttonClick.play()
                         message = "Do you want logout and exit?"
                         self.popup = Popup(self.manager, self.display, message, "YesNo", "Logout")
                         self.disableAllElements()
                     case self.popup.yesButton:
+                        self.buttonClick.play()
                         if self.popup.purpose == "Tutorial":
                             self.screen("tutorial;1;None")
                         else:
@@ -115,12 +120,14 @@ class GameMenu:
                             auth.logout()
                             self.endGame()
                     case self.popup.noButton:
+                        self.buttonClick.play()
                         if self.popup.purpose == "Tutorial":
                             self.popup.killAll()
                             self.enableAllElements()
                         else:
                             self.endGame()
                     case self.popup.closeButton:
+                        self.buttonClick.play()
                         self.enableAllElements()
 
     def update(self, timeDelta):

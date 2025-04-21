@@ -14,6 +14,7 @@ class LeaderboardSelectMenu:
         self.manager = manager
 
         self.manager.get_theme().load_theme("../ThemeFile/LeaderboardSelectMenu.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.conversionMonthButton = None
         self.calculationMonthButton = None
@@ -163,18 +164,25 @@ class LeaderboardSelectMenu:
                 # print(ev.ui_element)
                 match ev.ui_element:
                     case self.conversionMonthButton:
+                        self.buttonClick.play()
                         self.screen("leaderboard;conversion;month")
                     case self.calculationMonthButton:
+                        self.buttonClick.play()
                         self.screen("leaderboard;basic_calculation;month")
                     case self.mixedCalculationMonthButton:
+                        self.buttonClick.play()
                         self.screen("leaderboard;mixed_calculation;month")
                     case self.conversionAllButton:
+                        self.buttonClick.play()
                         self.screen("leaderboard;conversion;all")
                     case self.calculationAllButton:
+                        self.buttonClick.play()
                         self.screen("leaderboard;basic_calculation;all")
                     case self.mixedCalculationAllButton:
+                        self.buttonClick.play()
                         self.screen("leaderboard;mixed_calculation;all")
                     case self.closeButton:
+                        self.buttonClick.play()
                         self.screen("gameMenu")
 
     def update(self, timeDelta):

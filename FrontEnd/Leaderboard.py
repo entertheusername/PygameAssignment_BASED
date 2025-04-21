@@ -16,6 +16,7 @@ class Leaderboard:
         self.manager = manager
 
         self.manager.get_theme().load_theme("../ThemeFile/Leaderboard.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.gameMode = gameMode
         self.timeFrame = timeFrame
@@ -164,14 +165,18 @@ class Leaderboard:
                 # print(ev.ui_element)
                 match ev.ui_element:
                     case self.homeButton:
+                        self.buttonClick.play()
                         self.screen("gameMenu")
                     case self.backButton:
+                        self.buttonClick.play()
                         self.screen("leaderboardSelectMenu")
                     case self.leftPageButton:
+                        self.buttonClick.play()
                         if self.page > 1:
                             self.page -= 1
                         self.updateLeaderboard(self.background)
                     case self.rightPageButton:
+                        self.buttonClick.play()
                         if 5 < len(self.rowData):
                             self.page += 1
                         self.updateLeaderboard(self.background)

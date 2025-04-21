@@ -14,6 +14,7 @@ class GameModeSelectMenu:
         self.manager = manager
 
         self.manager.get_theme().load_theme("../ThemeFile/GameSelectMenu.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.conversionButton = None
         self.calculationButton = None
@@ -114,12 +115,16 @@ class GameModeSelectMenu:
                 # print(ev.ui_element)
                 match ev.ui_element:
                     case self.conversionButton:
+                        self.buttonClick.play()
                         self.screen("game;conversion;none")
                     case self.calculationButton:
+                        self.buttonClick.play()
                         self.screen("game;basic_calculation;none")
                     case self.mixedCalculationButton:
+                        self.buttonClick.play()
                         self.screen("game;mixed_calculation;none")
                     case self.closeButton:
+                        self.buttonClick.play()
                         self.screen("gameMenu")
 
     def update(self, timeDelta):

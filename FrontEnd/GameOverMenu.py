@@ -14,6 +14,7 @@ class GameOverMenu:
         self.manager = manager
 
         self.manager.get_theme().load_theme("../ThemeFile/GameOver.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.score = score
         self.timeTaken = timeTaken
@@ -160,10 +161,13 @@ class GameOverMenu:
             case pygame_gui.UI_BUTTON_PRESSED:
                 match ev.ui_element:
                     case self.retryButton:
+                        self.buttonClick.play()
                         self.screen(f"game;{self.gameMode};none")
                     case self.homeButton:
+                        self.buttonClick.play()
                         self.screen("gameMenu")
                     case self.backButton:
+                        self.buttonClick.play()
                         self.screen("gameModeSelectMenu")
 
     def update(self, timeDelta):

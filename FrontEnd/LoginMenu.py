@@ -15,6 +15,7 @@ class LoginMenu:
         self.manager = manager
 
         self.manager.get_theme().load_theme("../ThemeFile/LoginRegisterMenu.json")
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         self.usernameInput = None
         self.passwordInput = None
@@ -189,6 +190,7 @@ class LoginMenu:
                 # print(ev.ui_element)
                 match ev.ui_element:
                     case self.loginButton:
+                        self.buttonClick.play()
                         self.usernameError.set_text("")
                         self.passwordError.set_text("")
                         # try:
