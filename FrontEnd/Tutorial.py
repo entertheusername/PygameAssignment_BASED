@@ -19,9 +19,15 @@ class Tutorial:
 
         self.manager.get_theme().load_theme("../ThemeFile/Tutorial.json")
         self.arrowImage = pygame.image.load("../Assets/WindowElements/ArrowTutorial.png")
+
         self.cheatSheetConversion = pygame.image.load("../Assets/Background/BackgroundTutorial.png")
         self.cheatSheetBasicCalculation = pygame.image.load("../Assets/Background/BackgroundClear.png")
         self.cheatSheetMixedCalculation = pygame.image.load("../Assets/Background/BackgroundBlur.png")
+
+        self.annyTFHappy = pygame.image.load("../Assets/Character/AnnyTFHappy.png")
+        self.annyTFSad = pygame.image.load("../Assets/Character/AnnyTFSad.png")
+        self.annyTFTease = pygame.image.load("../Assets/Character/AnnyTFTease.png")
+
         self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
         file = open("../tutorial.json", "r")
@@ -35,6 +41,7 @@ class Tutorial:
 
         self.dialogBox = None
         self.cheatSheet = None
+        self.annyTF = None
         self.nextButton = None
 
         self.uiSetup()
@@ -80,14 +87,22 @@ class Tutorial:
                                                           'top': 'top'})
 
         # Anny
-        annyTFImage = pygame.image.load("../Assets/Character/Annytf.png")
-        annyTFRect = pygame.Rect((0, 0), (183, 244))
-        annyTFRect.bottomright = -10, -60
+        annyTFRect = pygame.Rect((0, 0), (192, 192))
+        annyTFRect.bottomright = -10, -110
         self.annyTF = pygame_gui.elements.UIImage(relative_rect=annyTFRect,
-                                                      image_surface=annyTFImage,
+                                                      image_surface=self.annyTFHappy,
                                                       manager=self.manager,
                                                       anchors={'right': 'right',
                                                                'bottom': 'bottom'})
+
+        annyTag = pygame.image.load("../Assets/Character/AnnyTFTag.png")
+        annyTagRect = pygame.Rect((0, 0), (155, 78))
+        annyTagRect.bottomright = -28, -60
+        self.annyTag = pygame_gui.elements.UIImage(relative_rect=annyTagRect,
+                                                  image_surface=annyTag,
+                                                  manager=self.manager,
+                                                  anchors={'right': 'right',
+                                                           'bottom': 'bottom'})
 
         # Next button
         nextButtonRect = pygame.Rect((0, 0), (150, 56))
@@ -119,12 +134,21 @@ class Tutorial:
                                         self.updateArrow(True, 850, 100, 215)
                                     case 6:
                                         self.updateArrow(False)
+                                    case 7:
+                                        self.annyTF.set_image(self.annyTFSad)
+                                        self.annyTF.rebuild()
                                     case 8:
                                         self.cheatSheet.visible = True
                                         self.cheatSheet.rebuild()
+
+                                        self.annyTF.set_image(self.annyTFHappy)
+                                        self.annyTF.rebuild()
                                     case 9:
                                         self.cheatSheet.visible = False
                                         self.cheatSheet.rebuild()
+
+                                        self.annyTF.set_image(self.annyTFTease)
+                                        self.annyTF.rebuild()
                                 if self.page > 9:
                                     self.screen("tutorialEngine;conversion;None")
                                 else:
@@ -138,6 +162,9 @@ class Tutorial:
                                     case 2:
                                         self.cheatSheet.visible = False
                                         self.cheatSheet.rebuild()
+
+                                        self.annyTF.set_image(self.annyTFTease)
+                                        self.annyTF.rebuild()
                                 if self.page > 2:
                                     self.screen("tutorialEngine;basic_calculation;None")
                                 else:
@@ -151,6 +178,9 @@ class Tutorial:
                                     case 2:
                                         self.cheatSheet.visible = False
                                         self.cheatSheet.rebuild()
+
+                                        self.annyTF.set_image(self.annyTFTease)
+                                        self.annyTF.rebuild()
                                 if self.page > 2:
                                     self.screen("tutorialEngine;mixed_calculation;None")
                                 else:
@@ -159,8 +189,17 @@ class Tutorial:
                                 match self.page:
                                     case 1:
                                         self.updateArrow(True, 150, 100, 315)
+
+                                        self.annyTF.set_image(self.annyTFTease)
+                                        self.annyTF.rebuild()
                                     case 2:
                                         self.updateArrow(False)
+
+                                        self.annyTF.set_image(self.annyTFHappy)
+                                        self.annyTF.rebuild()
+                                    case 3:
+                                        self.annyTF.set_image(self.annyTFSad)
+                                        self.annyTF.rebuild()
                                 if self.page > 3:
                                     try:
                                         tutorialManage = TutorialManage()
@@ -171,6 +210,7 @@ class Tutorial:
                                             "error;Database Error Occurred:;Please contact Admin to resolve the matter.")
                                 else:
                                     self.updateDialog()
+            #Fake button is intentional design
             case pygame_gui.UI_BUTTON_PRESSED:
                 self.buttonClick.play()
 

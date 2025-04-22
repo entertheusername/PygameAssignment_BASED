@@ -159,7 +159,7 @@ class Authentication:
         """
         passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-        registerQuery = "INSERT INTO students (Username, Email, Password) VALUES (%s, %s, %s)"
-        self.cursor.execute(registerQuery, (username, email, passwordHash,))
+        registerQuery = "INSERT INTO students (Username, Email, Password, AdminID) VALUES (%s, %s, %s, %s)"
+        self.cursor.execute(registerQuery, (username, email, passwordHash, 1,))
         self.conn.commit()
 
