@@ -1,6 +1,7 @@
 import sys
 import os
 
+from BackEnd.Settings import Settings
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
@@ -11,8 +12,10 @@ from Popup import Popup
 
 
 class GameMenu:
-    def __init__(self, screen, display, manager, endGame):
+    def __init__(self, screen, display, manager, music, endGame):
         pygame.init()
+
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
@@ -23,10 +26,21 @@ class GameMenu:
         except:
             self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/GameMenu.json")
         self.manager.get_theme().load_theme("../ThemeFile/Popup.json")
-        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
+        # Audio
+        if music != "Littleroot_Town":
+            pygame.mixer.music.load("../Assets/Audio/GameMenuSong-Littleroot_Town.ogg")
+            pygame.mixer.music.play(-1, fade_ms=3000)
+
+        sfxVolume = Settings().getKeyVariable("SFX")
+
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        # GameMenu
         self.playButton = None
         self.leaderboardButton = None
         self.exitButton = None

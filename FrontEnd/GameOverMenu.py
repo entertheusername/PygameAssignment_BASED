@@ -1,21 +1,36 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 from BackEnd import Constants
+from BackEnd.Settings import Settings
 
 class GameOverMenu:
-    def __init__(self, screen, display, manager, score, timeTaken, highScore, gameMode):
+    def __init__(self, screen, display, manager, music, score, timeTaken, highScore, gameMode):
         pygame.init()
+
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/GameOver.json")
-        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
+        # Audio
+        if music != "Determination":
+            pygame.mixer.music.load("../Assets/Audio/Game-Undertale_Determination.ogg")
+            pygame.mixer.music.play(-1, fade_ms=3000)
+
+        sfxVolume = Settings().getKeyVariable("SFX")
+
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        # GameOver
         self.score = score
         self.timeTaken = timeTaken
         self.highScore = highScore

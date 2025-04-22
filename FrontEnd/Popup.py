@@ -1,8 +1,6 @@
 import sys
 import os
 
-from pyexpat.errors import messages
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
@@ -10,12 +8,14 @@ import pygame_gui
 
 class Popup:
     def __init__(self, manager, display, message, type, purpose):
+        # Default
         self.manager = manager
         self.display = display
         self.message = message
         self.type = type
         self.purpose = purpose
 
+        # Popup
         self.yesButton = None
         self.noButton = None
         self.okButton = None

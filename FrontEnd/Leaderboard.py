@@ -2,22 +2,36 @@ import json
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+from BackEnd.Settings import Settings
 from BackEnd.LeaderboardManage import LeaderboardManage
 
 
 class Leaderboard:
-    def __init__(self, screen, display, manager, gameMode, timeFrame):
+    def __init__(self, screen, display, manager, music, gameMode, timeFrame):
         pygame.init()
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/Leaderboard.json")
-        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
+        # Audio
+        if music != "Fallen_Down":
+            pygame.mixer.music.load("../Assets/Audio/Leaderboard-Undertale_Fallen_Down.ogg")
+            pygame.mixer.music.play(-1, fade_ms=3000)
+
+        sfxVolume = Settings().getKeyVariable("SFX")
+
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        # Leaderboard
         self.gameMode = gameMode
         self.timeFrame = timeFrame
         self.page = 1

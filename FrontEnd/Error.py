@@ -6,15 +6,23 @@ import pygame
 import pygame_gui
 
 class Error:
-    def __init__(self, screen, display, manager, errorMsg):
+    def __init__(self, screen, display, manager, music, errorMsg):
         pygame.init()
+
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
         self.errorMsg = errorMsg
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/LoginRegisterMenu.json")
 
+        # Audio
+        if music != "":
+            pygame.mixer.music.stop()
+
+        # Error
         self.uiSetup()
 
     def uiSetup(self):

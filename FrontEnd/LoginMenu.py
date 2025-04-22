@@ -1,22 +1,36 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 from BackEnd.Authentication import Authentication
+from BackEnd.Settings import Settings
 
 
 class LoginMenu:
-    def __init__(self, screen, display, manager):
+    def __init__(self, screen, display, manager, music):
         pygame.init()
+
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/LoginRegisterMenu.json")
-        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
 
+        # Audio
+        if music != "":
+            pygame.mixer.music.stop()
+
+        sfxVolume = Settings().getKeyVariable("SFX")
+
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        # Login
         self.usernameInput = None
         self.passwordInput = None
 

@@ -15,17 +15,36 @@ from BackEnd.Question_generator import Question
 from BackEnd import Constants
 from BackEnd.LeaderboardManage import LeaderboardManage
 from FrontEnd.PauseMenu import PauseMenu
+from BackEnd.Settings import Settings
+
 
 class Game:
-    def __init__(self, screen, display, manager, gamemode: str):
+    def __init__(self, screen, display, manager, music, gamemode: str):
         pygame.init()
 
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/Game.json")
 
+        # Audio
+        self.music = music
+        if music != "Snowy":
+            pygame.mixer.music.load("../Assets/Audio/Game-Undertale_Snowy.ogg")
+            pygame.mixer.music.play(-1, fade_ms=3000)
+
+        sfxVolume = Settings().getKeyVariable("SFX")
+
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        self.music_fade = 0
+        self.music_fade_duration = 4
+
+        # Game
         self.start_time = None
         self.end_time = None
 
@@ -57,9 +76,9 @@ class Game:
         self.wrong_answer_values = []
 
         self.max_apples_on_screen = 8
-        self.spawn_interval = 1 # Time between each spawn
-        self.spawn_timer = 1.5 # Timer until next spawn wave
-        self.prob_correct_spawn = 0.5 # Probability of spawning the correct answer
+        self.spawn_interval = 1  # Time between each spawn
+        self.spawn_timer = 1.5  # Timer until next spawn wave
+        self.prob_correct_spawn = 0.5  # Probability of spawning the correct answer
 
         self.paused = False
         self.pause_menu = None
@@ -67,13 +86,13 @@ class Game:
         pause_button_rect = pygame.Rect((0, 0), (56, 56))
         pause_button_rect.topleft = 30, 30
         self.pause_button = pygame_gui.elements.UIButton(relative_rect=pause_button_rect,
-                                                       text="",
-                                                       object_id=pygame_gui.core.ObjectID(
-                                                           class_id="@game_pause_button",
-                                                           object_id="#pauseButton"),
-                                                       manager=self.manager,
-                                                       anchors={'left': 'left',
-                                                                'top': 'top'})
+                                                         text="",
+                                                         object_id=pygame_gui.core.ObjectID(
+                                                             class_id="@game_pause_button",
+                                                             object_id="#pauseButton"),
+                                                         manager=self.manager,
+                                                         anchors={'left': 'left',
+                                                                  'top': 'top'})
 
         self.background_img = None
         try:
@@ -98,7 +117,7 @@ class Game:
         else:
             print("Error. No questions generated.")
             self.correct_answer_value = "Cant find an answer to ur life bitch"
-        self.apples = [] # Clear existing apples
+        self.apples = []  # Clear existing apples
         self.spawn_timer = self.spawn_interval
 
     def eventCheck(self, event):
@@ -108,16 +127,19 @@ class Game:
         if self.paused and self.pause_menu:
             self.pause_menu.eventCheck(event)
             return
-        
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE and self.game_active:
                 self.pause_button.hide()
                 # call pause menu
                 self.paused = True
                 self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
+            elif event.key == pygame.K_c and self.game_active: # Testing, if not then comment
+                self.score += 1
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.pause_button:
+                self.buttonClick.play()
                 self.pause_button.hide()
                 # call pause menu
                 self.paused = True
@@ -148,8 +170,8 @@ class Game:
                     spawn_is_correct = False
 
         if value_to_spawn is None:
-             print("Error. No answer to be spawned.")
-             return
+            print("Error. No answer to be spawned.")
+            return
 
         values_on_screen = {apple.value for apple in self.apples}
         if value_to_spawn in values_on_screen:
@@ -173,12 +195,24 @@ class Game:
         else:
             print("Error finding valid position after 100 attempts.")
             return
-    
+
         new_apple = Apple(self, x, y, value_to_spawn, target_base, spawn_is_correct)
         self.apples.append(new_apple)
 
     def update(self, timeDelta):
         """Main game update loop logic."""
+
+        if 20 <= self.score < 40:
+            self.switch_music("../Assets/Audio/Game-Undertale_Hotel.ogg", "Hotel", timeDelta)
+        elif 40 <= self.score < 60:
+            self.switch_music("../Assets/Audio/Game-Undertale_Dont_Give_Up.ogg", "DontGiveUp", timeDelta)
+        elif 60 <= self.score < 80:
+            self.switch_music("../Assets/Audio/Game-Undertale_Hopes_And_Dreams.ogg", "HopesAndDreams", timeDelta)
+        elif 80 <= self.score < 100:
+            self.switch_music("../Assets/Audio/Game-Undertale_Megalovania.ogg", "Megalovania", timeDelta)
+        elif 100 <= self.score:
+            self.switch_music("../Assets/Audio/Game-CHXI_Life_Arrangement.ogg", "LifeArrangement", timeDelta)
+
         self.manager.update(timeDelta)
 
         if self.paused:
@@ -188,14 +222,15 @@ class Game:
             # Update death animation timer
             self.death_animation_timer += timeDelta
             self.blink_timer += timeDelta
-            
+
             # Blink blink effect
             if self.blink_timer >= self.blink_interval:
                 self.blink_timer = 0
                 self.basket_visible = not self.basket_visible
             # Transition to GameOverMenu
             if self.death_animation_timer >= self.death_animation_duration:
-                self.screen(f"gameOver;{self.score};{self.timer()};{LeaderboardManage().get_high_score(self.current_question_obj.gamemode)};{self.current_question_obj.gamemode}")
+                self.screen(
+                    f"gameOver;{self.score};{self.timer()};{LeaderboardManage().get_high_score(self.current_question_obj.gamemode)};{self.current_question_obj.gamemode}")
             return
 
         # Update basket position
@@ -205,7 +240,7 @@ class Game:
         self.spawn_timer -= timeDelta
         if self.spawn_timer <= 0 and len(self.apples) < self.max_apples_on_screen:
             self.spawn_apple()
-            self.spawn_timer = self.spawn_interval # Reset timer
+            self.spawn_timer = self.spawn_interval  # Reset timer
 
         # Update apples drop speed
         if self.score // 5 > self.last_speed_update_score:
@@ -223,7 +258,7 @@ class Game:
                 self.apples.remove(apple)
 
         if collided_apple:
-            self.apples.remove(collided_apple) # Remove the caught apple
+            self.apples.remove(collided_apple)  # Remove the caught apple
             if collided_apple.is_correct:
                 self.score += 1
                 self.setup_new_question()
@@ -255,7 +290,7 @@ class Game:
             self.display.blit(self.background_img, (0, 0))
         except pygame.error as e:
             print(f"Error loading background image: {e}")
-            self.display.fill(pygame.Color('#FFE0E3')) # Pinky Ponky Panky Punky
+            self.display.fill(pygame.Color('#FFE0E3'))  # Pinky Ponky Panky Punky
 
         # Draw apples
         for apple in self.apples:
@@ -266,15 +301,16 @@ class Game:
             # Draw score and question during gameplay
             score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
             self.display.blit(score_text, (925, 35))
-            
+
             if self.current_question_obj:
-                self.current_question_obj.draw_question(self.display, self.font, self.sub_font, self.text_color, self.bold_offset)
+                self.current_question_obj.draw_question(self.display, self.font, self.sub_font, self.text_color,
+                                                        self.bold_offset)
 
             if self.start_time is None:
                 self.start_time = time.time()
 
             self.basket.draw(self.display)
-            
+
         elif self.show_correct_answer:
             # Twinkle twinkle little star
             if self.basket_visible:
@@ -290,19 +326,29 @@ class Game:
                     self.basket.rect.centery - self.basket.death_img_right.get_height() // 2
                 )
                 self.display.blit(self.basket.death_img_right, death_pos)
-            
+
             # Draw game over message
             game_over_surf = self.font.render(self.final_message, True, Constants.COLOR_BLACK)
             game_over_rect = game_over_surf.get_rect(center=(Constants.SCREEN_WIDTH // 2, Constants.SCREEN_HEIGHT // 2))
             text_background = pygame.Surface((game_over_rect.width + 20, game_over_rect.height + 20))
             text_background.fill((255, 255, 255))
-            text_background.set_alpha(100) 
+            text_background.set_alpha(100)
             text_background_rect = text_background.get_rect(center=game_over_rect.center)
             self.display.blit(text_background, text_background_rect.topleft)
             self.display.blit(game_over_surf, game_over_rect)
 
         if self.paused and self.pause_menu:
             self.pause_menu.draw()
-        
+
         self.manager.draw_ui(self.display)
         pygame.display.update()
+
+    def switch_music(self, song_path, Name, time_delta):
+        if self.music != Name:
+            pygame.mixer.music.fadeout(3000)
+            self.music_fade += time_delta
+            if self.music_fade >= self.music_fade_duration:
+                pygame.mixer.music.load(song_path)
+                pygame.mixer.music.play(-1, fade_ms=3000)
+                self.music = Name
+                self.music_fade = 0

@@ -1,10 +1,12 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 from BackEnd import Constants
+from BackEnd.Settings import Settings
 
 class PauseMenu:
     def __init__(self, gameInstance, display, manager, gameMode):
@@ -14,8 +16,19 @@ class PauseMenu:
         self.manager = manager
         self.gameMode = gameMode
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/PauseMenu.json")
+
+        # Audio
+        sfxVolume = Settings().getKeyVariable("SFX")
+
         self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        # PauseMenu
+        self.resumeButton = None
+        self.hintButton = None
+        self.quitButton = None
 
         self.elements = []
 

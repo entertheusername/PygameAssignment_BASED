@@ -3,22 +3,28 @@ import sys
 import os
 import pygame
 import pygame_gui
+
+from BackEnd.Settings import Settings
 from BackEnd.TutorialManage import TutorialManage
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 class Tutorial:
-    def __init__(self, screen, display, manager, stage):
+    def __init__(self, screen, display, manager, music, stage):
         pygame.init()
 
+        # Default
         self.screen = screen
         self.display = display
         self.manager = manager
         self.stage = stage
 
+        # Theme
         self.manager.get_theme().load_theme("../ThemeFile/Tutorial.json")
         self.manager.get_theme().load_theme("../ThemeFile/Game.json")
+
+        # Images
         self.arrowImage = pygame.image.load("../Assets/WindowElements/ArrowTutorial.png")
 
         self.cheatSheetConversion = pygame.image.load("../Assets/Background/BackgroundTutorial.png")
@@ -29,8 +35,17 @@ class Tutorial:
         self.annyTFSad = pygame.image.load("../Assets/Character/AnnyTFSad.png")
         self.annyTFTease = pygame.image.load("../Assets/Character/AnnyTFTease.png")
 
-        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        # Audio
+        if music != "Sans":
+            pygame.mixer.music.load("../Assets/Audio/Tutorial-Undertale_Sans.ogg")
+            pygame.mixer.music.play(-1, fade_ms=3000)
 
+        sfxVolume = Settings().getKeyVariable("SFX")
+
+        self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
+        self.buttonClick.set_volume(sfxVolume)
+
+        # Tutorial
         file = open("../tutorial.json", "r")
         self.dialogs = json.load(file)
         file.close()
@@ -40,6 +55,7 @@ class Tutorial:
         self.wordCount = 1
         self.currentDialog = ""
 
+        # Class wide variable
         self.dialogBox = None
         self.cheatSheet = None
         self.annyTF = None

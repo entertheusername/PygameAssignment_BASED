@@ -8,9 +8,15 @@ from BackEnd.Game import Game
 
 
 class TutorialEngine(Game):
-    def __init__(self, screen, display, manager, gamemode: str):
+    def __init__(self, screen, display, manager, music, gamemode: str):
         super().__init__(screen, display, manager, gamemode)
 
+        # Audio
+        if music != "Sans":
+            pygame.mixer.music.load("../Assets/Audio/Tutorial-Undertale_Sans.ogg")
+            pygame.mixer.music.play(-1, fade_ms=3000)
+
+        # TutorialEngine
         self.end_time = 1000
         self.gamemode = gamemode
 

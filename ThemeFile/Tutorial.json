@@ -28,7 +28,7 @@
             "text_vert_alignment": "center"
         }
     },
-    "button": {
+    "#nextButton": {
         "colours": {
             "normal_bg": "#FF9696AA",
             "disabled_bg": "rgba(0, 0, 0, 0)",

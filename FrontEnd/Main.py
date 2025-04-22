@@ -1,7 +1,6 @@
 import sys
 import os
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
@@ -18,6 +17,7 @@ from BackEnd.TutorialEngine import TutorialEngine
 from LeaderboardSelectMenu import LeaderboardSelectMenu
 from Leaderboard import Leaderboard
 from GameOverMenu import GameOverMenu
+from BackEnd.Settings import Settings
 
 
 class Main:
@@ -32,12 +32,22 @@ class Main:
         self.black = (0, 0, 0)
         self.clock = pygame.time.Clock()
         self.manager = pygame_gui.UIManager((1080, 640))
+
+        self.currentMusic = ""
+
+        musicVolume = Settings().getKeyVariable("Music")
+        pygame.mixer.music.set_volume(musicVolume)
+
         try:
             auth = Authentication()
-            self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
-                                           self.endGame) if auth.silentLogin() else RegisterMenu(self.switchScreen,
-                                                                                                 self.display,
-                                                                                                 self.manager)
+            if auth.silentLogin():
+                self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager,
+                                                self.currentMusic,
+                                                self.endGame)
+                self.currentMusic = "Littleroot_Town"
+            else:
+                self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
+                self.currentMusic = ""
         except:
             errorMsg = ["Database Error Occurred:", "Please contact Admin to resolve the matter."]
             self.currentDisplay = Error(self.switchScreen, self.display, self.manager, errorMsg)
@@ -50,30 +60,52 @@ class Main:
             match variables[0]:
                 case "error":
                     errorMsg = [variables[1], variables[2]]
-                    self.currentDisplay = Error(self.switchScreen, self.display, self.manager, errorMsg)
+                    self.currentDisplay = Error(self.switchScreen, self.display, self.manager, self.currentMusic, errorMsg)
+                    self.currentMusic = ""
                 case "game":
-                    self.currentDisplay = Game(self.switchScreen, self.display, self.manager, variables[1])
+                    self.currentDisplay = Game(self.switchScreen, self.display, self.manager, self.currentMusic, variables[1])
+                    self.switchMusic("Snowy")
                 case "tutorial":
-                    self.currentDisplay = Tutorial(self.switchScreen, self.display, self.manager, variables[1])
+                    self.currentDisplay = Tutorial(self.switchScreen, self.display, self.manager, self.currentMusic,
+                                                   variables[1])
+                    self.switchMusic("Sans")
                 case "tutorialEngine":
-                    self.currentDisplay = TutorialEngine(self.switchScreen, self.display, self.manager, variables[1])
+                    self.currentDisplay = TutorialEngine(self.switchScreen, self.display, self.manager,
+                                                         self.currentMusic, variables[1])
+                    self.switchMusic("Sans")
                 case "leaderboard":
-                    self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, variables[1], variables[2])
+                    self.currentDisplay = Leaderboard(self.switchScreen, self.display, self.manager, self.currentMusic,
+                                                      variables[1],
+                                                      variables[2])
+                    self.switchMusic("Fallen_Down")
                 case "gameOver":
-                    self.currentDisplay = GameOverMenu(self.switchScreen, self.display, self.manager, score=int(variables[1]), timeTaken=variables[2], highScore=int(variables[3]), gameMode=variables[4])
+                    self.currentDisplay = GameOverMenu(self.switchScreen, self.display, self.manager, self.currentMusic,
+                                                       score=int(variables[1]), timeTaken=variables[2],
+                                                       highScore=int(variables[3]), gameMode=variables[4])
+                    self.switchMusic("musicHere")
 
         else:
             match self.screen:
                 case "registerMenu":
-                    self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
+                    self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager, self.currentMusic)
+                    self.currentMusic = ""
                 case "loginMenu":
-                    self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager)
+                    self.currentDisplay = LoginMenu(self.switchScreen, self.display, self.manager, self.currentMusic)
+                    self.currentMusic = ""
                 case "gameMenu":
-                    self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.endGame)
+                    self.currentDisplay = GameMenu(self.switchScreen, self.display, self.manager, self.currentMusic,
+                                                   self.endGame)
+                    self.switchMusic("Littleroot_Town")
                 case "gameModeSelectMenu":
-                    self.currentDisplay = GameModeSelectMenu(self.switchScreen, self.display, self.manager)
+                    self.currentDisplay = GameModeSelectMenu(self.switchScreen, self.display, self.manager, self.currentMusic)
+                    self.switchMusic("Littleroot_Town")
                 case "leaderboardSelectMenu":
-                    self.currentDisplay = LeaderboardSelectMenu(self.switchScreen, self.display, self.manager)
+                    self.currentDisplay = LeaderboardSelectMenu(self.switchScreen, self.display, self.manager,
+                                                                self.currentMusic)
+                    self.switchMusic("Littleroot_Town")
+
+    def switchMusic(self, music):
+        self.currentMusic = music
 
     def endGame(self):
         self.isRunning = False
@@ -81,6 +113,7 @@ class Main:
     def gameLoop(self):
         clock = self.clock.tick(60)
         timeDelta = clock / 1000
+
         for ev in pygame.event.get():
             self.manager.process_events(ev)
 
