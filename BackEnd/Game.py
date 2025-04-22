@@ -2,6 +2,7 @@
 import sys
 import os
 import pygame
+import pygame_gui
 import random
 import time
 
@@ -22,6 +23,8 @@ class Game:
         self.screen = screen
         self.display = display
         self.manager = manager
+
+        self.manager.get_theme().load_theme("../ThemeFile/Game.json")
 
         self.start_time = None
         self.end_time = None
@@ -61,6 +64,17 @@ class Game:
         self.paused = False
         self.pause_menu = None
 
+        pause_button_rect = pygame.Rect((0, 0), (56, 56))
+        pause_button_rect.topleft = 30, 30
+        self.pause_button = pygame_gui.elements.UIButton(relative_rect=pause_button_rect,
+                                                       text="",
+                                                       object_id=pygame_gui.core.ObjectID(
+                                                           class_id="@game_pause_button",
+                                                           object_id="#pauseButton"),
+                                                       manager=self.manager,
+                                                       anchors={'left': 'left',
+                                                                'top': 'top'})
+
         self.background_img = None
         try:
             self.background_img = pygame.image.load("../Assets/Background/BackgroundClear.png")
@@ -97,6 +111,14 @@ class Game:
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE and self.game_active:
+                self.pause_button.hide()
+                # call pause menu
+                self.paused = True
+                self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
+
+        if event.type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element == self.pause_button:
+                self.pause_button.hide()
                 # call pause menu
                 self.paused = True
                 self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)

@@ -86,6 +86,7 @@ class PauseMenu:
                     case self.resumeButton:
                         self.buttonClick.play()
                         self.killAll()
+                        self.game.pause_button.show()
                         self.game.paused = False 
                     case self.hintButton:
                         self.buttonClick.play()
@@ -96,6 +97,7 @@ class PauseMenu:
             case pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     self.killAll()
+                    self.game.pause_button.show()
                     self.game.paused = False
 
     def update(self, timeDelta):
