@@ -131,6 +131,18 @@ class Tutorial:
                                                   anchors={'right': 'right',
                                                            'bottom': 'bottom'})
 
+        # # Back button
+        # backButtonRect = pygame.Rect((0, 0), (150, 56))
+        # backButtonRect.bottomleft = 30, -30
+        # self.backButton = pygame_gui.elements.UIButton(relative_rect=backButtonRect,
+        #                                                text="< BACK",
+        #                                                object_id=pygame_gui.core.ObjectID(
+        #                                                    class_id="@tutorialButton",
+        #                                                    object_id="#backButton"),
+        #                                                manager=self.manager,
+        #                                                anchors={'left': 'left',
+        #                                                         'bottom': 'bottom'})
+
         # Next button
         nextButtonRect = pygame.Rect((0, 0), (150, 56))
         nextButtonRect.bottomright = -30, -30
@@ -148,95 +160,7 @@ class Tutorial:
             case pygame.MOUSEBUTTONDOWN:
                 match ev.button:
                     case 1:
-                        match self.stage:
-                            case "1":
-                                match self.page:
-                                    case 1:
-                                        self.updateArrow(True, 600, 580, 180)
-                                    case 3:
-                                        self.updateArrow(True, 540, 150, 270)
-                                    case 4:
-                                        self.updateArrow(True, 550, 150, 180)
-                                    case 5:
-                                        self.updateArrow(True, 850, 100, 215)
-                                    case 6:
-                                        self.updateArrow(False)
-                                    case 7:
-                                        self.annyTF.set_image(self.annyTFSad)
-                                        self.annyTF.rebuild()
-                                    case 8:
-                                        self.cheatSheet.visible = True
-                                        self.cheatSheet.rebuild()
-
-                                        self.annyTF.set_image(self.annyTFHappy)
-                                        self.annyTF.rebuild()
-                                    case 9:
-                                        self.cheatSheet.visible = False
-                                        self.cheatSheet.rebuild()
-
-                                        self.annyTF.set_image(self.annyTFTease)
-                                        self.annyTF.rebuild()
-                                if self.page > 9:
-                                    self.screen("tutorialEngine;conversion;None")
-                                else:
-                                    self.updateDialog()
-                            case "2":
-                                match self.page:
-                                    case 1:
-                                        self.cheatSheet.set_image(self.cheatSheetBasicCalculation)
-                                        self.cheatSheet.visible = True
-                                        self.cheatSheet.rebuild()
-                                    case 2:
-                                        self.cheatSheet.visible = False
-                                        self.cheatSheet.rebuild()
-
-                                        self.annyTF.set_image(self.annyTFTease)
-                                        self.annyTF.rebuild()
-                                if self.page > 2:
-                                    self.screen("tutorialEngine;basic_calculation;None")
-                                else:
-                                    self.updateDialog()
-                            case "3":
-                                match self.page:
-                                    case 1:
-                                        self.cheatSheet.set_image(self.cheatSheetMixedCalculation)
-                                        self.cheatSheet.visible = True
-                                        self.cheatSheet.rebuild()
-                                    case 2:
-                                        self.cheatSheet.visible = False
-                                        self.cheatSheet.rebuild()
-
-                                        self.annyTF.set_image(self.annyTFTease)
-                                        self.annyTF.rebuild()
-                                if self.page > 2:
-                                    self.screen("tutorialEngine;mixed_calculation;None")
-                                else:
-                                    self.updateDialog()
-                            case "4":
-                                match self.page:
-                                    case 1:
-                                        self.updateArrow(True, 150, 150, 315)
-
-                                        self.annyTF.set_image(self.annyTFTease)
-                                        self.annyTF.rebuild()
-                                    case 2:
-                                        self.updateArrow(False)
-
-                                        self.annyTF.set_image(self.annyTFHappy)
-                                        self.annyTF.rebuild()
-                                    case 3:
-                                        self.annyTF.set_image(self.annyTFSad)
-                                        self.annyTF.rebuild()
-                                if self.page > 3:
-                                    try:
-                                        tutorialManage = TutorialManage()
-                                        tutorialManage.updateTutorial()
-                                        self.screen("gameMenu")
-                                    except:
-                                        self.screen(
-                                            "error;Database Error Occurred:;Please contact Admin to resolve the matter.")
-                                else:
-                                    self.updateDialog()
+                        self.checkPage()
             #Fake button is intentional design
             case pygame_gui.UI_BUTTON_PRESSED:
                 self.buttonClick.play()
@@ -265,3 +189,94 @@ class Tutorial:
 
     def draw(self):
         pass
+
+    def checkPage(self):
+        match self.stage:
+            case "1":
+                match self.page:
+                    case 1:
+                        self.updateArrow(True, 600, 580, 180)
+                    case 3:
+                        self.updateArrow(True, 540, 150, 270)
+                    case 4:
+                        self.updateArrow(True, 550, 150, 180)
+                    case 5:
+                        self.updateArrow(True, 850, 100, 215)
+                    case 6:
+                        self.updateArrow(False)
+                    case 7:
+                        self.annyTF.set_image(self.annyTFSad)
+                        self.annyTF.rebuild()
+                    case 8:
+                        self.cheatSheet.visible = True
+                        self.cheatSheet.rebuild()
+
+                        self.annyTF.set_image(self.annyTFHappy)
+                        self.annyTF.rebuild()
+                    case 9:
+                        self.cheatSheet.visible = False
+                        self.cheatSheet.rebuild()
+
+                        self.annyTF.set_image(self.annyTFTease)
+                        self.annyTF.rebuild()
+                if self.page > 9:
+                    self.screen("tutorialEngine;conversion;None")
+                else:
+                    self.updateDialog()
+            case "2":
+                match self.page:
+                    case 1:
+                        self.cheatSheet.set_image(self.cheatSheetBasicCalculation)
+                        self.cheatSheet.visible = True
+                        self.cheatSheet.rebuild()
+                    case 2:
+                        self.cheatSheet.visible = False
+                        self.cheatSheet.rebuild()
+
+                        self.annyTF.set_image(self.annyTFTease)
+                        self.annyTF.rebuild()
+                if self.page > 2:
+                    self.screen("tutorialEngine;basic_calculation;None")
+                else:
+                    self.updateDialog()
+            case "3":
+                match self.page:
+                    case 1:
+                        self.cheatSheet.set_image(self.cheatSheetMixedCalculation)
+                        self.cheatSheet.visible = True
+                        self.cheatSheet.rebuild()
+                    case 2:
+                        self.cheatSheet.visible = False
+                        self.cheatSheet.rebuild()
+
+                        self.annyTF.set_image(self.annyTFTease)
+                        self.annyTF.rebuild()
+                if self.page > 2:
+                    self.screen("tutorialEngine;mixed_calculation;None")
+                else:
+                    self.updateDialog()
+            case "4":
+                match self.page:
+                    case 1:
+                        self.updateArrow(True, 150, 150, 315)
+
+                        self.annyTF.set_image(self.annyTFTease)
+                        self.annyTF.rebuild()
+                    case 2:
+                        self.updateArrow(False)
+
+                        self.annyTF.set_image(self.annyTFHappy)
+                        self.annyTF.rebuild()
+                    case 3:
+                        self.annyTF.set_image(self.annyTFSad)
+                        self.annyTF.rebuild()
+                if self.page > 3:
+                    try:
+                        tutorialManage = TutorialManage()
+                        tutorialManage.updateTutorial()
+                        self.screen("gameMenu")
+                    except:
+                        self.screen(
+                            "error;Database Error Occurred:;Please contact Admin to resolve the matter.")
+                else:
+                    self.updateDialog()
