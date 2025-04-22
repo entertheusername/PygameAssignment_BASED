@@ -134,8 +134,8 @@ class Game:
                 # call pause menu
                 self.paused = True
                 self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
-            elif event.key == pygame.K_c and self.game_active: # Testing, if not then comment
-                self.score += 1
+            # elif event.key == pygame.K_c and self.game_active: # Testing, if not then comment
+            #     self.score += 1
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.pause_button:
