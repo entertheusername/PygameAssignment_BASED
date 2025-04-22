@@ -18,6 +18,7 @@ class Tutorial:
         self.stage = stage
 
         self.manager.get_theme().load_theme("../ThemeFile/Tutorial.json")
+        self.manager.get_theme().load_theme("../ThemeFile/Game.json")
         self.arrowImage = pygame.image.load("../Assets/WindowElements/ArrowTutorial.png")
 
         self.cheatSheetConversion = pygame.image.load("../Assets/Background/BackgroundTutorial.png")
@@ -42,6 +43,7 @@ class Tutorial:
         self.dialogBox = None
         self.cheatSheet = None
         self.annyTF = None
+        self.pauseButton = None
         self.nextButton = None
 
         self.uiSetup()
@@ -73,7 +75,16 @@ class Tutorial:
                                                                 'centery': 'centery'})
 
         # Game Assets
-        # Add the pause button img ltr
+        pause_button_rect = pygame.Rect((0, 0), (56, 56))
+        pause_button_rect.topleft = 30, 30
+        self.pause_button = pygame_gui.elements.UIButton(relative_rect=pause_button_rect,
+                                                         text="",
+                                                         object_id=pygame_gui.core.ObjectID(
+                                                             class_id="@game_pause_button",
+                                                             object_id="#pauseButton"),
+                                                         manager=self.manager,
+                                                         anchors={'left': 'left',
+                                                                  'top': 'top'})
 
         # Cheat sheets
         # Conversion Img
@@ -95,11 +106,11 @@ class Tutorial:
                                                       anchors={'right': 'right',
                                                                'bottom': 'bottom'})
 
-        annyTag = pygame.image.load("../Assets/Character/AnnyTFTag.png")
+        annyTagImage = pygame.image.load("../Assets/Character/AnnyTFTag.png")
         annyTagRect = pygame.Rect((0, 0), (155, 78))
         annyTagRect.bottomright = -28, -60
-        self.annyTag = pygame_gui.elements.UIImage(relative_rect=annyTagRect,
-                                                  image_surface=annyTag,
+        annyTag = pygame_gui.elements.UIImage(relative_rect=annyTagRect,
+                                                  image_surface=annyTagImage,
                                                   manager=self.manager,
                                                   anchors={'right': 'right',
                                                            'bottom': 'bottom'})
@@ -188,7 +199,7 @@ class Tutorial:
                             case "4":
                                 match self.page:
                                     case 1:
-                                        self.updateArrow(True, 150, 100, 315)
+                                        self.updateArrow(True, 150, 150, 315)
 
                                         self.annyTF.set_image(self.annyTFTease)
                                         self.annyTF.rebuild()
