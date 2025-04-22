@@ -46,11 +46,11 @@ class Main:
                                                 self.endGame)
                 self.currentMusic = "Littleroot_Town"
             else:
-                self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager)
+                self.currentDisplay = RegisterMenu(self.switchScreen, self.display, self.manager, self.currentMusic)
                 self.currentMusic = ""
         except:
             errorMsg = ["Database Error Occurred:", "Please contact Admin to resolve the matter."]
-            self.currentDisplay = Error(self.switchScreen, self.display, self.manager, errorMsg)
+            self.currentDisplay = Error(self.switchScreen, self.display, self.manager, self.currentMusic, errorMsg)
 
     def switchScreen(self, screen):
         self.screen = screen
