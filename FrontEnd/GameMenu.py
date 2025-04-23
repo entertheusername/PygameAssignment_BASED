@@ -66,6 +66,18 @@ class GameMenu:
                                            anchors={'centerx': 'centerx',
                                                     'top': 'top'})
 
+        # Settings button
+        settingsButtonRect = pygame.Rect((0, 0), (56, 56))
+        settingsButtonRect.bottomleft = 30, -30
+        self.settingsButton = pygame_gui.elements.UIButton(relative_rect=settingsButtonRect,
+                                                       text="",
+                                                       manager=self.manager,
+                                                       object_id=pygame_gui.core.ObjectID(
+                                                           class_id="@gameButton",
+                                                           object_id="#settingsButton"),
+                                                       anchors={'left': 'left',
+                                                                'bottom': 'bottom'})
+        
         # Play button
         playButtonRect = pygame.Rect((0, 0), (360, 70))
         playButtonRect.top = initialYElement + (stackY * 2)
@@ -113,6 +125,9 @@ class GameMenu:
             case pygame_gui.UI_BUTTON_PRESSED:
                 print(ev.ui_element)
                 match ev.ui_element:
+                    case self.settingsButton:
+                        self.buttonClick.play()
+                        self.screen("settingMenu")
                     case self.playButton:
                         self.buttonClick.play()
                         self.screen("gameModeSelectMenu")
@@ -151,11 +166,13 @@ class GameMenu:
         self.playButton.disable()
         self.leaderboardButton.disable()
         self.exitButton.disable()
+        self.settingsButton.disable()
 
     def enableAllElements(self):
         self.playButton.enable()
         self.leaderboardButton.enable()
         self.exitButton.enable()
+        self.settingsButton.enable()
 
     def draw(self):
         pass

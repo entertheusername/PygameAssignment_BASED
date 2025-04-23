@@ -16,6 +16,20 @@
             "shadow_width": "0"
         }
     },
+    "#settingsButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/GearButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/GearButtons.png",
+                "sub_surface_rect": "77, 0, 56, 56",
+                "premultiplied": "0"
+            }
+        }
+    },
     "#playButton": {
         "images": {
             "normal_image": {

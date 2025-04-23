@@ -1,0 +1,140 @@
+{
+    "panel": {
+        "colours": {
+            "dark_bg": "#FF9696",
+            "normal_border": "#FF7474"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "3",
+            "shadow_width": "25"
+        }
+    },
+    "@settingLabel": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFDFE1",
+            "text_shadow": "#BE9693"
+        },
+        "font": {
+            "name": "tiny5",
+            "size": "40",
+            "regular_path": "../Assets/Text/Tiny5.ttf"
+        },
+        "misc": {
+            "text_shadow": "1",
+            "text_shadow_size": "2",
+            "text_shadow_offset": "2,2",
+            "text_horiz_alignment": "right"
+        }
+    },
+    "button": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "disabled_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "active_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)",
+            "disabled_border": "rgba(0, 0, 0, 0)",
+            "hovered_border": "rgba(0, 0, 0, 0)",
+            "selected_border": "rgba(0, 0, 0, 0)",
+            "active_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "shadow_width": "0"
+        }
+    },
+    "#tutorialButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/ReplayTutorialButtons.png",
+                "sub_surface_rect": "0, 0, 359, 62",
+                "premultiplied": "0"
+            },
+            "selected_image": {
+                "path": "../Assets/Buttons/ReplayTutorialButtons.png",
+                "sub_surface_rect": "387, 0, 359, 62",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#closeButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/CloseButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/CloseButtons.png",
+                "sub_surface_rect": "75, 0, 56, 56",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "@settingSoundButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/TestSoundButton.png",
+                "sub_surface_rect": "0, 0, 68, 53",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/TestSoundButton.png",
+                "sub_surface_rect": "79, 0, 68, 53",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "horizontal_slider": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "disabled_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "active_bg": "rgba(0, 0, 0, 0)",
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_text": "rgba(0, 0, 0, 0)",
+            "hovered_text": "rgba(0, 0, 0, 0)",
+            "selected_text": "rgba(0, 0, 0, 0)",
+            "disabled_text": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "shape": "rectangle",
+            "enable_arrow_buttons": "0",
+            "sliding_button_width": "20",
+            "shadow_width": "0",
+            "border_width": "0"
+        }
+    },
+    "horizontal_slider.#sliding_button": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)"
+        },
+        "images": {
+            "normal_image": {
+                "path": "../Assets/WindowElements/SettingSliderButton.png",
+                "sub_surface_rect": "0, 0, 20, 39",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/WindowElements/SettingSliderButton.png",
+                "sub_surface_rect": "0, 0, 20, 39",
+                "premultiplied": "0"
+            },
+            "selected_image": {
+                "path": "../Assets/WindowElements/SettingSliderButton.png",
+                "sub_surface_rect": "0, 0, 20, 39",
+                "premultiplied": "0"
+            }
+        },
+        "misc": {
+            "shadow_width": "0",
+            "border_width": "1"
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
@@ -18,6 +19,7 @@ from LeaderboardSelectMenu import LeaderboardSelectMenu
 from Leaderboard import Leaderboard
 from GameOverMenu import GameOverMenu
 from BackEnd.Settings import Settings
+from SettingsMenu import SettingMenu
 
 
 class Main:
@@ -103,6 +105,10 @@ class Main:
                     self.currentDisplay = LeaderboardSelectMenu(self.switchScreen, self.display, self.manager,
                                                                 self.currentMusic)
                     self.switchMusic("Littleroot_Town")
+                case "settingMenu":
+                    self.currentDisplay = SettingMenu(self.switchScreen, self.display, self.manager, self.currentMusic)
+                    self.currentMusic = ""
+
 
     def switchMusic(self, music):
         self.currentMusic = music

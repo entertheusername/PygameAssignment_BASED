@@ -41,6 +41,9 @@ class Game:
         self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
         self.buttonClick.set_volume(sfxVolume)
 
+        self.neuroDeath = pygame.mixer.Sound("../Assets/Audio/NeuroDeath.ogg")
+        self.neuroDeath.set_volume(sfxVolume * 0.5)
+
         self.music_fade = 0
         self.music_fade_duration = 4
 
@@ -267,6 +270,7 @@ class Game:
                 self.game_over()
 
     def game_over(self):
+        self.neuroDeath.play()
         self.game_active = False
         self.end_time = time.time()
         self.final_message = f"Oopsie! You got it wrong! The correct answer is:  {self.correct_answer_value}"

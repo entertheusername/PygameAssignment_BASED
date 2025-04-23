@@ -9,7 +9,7 @@ from BackEnd.Game import Game
 
 class TutorialEngine(Game):
     def __init__(self, screen, display, manager, music, gamemode: str):
-        super().__init__(screen, display, manager, gamemode)
+        super().__init__(screen, display, manager, "Snowy", gamemode)
 
         # Audio
         if music != "Sans":
