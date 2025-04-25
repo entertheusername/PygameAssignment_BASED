@@ -103,7 +103,6 @@ class Tutorial:
                                                                   'top': 'top'})
 
         # Cheat sheets
-        # Conversion Img
         cheatSheetRect = pygame.Rect((-50, 0), (800, 400))
         cheatSheetRect.top = 10
         self.cheatSheet = pygame_gui.elements.UIImage(relative_rect=cheatSheetRect,

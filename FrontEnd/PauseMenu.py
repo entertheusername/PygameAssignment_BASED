@@ -1,6 +1,7 @@
 import sys
 import os
 
+from FrontEnd.Hints import HintMenu
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
@@ -26,6 +27,8 @@ class PauseMenu:
         self.buttonClick.set_volume(sfxVolume)
 
         # PauseMenu
+        self.hintMenu = None
+
         self.resumeButton = None
         self.hintButton = None
         self.quitButton = None
@@ -92,7 +95,20 @@ class PauseMenu:
         for i in self.elements:
             i.kill()
 
+    def hideAll(self):
+        for i in self.elements:
+            i.hide()
+
+    def showAll(self):
+        for i in self.elements:
+            i.show()
+
     def eventCheck(self, ev):
+
+        if self.game.paused and self.hintMenu:
+            self.hintMenu.eventCheck(ev)
+            return
+
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 match ev.ui_element:
@@ -103,7 +119,8 @@ class PauseMenu:
                         self.game.paused = False 
                     case self.hintButton:
                         self.buttonClick.play()
-                        self.game.screen("hintMenu")
+                        self.hintMenu = HintMenu(self, self.manager, self.display, self.gameMode)
+                        self.hideAll()
                     case self.quitButton:
                         self.buttonClick.play()
                         self.game.screen("gameModeSelectMenu")
@@ -117,9 +134,12 @@ class PauseMenu:
         self.manager.update(timeDelta)
 
     def draw(self):
-        self.display.fill(pygame.Color('#FFE0E3'))
-        self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
-        alive_blur = pygame.image.load("../Assets/Character/NeuroAliveBlur.png")
-        alive_rect = alive_blur.get_rect()
-        alive_rect.bottomright = (Constants.SCREEN_WIDTH - 60, Constants.SCREEN_HEIGHT)
-        self.display.blit(alive_blur, alive_rect)
+        if self.game.paused and self.hintMenu:
+            self.hintMenu.draw()
+        else:
+            self.display.fill(pygame.Color('#FFE0E3'))
+            self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
+            alive_blur = pygame.image.load("../Assets/Character/NeuroAliveBlur.png")
+            alive_rect = alive_blur.get_rect()
+            alive_rect.bottomright = (Constants.SCREEN_WIDTH - 60, Constants.SCREEN_HEIGHT)
+            self.display.blit(alive_blur, alive_rect)

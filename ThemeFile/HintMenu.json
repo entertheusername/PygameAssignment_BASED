@@ -1,0 +1,73 @@
+{
+    "panel": {
+        "colours": {
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
+    "button": {
+        "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "active_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)",
+            "hovered_border": "rgba(0, 0, 0, 0)",
+            "selected_border": "rgba(0, 0, 0, 0)",
+            "active_border": "rgba(0, 0, 0, 0)",
+            "normal_text": "#FFFFFF",
+            "hovered_text": "#AAAAAA",
+            "normal_text_shadow": "#D9908C",
+            "hovered_text_shadow": "#966360"
+        },
+        "misc": {
+            "shadow_width": "0"
+        }
+    },
+    "#rightPageButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "102, 0, 44, 78",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "102, 100, 44, 78",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#leftPageButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "0, 0, 44, 78",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/LeftRightButtons.png",
+                "sub_surface_rect": "0, 100, 44, 78",
+                "premultiplied": "0"
+            }
+        }
+    },
+    "#closeButton": {
+        "images": {
+            "normal_image": {
+                "path": "../Assets/Buttons/CloseButtons.png",
+                "sub_surface_rect": "0, 0, 56, 56",
+                "premultiplied": "0"
+            },
+            "hovered_image": {
+                "path": "../Assets/Buttons/CloseButtons.png",
+                "sub_surface_rect": "75, 0, 56, 56",
+                "premultiplied": "0"
+            }
+        }
+    }
+}
