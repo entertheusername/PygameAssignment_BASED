@@ -7,6 +7,7 @@ import bcrypt
 import re
 import keyring
 import json
+import datetime
 
 class Authentication:
     def __init__(self):
@@ -158,8 +159,9 @@ class Authentication:
         :return: None
         """
         passwordHash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        dateRegistered = datetime.date.today()
 
-        registerQuery = "INSERT INTO students (Username, Email, Password, AdminID) VALUES (%s, %s, %s, %s)"
-        self.cursor.execute(registerQuery, (username, email, passwordHash, 1,))
+        registerQuery = "INSERT INTO students (Username, Email, Password, AdminID, DateReg) VALUES (%s, %s, %s, %s, %s)"
+        self.cursor.execute(registerQuery, (username, email, passwordHash, 1, dateRegistered))
         self.conn.commit()
 
