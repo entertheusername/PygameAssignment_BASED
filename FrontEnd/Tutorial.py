@@ -27,9 +27,9 @@ class Tutorial:
         # Images
         self.arrowImage = pygame.image.load("../Assets/WindowElements/ArrowTutorial.png")
 
-        self.cheatSheetConversion = pygame.image.load("../Assets/Background/BackgroundTutorial.png")
-        self.cheatSheetBasicCalculation = pygame.image.load("../Assets/Background/BackgroundClear.png")
-        self.cheatSheetMixedCalculation = pygame.image.load("../Assets/Background/BackgroundBlur.png")
+        self.cheatSheetConversion = pygame.image.load("../Assets/Hint/conversionHint_1.png")
+        self.cheatSheetBasicCalculation = pygame.image.load("../Assets/Hint/basic_calculationHint_1.png")
+        self.cheatSheetMixedCalculation = pygame.image.load("../Assets/Hint/mixed_calculationHint_1.png")
 
         self.annyTFHappy = pygame.image.load("../Assets/Character/AnnyTFHappy.png")
         self.annyTFSad = pygame.image.load("../Assets/Character/AnnyTFSad.png")
