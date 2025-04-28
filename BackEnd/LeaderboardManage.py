@@ -53,9 +53,13 @@ class LeaderboardManage:
             self.high_score = current_high
 
     def get_high_score(self, game_mode):
-        query = ("SELECT MAX(Score) FROM scores "
-                 "WHERE GameMode = %s")
-        self.cursor.execute(query, (game_mode,))
+        file = open("../loggedInUser.json", "r")
+        data = json.load(file)
+        username = data['username']
+        query = ("SELECT MAX(Score) FROM scores s "
+                 "JOIN students st ON s.StudentID = st.StudentID "
+                 f"WHERE GameMode = %s AND Username = %s")
+        self.cursor.execute(query, (game_mode, username,))
         result = self.cursor.fetchone()
         return result[0] if result[0] is not None else 0
 
