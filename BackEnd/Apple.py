@@ -53,7 +53,7 @@ class Apple:
         base_x = value_pos[0] + value_surf.get_width()
         base_y = value_pos[1] + value_surf.get_height() - base_surf.get_height() + 1
         # Correct indicators (FOR TESTING, COMMENT IF NOT NEEDED)
-        pygame.draw.circle(screen, self.color, combined_text_rect.center, 25)
+        # pygame.draw.circle(screen, self.color, combined_text_rect.center, 25)
         screen.blit(value_surf, value_pos)
         screen.blit(base_surf, (base_x, base_y))
 
