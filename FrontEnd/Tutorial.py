@@ -102,6 +102,8 @@ class Tutorial:
                                                          anchors={'left': 'left',
                                                                   'top': 'top'})
 
+        self.pause_button.disable()
+
         # Cheat sheets
         cheatSheetRect = pygame.Rect((-50, 0), (800, 400))
         cheatSheetRect.top = 10

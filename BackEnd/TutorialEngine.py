@@ -11,6 +11,8 @@ class TutorialEngine(Game):
     def __init__(self, screen, display, manager, music, gamemode: str):
         super().__init__(screen, display, manager, "Snowy", gamemode)
 
+        self.pause_button.disable()
+
         # Audio
         if music != "Sans":
             pygame.mixer.music.load("../Assets/Audio/Tutorial-Undertale_Sans.ogg")
