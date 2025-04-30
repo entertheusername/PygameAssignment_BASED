@@ -42,6 +42,10 @@ class LoginMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))
 
@@ -199,6 +203,11 @@ class LoginMenu:
                                                                  'bottom': 'bottom'})
 
     def eventCheck(self, ev):
+        """
+
+        :param ev:
+        :return:
+        """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 # print(ev.ui_element)
@@ -230,7 +239,16 @@ class LoginMenu:
                 self.screen("registerMenu")
 
     def update(self, timeDelta):
+        """
+
+        :param timeDelta:
+        :return:
+        """
         self.manager.update(timeDelta)
 
     def draw(self):
+        """
+
+        :return:
+        """
         pass

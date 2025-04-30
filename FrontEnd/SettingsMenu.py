@@ -40,6 +40,10 @@ class SettingMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
@@ -215,6 +219,11 @@ class SettingMenu:
                                                                  'top': 'top'})
 
     def eventCheck(self, ev):
+        """
+
+        :param ev:
+        :return:
+        """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 # print(ev.ui_element)
@@ -243,7 +252,16 @@ class SettingMenu:
                         self.setting.setKeyVariable("SFX", self.sfxInput.get_current_value() / 100)
 
     def update(self, timeDelta):
+        """
+
+        :param timeDelta:
+        :return:
+        """
         self.manager.update(timeDelta)
 
     def draw(self):
+        """
+
+        :return:
+        """
         pass

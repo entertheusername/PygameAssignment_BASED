@@ -23,7 +23,11 @@ class TutorialEngine(Game):
         self.gamemode = gamemode
 
     def update(self, timeDelta):  # override
-        """Main tutorial update loop logic."""
+        """
+        Main tutorial update loop logic with slight changes to follow tutorial standards.
+        :param timeDelta: timing nonsense.
+        :return: None
+        """
         self.manager.update(timeDelta)
 
         if not self.game_active and self.show_correct_answer:
@@ -81,6 +85,10 @@ class TutorialEngine(Game):
                 self.game_over()
 
     def game_over(self):  # override
+        """
+        Game over sequence with changes to cater to tutorial standards (no death only restart).
+        :return: None
+        """
         # Refresh new question with small player animation and audio (if possible)
         self.final_message = f"Ouch Wrong tutel! The answer is {self.correct_answer_value}."
         self.game_active = False
@@ -88,9 +96,17 @@ class TutorialEngine(Game):
         self.start_time = pygame.time.get_ticks()
 
     def timer(self):  # override
+        """
+        Not needed as it doesn't calculate time.
+        :return: None
+        """
         pass  # Removed as its not needed
 
     def game_next(self):
+        """
+        Changing between the tutorial game engine and the actual tutorial.
+        :return: None
+        """
         # Change to the next game mode using the game_next function
         match self.gamemode:
             case "conversion":
@@ -101,4 +117,9 @@ class TutorialEngine(Game):
                 self.screen("tutorial;4;None")
 
     def eventCheck(self, event):
+        """
+        Check any specific game events happened.
+        :param event: pygame event variable.
+        :return: None
+        """
         pass

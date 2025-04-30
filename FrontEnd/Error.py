@@ -26,6 +26,10 @@ class Error:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+        Setup basic GUI interface using pygame_gui.
+        :return: None
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))
 
@@ -89,10 +93,24 @@ class Error:
 
 
     def eventCheck(self, ev):
+        """
+        Check any specific game events happened.
+        :param event: pygame event variable.
+        :return: None
+        """
         pass
 
     def update(self, timeDelta):
+        """
+        Update game events.
+        :param timeDelta: Timing nonsense
+        :return: None
+        """
         self.manager.update(timeDelta)
 
     def draw(self):
+        """
+        Draw elements onto the game.
+        :return: None
+        """
         pass

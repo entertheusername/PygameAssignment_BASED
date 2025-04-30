@@ -53,6 +53,11 @@ class LeaderboardManage:
             self.high_score = current_high
 
     def get_high_score(self, game_mode):
+        """
+        Obtain high score of the logged-in user.
+        :param game_mode: Which game mode is played.
+        :return: Highest score of user had on that game mode.
+        """
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         username = data['username']
@@ -64,6 +69,13 @@ class LeaderboardManage:
         return result[0] if result[0] is not None else 0
 
     def retrieveLeaderboard(self, gameMode, page, monthly=False):
+        """
+        Obtain leaderboard with some custom logged-in user stuff.
+        :param gameMode: Which game mode is selected.
+        :param page: Which page is the user on for pagination.
+        :param monthly: Boolean for monthly filter or not.
+        :return: List of score records.
+        """
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         username = data['username']

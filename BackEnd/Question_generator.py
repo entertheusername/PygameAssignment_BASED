@@ -19,7 +19,19 @@ class Question:
 
     # Helper function skibidi ahhhhhh (To avoid repetition of code in draw_question)
     def render_number_with_base(self, screen, value: str, base: int, x: int, y: int, font: pygame.font.Font, sub_font: pygame.font.Font, color, offset: tuple[int, int]) -> int:
-        """Renders value and base subscript."""
+        """
+        Renders value and base subscript.
+        :param screen:
+        :param value:
+        :param base:
+        :param x:
+        :param y:
+        :param font:
+        :param sub_font:
+        :param color:
+        :param offset:
+        :return:
+        """
         offset_x, offset_y = offset
         value_surf = font.render(value, True, color)
         base_surf = sub_font.render(str(base), True, color)
@@ -34,7 +46,15 @@ class Question:
         return value_surf.get_width() + base_surf.get_width()
 
     def draw_question(self, display, font, sub_font, text_color, bold_offset):
-        """Render questions with subscript bases"""
+        """
+        Render questions with subscript bases
+        :param display:
+        :param font:
+        :param sub_font:
+        :param text_color:
+        :param bold_offset:
+        :return:
+        """
         y_pos = 38
         x_padding = 30
         y_padding = 15
@@ -113,7 +133,11 @@ class Generator:
         self.GAMEMODES = ["conversion", "basic_calculation", "mixed_calculation"]
 
     def generate_question(self, gamemode):
-        """Generate questions for selected gamemode"""
+        """
+        Generate questions for selected gamemode
+        :param gamemode:
+        :return:
+        """
         if gamemode == "conversion":
             return self.generate_conversion()
         elif gamemode == "basic_calculation":
@@ -124,7 +148,10 @@ class Generator:
             print (f"Error generating question for {gamemode}")
 
     def generate_conversion(self) -> Question:
-        """Generate a conversion question from one base to another"""
+        """
+        Generate a conversion question from one base to another
+        :return:
+        """
         source_base, target_base = random.sample(self.BASES, 2)
         decimal_num = random.randint(5, 30)
 
@@ -143,7 +170,10 @@ class Generator:
         )
     
     def generate_basic_calculation(self) -> Question:
-        """Generate addition or subtraction questions within the same base"""
+        """
+        Generate addition or subtraction questions within the same base
+        :return:
+        """
         operation = random.choice(["ADDITION", "SUBTRACTION"])
         base = random.choice(self.BASES)
         
@@ -174,7 +204,10 @@ class Generator:
         )
  
     def generate_mixed_calculation(self) -> Question:
-        """Generate addition or subtraction between different bases"""
+        """
+        Generate addition or subtraction between different bases
+        :return:
+        """
         base1, base2 = random.sample(self.BASES, 2)
         target_base = 10  # Answers in decimal
 
@@ -205,6 +238,12 @@ class Generator:
         )
 
     def to_base(self, number: int, base: int) -> str:
+        """
+        Change selected number to base numbers.
+        :param number: Decimal number selected.
+        :param base: Which base to convert to.
+        :return: Base number based on the base given.
+        """
         if number < 0: 
             number = 0
         if base == 2:

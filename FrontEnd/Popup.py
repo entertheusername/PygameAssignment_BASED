@@ -26,7 +26,10 @@ class Popup:
         self.uiSetup()
 
     def uiSetup(self):
+        """
 
+        :return:
+        """
         # Popup itself
         popupRect = pygame.Rect((0, 0), (300, 150))
         popup = pygame_gui.elements.UIWindow(rect=popupRect,
@@ -109,6 +112,11 @@ class Popup:
             self.elements.append(self.okButton)
 
     def centerWindow(self, window: pygame_gui.elements.UIWindow):
+        """
+
+        :param window:
+        :return:
+        """
         window_size = window.get_relative_rect().size
         displayX, displayY = self.display.get_size()
         new_x = (displayX - window_size[0]) // 2
@@ -116,5 +124,9 @@ class Popup:
         window.set_position((new_x, new_y))
 
     def killAll(self):
+        """
+
+        :return:
+        """
         for i in self.elements:
             i.kill()

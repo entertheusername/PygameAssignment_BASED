@@ -50,6 +50,10 @@ class Leaderboard:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
@@ -139,6 +143,11 @@ class Leaderboard:
                                                                 'centery': 'centery'})
 
     def updateLeaderboard(self, background):
+        """
+
+        :param background:
+        :return:
+        """
         if self.leaderboardRows:
             for i in self.leaderboardRows:
                 i.killAll()
@@ -174,6 +183,11 @@ class Leaderboard:
             self.leaderboardRows.append(row)
 
     def eventCheck(self, ev):
+        """
+
+        :param ev:
+        :return:
+        """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 # print(ev.ui_element)
@@ -197,9 +211,18 @@ class Leaderboard:
                         
 
     def update(self, timeDelta):
+        """
+
+        :param timeDelta:
+        :return:
+        """
         self.manager.update(timeDelta)
 
     def draw(self):
+        """
+
+        :return:
+        """
         pass
 
 
@@ -216,6 +239,10 @@ class LeaderboardRow:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         file.close()
@@ -331,6 +358,10 @@ class LeaderboardRow:
         self.elements.append(score)
 
     def killAll(self):
+        """
+
+        :return:
+        """
         for i in self.elements:
             i.kill()
 

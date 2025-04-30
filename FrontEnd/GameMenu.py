@@ -49,6 +49,10 @@ class GameMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+        Setup basic GUI interface using pygame_gui.
+        :return: None
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
@@ -121,6 +125,11 @@ class GameMenu:
 
 
     def eventCheck(self, ev):
+        """
+        Check any specific game events happened.
+        :param ev: pygame event variable.
+        :return: None
+        """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 print(ev.ui_element)
@@ -160,19 +169,36 @@ class GameMenu:
                         self.enableAllElements()
 
     def update(self, timeDelta):
+        """
+        Update game events.
+        :param timeDelta: Timing nonsense
+        :return: None
+        """
         self.manager.update(timeDelta)
 
     def disableAllElements(self):
+        """
+        Disable all the buttons on the page.
+        :return: None
+        """
         self.playButton.disable()
         self.leaderboardButton.disable()
         self.exitButton.disable()
         self.settingsButton.disable()
 
     def enableAllElements(self):
+        """
+        Enable all the buttons on the page.
+        :return: None
+        """
         self.playButton.enable()
         self.leaderboardButton.enable()
         self.exitButton.enable()
         self.settingsButton.enable()
 
     def draw(self):
+        """
+        Draw elements onto the game.
+        :return: None
+        """
         pass

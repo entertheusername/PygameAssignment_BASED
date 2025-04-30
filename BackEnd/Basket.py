@@ -34,9 +34,18 @@ class Basket:
         self.mask = pygame.mask.from_surface(self.img)
 
     def draw(self, screen):
+        """
+
+        :param screen:
+        :return:
+        """
         screen.blit(self.img, self.rect)
 
     def update(self):
+        """
+
+        :return:
+        """
         keys = pygame.key.get_pressed()
         new_img_position = False
 
@@ -53,6 +62,11 @@ class Basket:
             self.mask = pygame.mask.from_surface(self.img)
 
     def collides_with(self, other_sprite):
+        """
+
+        :param other_sprite:
+        :return:
+        """
         if not hasattr(other_sprite, 'rect') or not hasattr(other_sprite, 'mask'):
             print(f"Error checking collisions: {other_sprite} missing rect or mask.")
             return False

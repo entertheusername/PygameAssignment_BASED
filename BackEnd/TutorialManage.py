@@ -11,6 +11,10 @@ class TutorialManage:
         self.cursor = self.conn.cursor()
 
     def checkTutorial(self):
+        """
+        Check if the user has done the tutorial or not.
+        :return: Boolean
+        """
         file = open("../loggedInUser.json", "r")
         jsonData = json.load(file)
         file.close()
@@ -31,6 +35,10 @@ class TutorialManage:
             return None
 
     def updateTutorial(self):
+        """
+        Change tutorial from to finish as user finish tutorial.
+        :return: None
+        """
         file = open("../loggedInUser.json", "r")
         jsonData = json.load(file)
         file.close()

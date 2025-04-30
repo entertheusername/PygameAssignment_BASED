@@ -65,6 +65,10 @@ class Tutorial:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundTutorial.png"), (0, 0))
@@ -157,6 +161,11 @@ class Tutorial:
                                                                 'bottom': 'bottom'})
 
     def eventCheck(self, ev):
+        """
+
+        :param ev:
+        :return:
+        """
         match ev.type:
             case pygame.MOUSEBUTTONDOWN:
                 match ev.button:
@@ -167,12 +176,24 @@ class Tutorial:
                 self.buttonClick.play()
 
     def updateDialog(self):
+        """
+
+        :return:
+        """
         self.page += 1
         self.dialog = self.dialogs[self.stage][str(self.page)]
         self.wordCount = 1
         self.currentDialog = ""
 
     def updateArrow(self, blit=True, x=0, y=0, degree=0):
+        """
+
+        :param blit:
+        :param x:
+        :param y:
+        :param degree:
+        :return:
+        """
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundTutorial.png"), (0, 0))
         if blit:
@@ -181,6 +202,11 @@ class Tutorial:
             self.display.blit(arrowRotateImage, arrowRect)
 
     def update(self, timeDelta):
+        """
+
+        :param timeDelta:
+        :return:
+        """
         self.manager.update(timeDelta)
 
         if self.wordCount <= len(self.dialog):
@@ -189,9 +215,17 @@ class Tutorial:
             self.dialogBox.set_text(self.currentDialog)
 
     def draw(self):
+        """
+
+        :return:
+        """
         pass
 
     def checkPage(self):
+        """
+
+        :return:
+        """
         match self.stage:
             case "1":
                 match self.page:

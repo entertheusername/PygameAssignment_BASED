@@ -43,6 +43,11 @@ class Apple:
         self.text_rect = self.text_surf.get_rect()
 
     def draw(self, screen):
+        """
+
+        :param screen:
+        :return:
+        """
         screen.blit(self.image, self.rect)
         value_surf = self.font.render(self.value, True, self.text_color)
         base_surf = self.sub_font.render(str(self.base), True, self.text_color)
@@ -58,5 +63,9 @@ class Apple:
         screen.blit(base_surf, (base_x, base_y))
 
     def fall(self):
+        """
+
+        :return:
+        """
         self.rect.y += self.speed
         return self.rect.top > 1080

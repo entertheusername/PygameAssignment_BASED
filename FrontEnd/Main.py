@@ -55,6 +55,11 @@ class Main:
             self.currentDisplay = Error(self.switchScreen, self.display, self.manager, self.currentMusic, errorMsg)
 
     def switchScreen(self, screen):
+        """
+
+        :param screen:
+        :return:
+        """
         self.screen = screen
         self.manager = pygame_gui.UIManager((1080, 640))
         if re.match(r"^.+;.+;.+$", self.screen):
@@ -111,12 +116,25 @@ class Main:
 
 
     def switchMusic(self, music):
+        """
+
+        :param music:
+        :return:
+        """
         self.currentMusic = music
 
     def endGame(self):
+        """
+
+        :return:
+        """
         self.isRunning = False
 
     def gameLoop(self):
+        """
+
+        :return:
+        """
         clock = self.clock.tick(60)
         timeDelta = clock / 1000
 

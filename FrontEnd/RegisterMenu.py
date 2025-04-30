@@ -50,6 +50,10 @@ class RegisterMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))
 
@@ -298,6 +302,11 @@ class RegisterMenu:
                                                                     'bottom': 'bottom'})
 
     def eventCheck(self, ev):
+        """
+
+        :param ev:
+        :return:
+        """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 # print(ev.ui_element)
@@ -338,9 +347,18 @@ class RegisterMenu:
                 self.screen("loginMenu")
 
     def update(self, timeDelta):
+        """
+
+        :param timeDelta:
+        :return:
+        """
         self.manager.update(timeDelta)
 
     def disableAllElements(self):
+        """
+
+        :return:
+        """
         self.usernameInput.disable()
         self.emailInput.disable()
         self.passwordInput.disable()
@@ -348,6 +366,10 @@ class RegisterMenu:
         self.registerButton.disable()
 
     def enableAllElements(self):
+        """
+
+        :return:
+        """
         self.usernameInput.enable()
         self.emailInput.enable()
         self.passwordInput.enable()
@@ -355,4 +377,8 @@ class RegisterMenu:
         self.registerButton.enable()
 
     def draw(self):
+        """
+
+        :return:
+        """
         pass

@@ -114,6 +114,10 @@ class Game:
         self.setup_new_question()
 
     def setup_new_question(self):
+        """
+
+        :return:
+        """
         self.current_question_obj, self.wrong_answer_values = self.game_generator.generate_question_data()
         if self.current_question_obj:
             self.correct_answer_value = self.current_question_obj.correct_answer
@@ -124,6 +128,11 @@ class Game:
         self.spawn_timer = self.spawn_interval
 
     def eventCheck(self, event):
+        """
+
+        :param event:
+        :return:
+        """
         self.manager.process_events(event)
 
         # switch to pause event check
@@ -149,7 +158,10 @@ class Game:
                 self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
 
     def spawn_apple(self):
-        """Creates a new apple at a random position."""
+        """
+        Creates a new apple at a random position.
+        :return:
+        """
         if not self.current_question_obj: return
         value_to_spawn = None
         spawn_is_correct = False
@@ -203,7 +215,11 @@ class Game:
         self.apples.append(new_apple)
 
     def update(self, timeDelta):
-        """Main game update loop logic."""
+        """
+        Main game update loop logic.
+        :param timeDelta:
+        :return:
+        """
 
         if 20 <= self.score < 40:
             self.switch_music("../Assets/Audio/Game-Undertale_Hotel.ogg", "Hotel", timeDelta)
@@ -270,6 +286,10 @@ class Game:
                 self.game_over()
 
     def game_over(self):
+        """
+
+        :return:
+        """
         self.neuroDeath.play()
         self.game_active = False
         self.end_time = time.time()
@@ -279,6 +299,10 @@ class Game:
         leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.gamemode, self.timer())
 
     def timer(self):
+        """
+
+        :return:
+        """
         if self.start_time is None:
             return "00:00:00"
         current_time = self.end_time if self.end_time else time.time()
@@ -289,6 +313,10 @@ class Game:
         return f"{hours:02}:{minutes:02}:{seconds:02}"
 
     def draw(self):
+        """
+
+        :return:
+        """
         # Background
         try:
             self.display.blit(self.background_img, (0, 0))
@@ -348,6 +376,13 @@ class Game:
         pygame.display.update()
 
     def switch_music(self, song_path, Name, time_delta):
+        """
+        Change which songs are playing.
+        :param song_path: Path of the song file.
+        :param Name: Which name to change the self.music into.
+        :param time_delta: Timing nonsense.
+        :return:
+        """
         if self.music != Name:
             pygame.mixer.music.fadeout(3000)
             self.music_fade += time_delta

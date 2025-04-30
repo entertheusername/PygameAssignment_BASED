@@ -61,6 +61,10 @@ class HintMenu:
         self.uiSetup()
 
     def uiSetup(self):
+        """
+
+        :return:
+        """
         # Background Img
         backgroundRect = pygame.Rect((0, 0), (948, 451))
         background = pygame_gui.elements.UIPanel(relative_rect=backgroundRect,
@@ -163,10 +167,19 @@ class HintMenu:
         self.elements.append(self.closeButton)
 
     def killAll(self):
+        """
+
+        :return:
+        """
         for i in self.elements:
             i.kill()
 
     def eventCheck(self, ev):
+        """
+
+        :param ev:
+        :return:
+        """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
                 # print(ev.ui_element)
@@ -188,12 +201,25 @@ class HintMenu:
                         self.pauseMenu.hintMenu = None
 
     def updateHintContent(self):
+        """
+
+        :return:
+        """
         self.cheatSheet.set_image(self.hintList[self.pageCount - 1])
         self.annyTF.set_image(self.annyTFList[self.annyTFExpressionList[self.pageCount - 1]])
 
     def update(self, timeDelta):
+        """
+
+        :param timeDelta:
+        :return:
+        """
         self.manager.update(timeDelta)
 
     def draw(self):
+        """
+
+        :return:
+        """
         self.display.fill(pygame.Color('#FFE0E3'))
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
