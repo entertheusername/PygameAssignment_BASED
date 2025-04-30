@@ -1,4 +1,4 @@
-# This file is for whole game logic
+# Import modules
 import sys
 import os
 import pygame
@@ -6,6 +6,7 @@ import pygame_gui
 import random
 import time
 
+# Add parent directory to system paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from BackEnd.Basket import Basket
@@ -14,12 +15,23 @@ from BackEnd.Answer_generator import AnswerGenerator
 from BackEnd.Question_generator import Question
 from BackEnd import Constants
 from BackEnd.LeaderboardManage import LeaderboardManage
-from FrontEnd.PauseMenu import PauseMenu
 from BackEnd.Settings import Settings
-
+from FrontEnd.PauseMenu import PauseMenu
 
 class Game:
+    """
+    Define the game mechanism, including music, sprites spawning, pause options.
+    """
     def __init__(self, screen, display, manager, music, gamemode: str):
+        """
+        Initialise the game play and setup the game environment.
+
+        :param screen: The pygame screen surface for rendering objects.
+        :param display: The display surface for the game.
+        :param manager: The UI manager for handling UI elements.
+        :param music: The initial music theme for the game.
+        :param gamemode: The game mode to be played.
+        """
         pygame.init()
 
         # Default
@@ -36,8 +48,8 @@ class Game:
             pygame.mixer.music.load("../Assets/Audio/Game-Undertale_Snowy.ogg")
             pygame.mixer.music.play(-1, fade_ms=3000)
 
+        # Sound effect and volume
         sfxVolume = Settings().getKeyVariable("SFX")
-
         self.buttonClick = pygame.mixer.Sound("../Assets/Audio/ButtonClick.wav")
         self.buttonClick.set_volume(sfxVolume)
 
@@ -51,17 +63,18 @@ class Game:
         self.start_time = None
         self.end_time = None
 
-        self.basket = Basket(self)  # Pass game reference to basket
-        self.apples = []
+        self.basket = Basket(self)  # Call basket instance
+        self.apples = [] # List to store apples
         self.speed_increment = 0.3  # Speed increase per 5 points
         self.last_speed_update_score = 0
 
+        # Font settings
         self.font_size = 38
         self.sub_font_size = int(self.font_size * 0.6)
-        self.text_color = Constants.COLOR_BLACK
+        self.text_color = (0,0,0)
         self.bold_offset = (1, 1)
-
-        try:
+        
+        try: # Load font
             self.font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.font_size)
             self.sub_font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.sub_font_size)
         except pygame.error as e:
@@ -69,23 +82,24 @@ class Game:
             self.font = pygame.font.SysFont(None, self.font_size)
             self.sub_font = pygame.font.SysFont(None, self.sub_font_size)
 
-        self.score = 0
-        self.game_active = True
-        self.final_message = ""
+        self.score = 0 # Player initial score
+        self.game_active = True # Boolean to check if game is active
+        self.final_message = "" # Message to display when game over
 
-        self.game_generator = AnswerGenerator(gamemode)
-        self.current_question_obj: Question | None = None
-        self.correct_answer_value = ""
-        self.wrong_answer_values = []
+        self.game_generator = AnswerGenerator(gamemode) # Call answer generator 
+        self.current_question_obj: Question | None = None # Set current question object
+        self.correct_answer_value = "" # Store correct answer generated 
+        self.wrong_answer_values = [] # Store list of wrong answers generated 
 
-        self.max_apples_on_screen = 8
+        self.max_apples_on_screen = 8 # Limit apple on screen 
         self.spawn_interval = 1  # Time between each spawn
         self.spawn_timer = 1.5  # Timer until next spawn wave
         self.prob_correct_spawn = 0.5  # Probability of spawning the correct answer
 
-        self.paused = False
-        self.pause_menu = None
+        self.paused = False # Boolean to check if the game is paused 
+        self.pause_menu = None # Pause Menu instance 
 
+        # Draw pause button 
         pause_button_rect = pygame.Rect((0, 0), (56, 56))
         pause_button_rect.topleft = 30, 30
         self.pause_button = pygame_gui.elements.UIButton(relative_rect=pause_button_rect,
@@ -97,8 +111,7 @@ class Game:
                                                          anchors={'left': 'left',
                                                                   'top': 'top'})
 
-        self.background_img = None
-        try:
+        try: # Load background image
             self.background_img = pygame.image.load("../Assets/Background/BackgroundClear.png")
         except pygame.error as e:
             print(f"Error loading background image: {e}")
@@ -111,31 +124,29 @@ class Game:
         self.blink_timer = 0
         self.blink_interval = 0.2
 
-        self.setup_new_question()
+        self.setup_new_question() # Initialise first question
 
     def setup_new_question(self):
         """
-
-        :return:
+		Setup new questions and clear existing apples.
         """
         self.current_question_obj, self.wrong_answer_values = self.game_generator.generate_question_data()
         if self.current_question_obj:
             self.correct_answer_value = self.current_question_obj.correct_answer
         else:
             print("Error. No questions generated.")
-            self.correct_answer_value = "Cant find an answer to ur life bitch"
+            self.correct_answer_value = "Can't find an answer in my life."
         self.apples = []  # Clear existing apples
         self.spawn_timer = self.spawn_interval
 
     def eventCheck(self, event):
         """
-
-        :param event:
-        :return:
+		Check and process the events happening in the game.
+        :param event: The events to process.
         """
         self.manager.process_events(event)
 
-        # switch to pause event check
+        # Switch to pause event check
         if self.paused and self.pause_menu:
             self.pause_menu.eventCheck(event)
             return
@@ -143,7 +154,7 @@ class Game:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE and self.game_active:
                 self.pause_button.hide()
-                # call pause menu
+                # Call pause menu
                 self.paused = True
                 self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
             # elif event.key == pygame.K_c and self.game_active: # Testing, if not then comment
@@ -153,14 +164,13 @@ class Game:
             if event.ui_element == self.pause_button:
                 self.buttonClick.play()
                 self.pause_button.hide()
-                # call pause menu
+                # Call pause menu
                 self.paused = True
                 self.pause_menu = PauseMenu(self, self.display, self.manager, self.current_question_obj.gamemode)
 
     def spawn_apple(self):
         """
         Creates a new apple at a random position.
-        :return:
         """
         if not self.current_question_obj: return
         value_to_spawn = None
@@ -184,7 +194,7 @@ class Game:
                     value_to_spawn = random.choice(available_wrong_values)
                     spawn_is_correct = False
 
-        if value_to_spawn is None:
+        if value_to_spawn is None: # If no answers in list
             print("Error. No answer to be spawned.")
             return
 
@@ -212,15 +222,14 @@ class Game:
             return
 
         new_apple = Apple(self, x, y, value_to_spawn, target_base, spawn_is_correct)
-        self.apples.append(new_apple)
+        self.apples.append(new_apple) # Add new apple to list
 
     def update(self, timeDelta):
         """
         Main game update loop logic.
-        :param timeDelta:
-        :return:
+        :param timeDelta: The time elapsed.
         """
-
+		# Change music based on score
         if 20 <= self.score < 40:
             self.switch_music("../Assets/Audio/Game-Undertale_Hotel.ogg", "Hotel", timeDelta)
         elif 40 <= self.score < 60:
@@ -232,9 +241,9 @@ class Game:
         elif 100 <= self.score:
             self.switch_music("../Assets/Audio/Game-CHXI_Life_Arrangement.ogg", "LifeArrangement", timeDelta)
 
-        self.manager.update(timeDelta)
+        self.manager.update(timeDelta) # Update UI manager
 
-        if self.paused:
+        if self.paused: # Skip update if the game is paused
             return
 
         if not self.game_active and self.show_correct_answer:
@@ -274,7 +283,7 @@ class Game:
                 collided_apple = apple
                 break
             if apple.fall():
-                self.apples.remove(apple)
+                self.apples.remove(apple) # Remove apple that fall off screen
 
         if collided_apple:
             self.apples.remove(collided_apple)  # Remove the caught apple
@@ -287,21 +296,20 @@ class Game:
 
     def game_over(self):
         """
-
-        :return:
+		Handle game over events, including music and message.
         """
-        self.neuroDeath.play()
-        self.game_active = False
-        self.end_time = time.time()
+        self.neuroDeath.play() # Play death sound effect
+        self.game_active = False # Set game to inactive
+        self.end_time = time.time() # Record end time
         self.final_message = f"Oopsie! You got it wrong! The correct answer is:  {self.correct_answer_value}"
-        self.show_correct_answer = True
+        self.show_correct_answer = True # Show correct answer
         leaderboard_manager = LeaderboardManage()
-        leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.gamemode, self.timer())
+        leaderboard_manager.scoreSubmission(self.score, self.current_question_obj.gamemode, self.timer()) # Submit score to database
 
     def timer(self):
         """
-
-        :return:
+		Calculated elapsed time since the start of the game to the end using HH:MM:SS format.
+        :return: A string representing the elapsed time.
         """
         if self.start_time is None:
             return "00:00:00"
@@ -314,8 +322,7 @@ class Game:
 
     def draw(self):
         """
-
-        :return:
+		Renders game elements to the screen display.
         """
         # Background
         try:
@@ -330,22 +337,22 @@ class Game:
 
         # Draw basket and death animation
         if self.game_active:
-            # Draw score and question during gameplay
+            # Draw score
             score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
             self.display.blit(score_text, (925, 35))
-
+			# Draw question
             if self.current_question_obj:
                 self.current_question_obj.draw_question(self.display, self.font, self.sub_font, self.text_color,
                                                         self.bold_offset)
-
+			# Start timer
             if self.start_time is None:
                 self.start_time = time.time()
 
-            self.basket.draw(self.display)
+            self.basket.draw(self.display) # Draw basket
 
         elif self.show_correct_answer:
             # Twinkle twinkle little star
-            if self.basket_visible:
+            if self.basket_visible: # Death animation lol
                 death_pos = (
                     self.basket.rect.centerx - self.basket.death_img.get_width() // 2,
                     self.basket.rect.centery - self.basket.death_img.get_height() // 2
@@ -369,19 +376,19 @@ class Game:
             self.display.blit(text_background, text_background_rect.topleft)
             self.display.blit(game_over_surf, game_over_rect)
 
+        # Draw pause menu if game is paused
         if self.paused and self.pause_menu:
             self.pause_menu.draw()
 
-        self.manager.draw_ui(self.display)
-        pygame.display.update()
+        self.manager.draw_ui(self.display) # Draw all game elements
+        pygame.display.update() # Update the display
 
     def switch_music(self, song_path, Name, time_delta):
         """
-        Change which songs are playing.
-        :param song_path: Path of the song file.
-        :param Name: Which name to change the self.music into.
-        :param time_delta: Timing nonsense.
-        :return:
+        Change which songs are playing based on the score.
+        :param song_path: The path of the song files.
+        :param Name: The name of the new music theme.
+        :param time_delta: The elapsed time since last update.
         """
         if self.music != Name:
             pygame.mixer.music.fadeout(3000)
