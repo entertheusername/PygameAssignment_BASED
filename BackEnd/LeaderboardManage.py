@@ -10,6 +10,8 @@ import json
 class LeaderboardManage:
     def __init__(self):
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
+        # self.conn = pymysql.connect(user='root', password='vKCdduMYpg', host='34.124.212.17', database='capstone',
+        #                             port=3306) # Need to add the person's ip lmao idk anymore
         self.cursor = self.conn.cursor()
         self.high_score = {}
 
