@@ -1,36 +1,49 @@
-# This file is for apple logic
+# Import modules
 import sys
 import os
 import pygame
 
+# Allow file directory from system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from BackEnd import Constants
 
 class Apple:
+    """
+    Define the apple falling mechanism.
+    """
     def __init__(self, game, x, y, value: str, base: int, is_correct: bool):
+        """
+        Initialize an apple object.
+        :param game: Game instance that the apple belongs to.
+        :param x: The apple initial x position.
+        :param y: The apple initial y position.
+        :param value: The answer displayed on the apple.
+        :param base: The number base displayed on the apple.
+        :param is_correct: A boolean indicating if a apple is correct or wrong.
+        """
         self.game = game
         self.value = str(value)
         self.base = base
         self.is_correct = is_correct
         self.color = Constants.COLOR_GREEN if is_correct else Constants.COLOR_RED
         
-        # Base speed based on gamemode
+        # Base speed based on the gamemode
         if self.game.current_question_obj.gamemode == "conversion":
             self.base_speed = 3.0  # Fastest
         elif self.game.current_question_obj.gamemode == "basic_calculation":
             self.base_speed = 2.5  # Medium speed
-        else:  # mixed_calculation
+        else:  # Mixed calculation
             self.base_speed = 2.0  # Slowest
             
-        # Calculate current speed with score-based increment
+        # Score-based speed increment
         self.speed = self.base_speed + (0.3 * (self.game.score // 5))
 
-        try:
+        try: # Load apple image (turtle)
             self.image = pygame.image.load("../Assets/Character/GameTutel.png").convert_alpha()
         except pygame.error as e:
             print(f"Error loading apple image: {e}")
-
+		# Set rect and mask for apple positioning
         self.rect = self.image.get_rect(center=(x, y))
         self.mask = pygame.mask.from_surface(self.image)
         self.font_size = 30
@@ -39,14 +52,13 @@ class Apple:
         self.sub_font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.subscript_size)
         self.text_color = (255, 206, 27)
         self.sub_font.set_bold(True)
-        self.text_surf = self.font.render(self.value, True, Constants.COLOR_WHITE)
+        self.text_surf = self.font.render(self.value, True, (255,255,255)
         self.text_rect = self.text_surf.get_rect()
 
     def draw(self, screen):
         """
-
-        :param screen:
-        :return:
+		Draw the apple and the answer text.
+        :param screen: The pygame screen surface to draw apple.
         """
         screen.blit(self.image, self.rect)
         value_surf = self.font.render(self.value, True, self.text_color)
@@ -64,8 +76,8 @@ class Apple:
 
     def fall(self):
         """
-
-        :return:
+   		Update the apple position when falling.
+        :return: A boolean indicating if the apple has fallen below screen.
         """
         self.rect.y += self.speed
         return self.rect.top > 1080
