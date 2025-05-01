@@ -5,6 +5,8 @@ import os
 import pymysql
 import json
 
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class LeaderboardManage:
     """
