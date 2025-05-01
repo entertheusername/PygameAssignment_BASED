@@ -47,7 +47,7 @@ class Apple:
         self.sub_font = pygame.font.Font("../Assets/Text/Pixeltype.ttf", self.subscript_size)
         self.text_color = (255, 206, 27)
         self.sub_font.set_bold(True)
-        self.text_surf = self.font.render(self.value, True, (255,255,255)
+        self.text_surf = self.font.render(self.value, True, (255,255,255))
         self.text_rect = self.text_surf.get_rect()
 
     def draw(self, screen):
