@@ -1,12 +1,16 @@
+# Import modules
 import sys
 import os
 
-
+# Add parent directory to system paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import json
 
 
 class Settings:
+    """
+    Allow player to configure settings.
+    """
     def __init__(self):
         file = open("../settings.json", "r")
         self.settings = json.load(file)
