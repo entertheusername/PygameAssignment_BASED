@@ -1,11 +1,12 @@
+# Import modules
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
-from BackEnd import Constants
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 
 class GameOverMenu:
@@ -59,7 +60,7 @@ class GameOverMenu:
         ghost_blur = pygame.image.load("../Assets/Character/NeuroGhostBlur.png")
         death_rect = death_blur.get_rect()
         ghost_rect = ghost_blur.get_rect()
-        death_rect.bottomright = (Constants.SCREEN_WIDTH - 60, Constants.SCREEN_HEIGHT)
+        death_rect.bottomright = (1020, 640)
         ghost_rect.centerx = death_rect.centerx - 60
         ghost_rect.bottom = death_rect.top + 100
         self.display.blit(death_blur, death_rect)
@@ -80,7 +81,7 @@ class GameOverMenu:
         )
 
         # Stats panel - fixed position for perfect alignment
-        statsRect = pygame.Rect((Constants.SCREEN_WIDTH // 2 - 275, 220), (600, 200))
+        statsRect = pygame.Rect((1080 // 2 - 275, 220), (600, 200))
         self.statsPanel = pygame_gui.elements.UIPanel(
             relative_rect=statsRect,
             manager=self.manager,
@@ -138,8 +139,8 @@ class GameOverMenu:
     
         # Back button (left arrow)
         backButtonRect = pygame.Rect((0, 0), (56,56))
-        backButtonRect.centerx = Constants.SCREEN_WIDTH//2 - 110
-        backButtonRect.centery = Constants.SCREEN_HEIGHT - 145
+        backButtonRect.centerx = 1080//2 - 110
+        backButtonRect.centery = 640 - 145
         self.backButton = pygame_gui.elements.UIButton(
             relative_rect=backButtonRect,
             text="",
@@ -151,8 +152,8 @@ class GameOverMenu:
 
         # Retry button (center circular arrow)
         retryButtonRect = pygame.Rect((0, 0), (90,90))
-        retryButtonRect.centerx = Constants.SCREEN_WIDTH//2
-        retryButtonRect.centery = Constants.SCREEN_HEIGHT - 145
+        retryButtonRect.centerx = 1080//2
+        retryButtonRect.centery = 640 - 145
         self.retryButton = pygame_gui.elements.UIButton(
             relative_rect=retryButtonRect,
             text="",
@@ -164,8 +165,8 @@ class GameOverMenu:
 
         # Home button (right house icon)
         homeButtonRect = pygame.Rect((0, 0), (56,56))
-        homeButtonRect.centerx = Constants.SCREEN_WIDTH//2 + 110
-        homeButtonRect.centery = Constants.SCREEN_HEIGHT - 145
+        homeButtonRect.centerx = 1080//2 + 110
+        homeButtonRect.centery = 640 - 145
         self.homeButton = pygame_gui.elements.UIButton(
             relative_rect=homeButtonRect,
             text="",
