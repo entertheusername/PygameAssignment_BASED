@@ -1,13 +1,14 @@
+# Import modules
 import sys
 import os
-
-from FrontEnd.Hints import HintMenu
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
-from BackEnd import Constants
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
+from FrontEnd.Hints import HintMenu
 
 class PauseMenu:
     def __init__(self, gameInstance, display, manager, gameMode):
@@ -171,5 +172,5 @@ class PauseMenu:
             self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
             alive_blur = pygame.image.load("../Assets/Character/NeuroAliveBlur.png")
             alive_rect = alive_blur.get_rect()
-            alive_rect.bottomright = (Constants.SCREEN_WIDTH - 60, Constants.SCREEN_HEIGHT)
+            alive_rect.bottomright = (1020, 640)
             self.display.blit(alive_blur, alive_rect)
