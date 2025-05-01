@@ -1,13 +1,30 @@
+# Import modules
 import random
 import pygame
 
+# Add parent directory to system paths 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from BackEnd import Constants
 
-# Question Logic
 class Question:
+    """
+    Represents a question involving numbers and different bases. (Set formatting for question type)
+    """
     __slots__ = ['operand1', 'base1', 'operand2', 'base2', 'operator', 'target_base', 'correct_answer', 'gamemode']
 
     def __init__(self, *, operand1: str, base1: int, operand2: str | None, base2: int | None, operator: str, target_base: int, correct_answer: str, gamemode: str):
+        """
+        Initializes a question.
+
+        :param operand1: The first operand in string format.
+        :param base1: The base of the first operand.
+        :param operand2: The second operand in string format (Can be nothing).
+        :param base2: The base of the second operand (Can be nothing).
+        :param operator: The operator for the calculation ('+', '-', '->').
+        :param target_base: The base of the correct answer.
+        :param correct_answer: The correct answer in string format.
+        :param gamemode: The mode of the game ('conversion', 'basic_calculation', 'mixed_calculation').
+        """
         self.operand1 = operand1
         self.base1 = base1
         self.operand2 = operand2
@@ -21,16 +38,16 @@ class Question:
     def render_number_with_base(self, screen, value: str, base: int, x: int, y: int, font: pygame.font.Font, sub_font: pygame.font.Font, color, offset: tuple[int, int]) -> int:
         """
         Renders value and base subscript.
-        :param screen:
-        :param value:
-        :param base:
-        :param x:
-        :param y:
-        :param font:
-        :param sub_font:
-        :param color:
-        :param offset:
-        :return:
+        :param screen: The pygame screen surface to render questions.
+        :param value: The number to render.
+        :param base: The base of the number.
+        :param x: The x position for rendering.
+        :param y: The y position for rendering.
+        :param font: The font of the number.
+        :param sub_font: The font of the base number.
+        :param color: The color of the question.
+        :param offset: The offeset for bold effect of question.
+        :return: The total width of the rendered question.
         """
         offset_x, offset_y = offset
         value_surf = font.render(value, True, color)
@@ -38,6 +55,7 @@ class Question:
         base_x = x + value_surf.get_width()
         base_y = y + value_surf.get_height() - base_surf.get_height()
 
+        # Render question with offset
         screen.blit(value_surf, (x + offset_x, y + offset_y))
         screen.blit(base_surf, (base_x + offset_x, base_y + offset_y))
         screen.blit(value_surf, (x, y))
@@ -47,13 +65,13 @@ class Question:
 
     def draw_question(self, display, font, sub_font, text_color, bold_offset):
         """
-        Render questions with subscript bases
-        :param display:
-        :param font:
-        :param sub_font:
-        :param text_color:
-        :param bold_offset:
-        :return:
+        Render questions with formatting.
+        :param display: The screen display surface.
+        :param font: The font for question.
+        :param sub_font: The font for the subscript bases.
+        :param text_color: The color for question.
+        :param bold_offset: The offset for bold effect.
+        :return: None
         """
         y_pos = 38
         x_padding = 30
@@ -66,6 +84,7 @@ class Question:
         max_text_height = font.get_height() # Base height
         elements_to_render = []
 
+        # Create questions format based on gamemode
         if self.gamemode == "conversion":
             # Text for conversion
             elements_to_render.append({'type': 'op', 'text': "Convert "})
@@ -78,7 +97,7 @@ class Question:
                 elements_to_render.append({'type': 'num', 'value': self.operand2, 'base': self.base2})
             elements_to_render.append({'type': 'op', 'text': " = ?"})
 
-        # Draw
+        # Calculate total text width to draw
         for element in elements_to_render:
             width = 0
             if element['type'] == 'num':
@@ -92,7 +111,7 @@ class Question:
             total_text_width += width
         total_text_width += text_padding * (len(elements_to_render) - 1)
 
-        # Draw semi transparent curved edge rectangle panel (long ahhhh name)
+        # Draw semi transparent curved edge rectangle panel
         panel_width = total_text_width + x_padding * 2
         panel_height = max_text_height + y_padding * 2
         panel_x = (Constants.SCREEN_WIDTH - panel_width) // 2
@@ -128,6 +147,9 @@ class Question:
 
 # Generate Questions
 class Generator:
+    """
+    Generate questions for different gamemodes. 
+    """
     def __init__(self):
         self.BASES = [2, 8, 10, 16]
         self.GAMEMODES = ["conversion", "basic_calculation", "mixed_calculation"]
@@ -135,9 +157,10 @@ class Generator:
     def generate_question(self, gamemode):
         """
         Generate questions for selected gamemode
-        :param gamemode:
-        :return:
+        :param gamemode: The gamemode selected for questions.
+        :return: A question object based on the selected gamemode.
         """
+        # Call functions
         if gamemode == "conversion":
             return self.generate_conversion()
         elif gamemode == "basic_calculation":
@@ -149,8 +172,8 @@ class Generator:
 
     def generate_conversion(self) -> Question:
         """
-        Generate a conversion question from one base to another
-        :return:
+        Generate a conversion question from one base to another.
+        :return: A question object for base conversion.
         """
         source_base, target_base = random.sample(self.BASES, 2)
         decimal_num = random.randint(5, 30)
@@ -171,8 +194,8 @@ class Generator:
     
     def generate_basic_calculation(self) -> Question:
         """
-        Generate addition or subtraction questions within the same base
-        :return:
+        Generate addition or subtraction questions within the same base.
+        :return: A question object for basic calculation.
         """
         operation = random.choice(["ADDITION", "SUBTRACTION"])
         base = random.choice(self.BASES)
@@ -206,7 +229,7 @@ class Generator:
     def generate_mixed_calculation(self) -> Question:
         """
         Generate addition or subtraction between different bases
-        :return:
+        :return: A question object for mixed calculation.
         """
         base1, base2 = random.sample(self.BASES, 2)
         target_base = 10  # Answers in decimal
