@@ -13,7 +13,6 @@ from BackEnd.Basket import Basket
 from BackEnd.Apple import Apple
 from BackEnd.Answer_generator import AnswerGenerator
 from BackEnd.Question_generator import Question
-from BackEnd import Constants
 from BackEnd.LeaderboardManage import LeaderboardManage
 from BackEnd.Settings import Settings
 from FrontEnd.PauseMenu import PauseMenu
@@ -210,7 +209,7 @@ class Game:
 
         # Validate spawn position
         for _ in range(100):  # Loop to get valid position
-            x = random.randint(apple_width // 2 + 15, Constants.SCREEN_WIDTH - apple_width // 2 - 15)
+            x = random.randint(apple_width // 2 + 15, 1080 - apple_width // 2 - 15)
             y = random.randint(-60, -30)  # Start slightly above the screen
 
             # Check for collision with existing apples
@@ -338,7 +337,7 @@ class Game:
         # Draw basket and death animation
         if self.game_active:
             # Draw score
-            score_text = self.font.render(f"Score: {self.score}", True, Constants.COLOR_WHITE)
+            score_text = self.font.render(f"Score: {self.score}", True, (255,255,255))
             self.display.blit(score_text, (925, 35))
 			# Draw question
             if self.current_question_obj:
@@ -367,8 +366,8 @@ class Game:
                 self.display.blit(self.basket.death_img_right, death_pos)
 
             # Draw game over message
-            game_over_surf = self.font.render(self.final_message, True, Constants.COLOR_BLACK)
-            game_over_rect = game_over_surf.get_rect(center=(Constants.SCREEN_WIDTH // 2, Constants.SCREEN_HEIGHT // 2))
+            game_over_surf = self.font.render(self.final_message, True, (0,0,0))
+            game_over_rect = game_over_surf.get_rect(center=(1080 // 2, 640 // 2))
             text_background = pygame.Surface((game_over_rect.width + 20, game_over_rect.height + 20))
             text_background.fill((255, 255, 255))
             text_background.set_alpha(100)
