@@ -1,16 +1,28 @@
+# Import modules
 import sys
 import os
 import pygame
 
+# Allow parent directory to system paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from BackEnd.Game import Game
 
-
 class TutorialEngine(Game):
+    """
+    Create a tutorial engine to manage the tutorial gameplay and transitions between tutorial modes.
+    """
     def __init__(self, screen, display, manager, music, gamemode: str):
-        super().__init__(screen, display, manager, "Snowy", gamemode)
+        """
+        Initializes the tutorial engine and sets up the audio and game state.
 
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display manager for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played during the tutorial.
+        :param gamemode: The current gamemode for the tutorial.
+        """
+        super().__init__(screen, display, manager, "Snowy", gamemode)
         self.pause_button.disable()
 
         # Audio
