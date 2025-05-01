@@ -1,11 +1,10 @@
 # Import modules
 import sys
 import os
+import json
 
 # Add parent directory to system paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import json
-
 
 class Settings:
     """
