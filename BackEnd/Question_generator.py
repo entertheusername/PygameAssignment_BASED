@@ -2,10 +2,6 @@
 import random
 import pygame
 
-# Add parent directory to system paths 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from BackEnd import Constants
-
 class Question:
     """
     Represents a question involving numbers and different bases. (Set formatting for question type)
@@ -114,7 +110,7 @@ class Question:
         # Draw semi transparent curved edge rectangle panel
         panel_width = total_text_width + x_padding * 2
         panel_height = max_text_height + y_padding * 2
-        panel_x = (Constants.SCREEN_WIDTH - panel_width) // 2
+        panel_x = (1080 - panel_width) // 2
         panel_y = y_pos - y_padding
         panel_surf = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
         panel_surf.fill((0,0,0,0))
