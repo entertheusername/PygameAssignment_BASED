@@ -1,7 +1,6 @@
+# Import modules
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pymysql
 import bcrypt
 import re
@@ -9,8 +8,18 @@ import keyring
 import json
 import datetime
 
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
 class Authentication:
+    """
+    Handle user authentication, including login, logout, registration, and silent login functionalities.
+    """
     def __init__(self):
+        """
+        Initialize the authentication and connect to the MySQL database.
+        """
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
         # self.conn = pymysql.connect(user='root', password='vKCdduMYpg', host='34.124.212.17', database='capstone',
         #                             port=3306) # Need to add the person's ip lmao idk anymore
