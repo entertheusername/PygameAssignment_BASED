@@ -1,19 +1,29 @@
-# This file is for generating questions based on gamemode selected with answers
+# Import modules
 import random
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from BackEnd.Question_generator import Generator, Question
 
 class AnswerGenerator:
+    """
+    Create answers matches with the questions and their bases. (30 offset)
+    """
     def __init__(self, gamemode: str):
+        """
+        Initialise the answer object.
+        
+        :param gamemode: A string representing the selected gamemode.
+        """
         self.base_generator = Generator()
         self.gamemode = gamemode
 
     def generate_question_data(self) -> tuple[Question | None, list[str]]:
         """
-        Generates a Question object and derives wrong answers from it.
+        Generates a question object and derives wrong answers from it.
 
-        Returns:
-            tuple: (question_text, correct_answer, wrong_answers)
+        :returns: A tuple containing question_text, correct_answer and a list of wrong_answers.
         """
         question_obj: Question | None = self.base_generator.generate_question(self.gamemode)
 
@@ -25,7 +35,13 @@ class AnswerGenerator:
         return question_obj, wrong_answers
 
     def generate_wrong_answers(self, question: Question, num_wrong: int) -> list[str]:
-        """Generates a list of unique wrong answers related to the given Question."""
+        """
+        Generates a list of unique wrong answers related to the given question.
+        
+        :param question: A question object containing the correct answer and its base.
+        :param num_wrong: The number of wrong answers to generate.
+        :returns: A list of unique wrong answers.
+        """
         wrong_answers_set = set()
         attempts = 0
         max_total_attempts = num_wrong * 30 # Limit overall attempts
@@ -58,4 +74,3 @@ class AnswerGenerator:
                 wrong_answers_set.add(wrong_answer)
 
         return list(wrong_answers_set)
-    
