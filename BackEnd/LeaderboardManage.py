@@ -1,13 +1,15 @@
+# Import modules
 import datetime
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pymysql
 import json
 
 
 class LeaderboardManage:
+    """
+    Handle scores in database, including data acquisition and manipulation.
+    """
     def __init__(self):
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
         # self.conn = pymysql.connect(user='root', password='vKCdduMYpg', host='34.124.212.17', database='capstone',
