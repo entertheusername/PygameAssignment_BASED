@@ -3,11 +3,6 @@ import sys
 import os
 import pygame
 
-# Allow file directories from system paths
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from BackEnd import Constants
-
 class Basket:
     """
     Define the basket mechanism.
@@ -37,8 +32,8 @@ class Basket:
 
         # Set rect for the initial basket position (bottom of the screen)
         self.rect = pygame.Rect(
-            Constants.SCREEN_WIDTH // 2 - self.width // 2,
-            Constants.SCREEN_HEIGHT - self.height - 10,
+            1080 // 2 - self.width // 2,
+            640 - self.height - 10,
             self.width,
             self.height
         )
@@ -66,7 +61,7 @@ class Basket:
             new_img_position = True
             self.rect.x -= self.speed
         # Move right
-        elif (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.rect.right < Constants.SCREEN_WIDTH:
+        elif (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.rect.right < 1080:
             self.img = self.img_right
             new_img_position = True
             self.rect.x += self.speed
