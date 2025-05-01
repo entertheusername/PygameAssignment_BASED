@@ -3,11 +3,6 @@ import sys
 import os
 import pygame
 
-# Allow file directory from system path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from BackEnd import Constants
-
 class Apple:
     """
     Define the apple falling mechanism.
@@ -26,7 +21,7 @@ class Apple:
         self.value = str(value)
         self.base = base
         self.is_correct = is_correct
-        self.color = Constants.COLOR_GREEN if is_correct else Constants.COLOR_RED
+        self.color = (0,255,0) if is_correct else (255,0,0)
         
         # Base speed based on the gamemode
         if self.game.current_question_obj.gamemode == "conversion":
