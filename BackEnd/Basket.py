@@ -3,6 +3,9 @@ import sys
 import os
 import pygame
 
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 class Basket:
     """
     Define the basket mechanism.
