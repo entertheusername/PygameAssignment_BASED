@@ -1,12 +1,26 @@
+# Import modules
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 
+# Allow parent directory to system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 class Error:
+    """
+    Manage and display error messages in the game.
+    """
     def __init__(self, screen, display, manager, music, errorMsg):
+        """
+        Initialise the error class and setup the interface.
+        
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display surface for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be stopped when displaying the error.
+        :param errorMsg: A list of error messages.
+        """
         pygame.init()
 
         # Default
@@ -95,7 +109,7 @@ class Error:
     def eventCheck(self, ev):
         """
         Check any specific game events happened.
-        :param event: pygame event variable.
+        :param ev: pygame event variable.
         :return: None
         """
         pass
@@ -103,7 +117,7 @@ class Error:
     def update(self, timeDelta):
         """
         Update game events.
-        :param timeDelta: Timing nonsense
+        :param timeDelta: Time elapsed since last update for timing calculation.
         :return: None
         """
         self.manager.update(timeDelta)
