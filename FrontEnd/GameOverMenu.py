@@ -10,7 +10,23 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from BackEnd.Settings import Settings
 
 class GameOverMenu:
+    """
+    Handle the game over menu, including player's score, time taken, highscore and buttons to retry or return to the main menu.
+    """
     def __init__(self, screen, display, manager, music, score, timeTaken, highScore, gameMode):
+        """
+        Initialise the GameOverMenu class and setup the interface.
+
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display manager for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the menu.
+        :param score: The player's score from the game.
+        :param timeTaken: The time taken to complete the game.
+        :param highScore: The player's highest score in the game.
+        :param gameMode: The current game mode.
+        :return: None.
+        """
         pygame.init()
 
         # Default
@@ -48,8 +64,8 @@ class GameOverMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Sets up the basic GUI for the game over menu.
+        :return: None.
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))
@@ -80,7 +96,7 @@ class GameOverMenu:
                      'top': 'top'}
         )
 
-        # Stats panel - fixed position for perfect alignment
+        # Stats panel - fixed position
         statsRect = pygame.Rect((1080 // 2 - 275, 220), (600, 200))
         self.statsPanel = pygame_gui.elements.UIPanel(
             relative_rect=statsRect,
@@ -178,9 +194,9 @@ class GameOverMenu:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check for event happened in this menu (button pressed).
+        :param ev: Pygame event variable.
+        :return: None.
         """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
@@ -197,15 +213,15 @@ class GameOverMenu:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the event in this menu.
+        :param timeDelta: The time elapsed since last update.
+        :return: None
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw elements onto the game
+        :return: None
         """
         pass
