@@ -1,5 +1,7 @@
 # Import modules
 import random
+import sys
+import os
 
 # Allow parent directory to system paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
