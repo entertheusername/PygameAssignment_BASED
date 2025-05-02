@@ -1,15 +1,29 @@
+# Import modules
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 
 
 class GameModeSelectMenu:
+    """
+    Handle game mode selection menu, allowing user to choose different game mode.
+    """
     def __init__(self, screen, display, manager, music):
+        """
+        Initialise the GameModeSelectMenu class and setup the interface.
+
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display manager for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the menu.
+        :return: None.
+        """
         pygame.init()
 
         # Default
@@ -40,8 +54,8 @@ class GameModeSelectMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Sets up the basic GUI interface for the menu.
+        :return: None
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
@@ -130,8 +144,8 @@ class GameModeSelectMenu:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
+        Check for events happened in the menu (press button).
+        :param ev: Pygame event variable.
         :return:
         """
         match ev.type:
@@ -153,15 +167,15 @@ class GameModeSelectMenu:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events.
+        :param timeDelta: The time elapsed since last update.
+        :return: None
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw elements onto the screen.
+        :return: None
         """
         pass
