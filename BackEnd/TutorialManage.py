@@ -1,12 +1,20 @@
+# Import modules
 import sys
 import os
 
+# Allow parent directory to system paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pymysql
 import json
 
 class TutorialManage:
+    """
+    Manage tutorial-related functionalities and update the tutorial status in the database.
+    """
     def __init__(self):
+        """
+        Initialise the TutorialManage class and connect to database.
+        """
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
         # self.conn = pymysql.connect(user='root', password='vKCdduMYpg', host='34.124.212.17', database='capstone',
         #                             port=3306) # Need to add the person's ip lmao idk anymore
@@ -15,7 +23,7 @@ class TutorialManage:
     def checkTutorial(self):
         """
         Check if the user has done the tutorial or not.
-        :return: Boolean
+        :return: A boolean, true if the user has completed the tutorial, false otherwise.
         """
         file = open("../loggedInUser.json", "r")
         jsonData = json.load(file)
