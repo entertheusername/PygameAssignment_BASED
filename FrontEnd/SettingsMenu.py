@@ -9,9 +9,19 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from BackEnd.Settings import Settings
 
-
 class SettingMenu:
+    """
+    Handle the setting menu and render its interface.
+    """
     def __init__(self, screen, display, manager, music):
+        """
+        Initialise the SettingMenu class.
+        :param screen: The pygame screen surface.
+        :param display: The display surface for rendering.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the menu.
+        :return: None
+        """
         pygame.init()
 
         # Default
@@ -44,8 +54,8 @@ class SettingMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup basic GUI for the settings menu.
+        :return: None.
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
@@ -223,9 +233,9 @@ class SettingMenu:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check for event happening in this menu.
+        :param ev: Pygame event variable.
+        :return: None.
         """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
@@ -256,15 +266,15 @@ class SettingMenu:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events.
+        :param timeDelta: The time elapsed since last update.
+        :return: None.
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw UI elements onto the game.
+        :return: None.
         """
         pass
