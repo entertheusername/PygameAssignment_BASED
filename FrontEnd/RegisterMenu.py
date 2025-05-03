@@ -1,17 +1,29 @@
+# Import modules
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Authentication import Authentication
 from Popup import Popup
 from BackEnd.Settings import Settings
 
-
 class RegisterMenu:
+    """
+    Handle registration menu and render its interface.
+    """
     def __init__(self, screen, display, manager, music):
+        """
+        Initialise the RegisterMenu class.
+        :param screen: The pygame screen surface.
+        :param display: The display surface for rendering.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the menu.
+        :return: None.
+        """
         pygame.init()
 
         # Default
@@ -51,8 +63,8 @@ class RegisterMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup basic GUI in the menu.
+        :return: None.
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))
@@ -303,9 +315,9 @@ class RegisterMenu:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check for events happening in this menu.
+        :param ev: The pygame event variable.
+        :return: None
         """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
@@ -348,16 +360,16 @@ class RegisterMenu:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events.
+        :param timeDelta: The time elapsed since last update.
+        :return: None.
         """
         self.manager.update(timeDelta)
 
     def disableAllElements(self):
         """
-
-        :return:
+        Hide all elements from screen.
+        :return: None
         """
         self.usernameInput.disable()
         self.emailInput.disable()
@@ -367,8 +379,8 @@ class RegisterMenu:
 
     def enableAllElements(self):
         """
-
-        :return:
+        Show all elements on screen.
+        :return: None
         """
         self.usernameInput.enable()
         self.emailInput.enable()
@@ -378,7 +390,7 @@ class RegisterMenu:
 
     def draw(self):
         """
-
-        :return:
+        Draw elements onto the game.
+        :return: None
         """
         pass
