@@ -1,9 +1,12 @@
+# Import modules
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 
 
