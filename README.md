@@ -27,7 +27,9 @@ Follow the steps below to set up and run the system successfully:
    * Run the main application script `/FrontEnd/Main.py`.
    * If using **Visual Studio Code**, run the main application script using the pre-configured `launch.json` file.
 
+
 ---
+
 
 ### Troubleshooting
 
