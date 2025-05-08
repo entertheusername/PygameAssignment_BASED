@@ -21,8 +21,6 @@ class Authentication:
         Initialize the authentication and connect to the MySQL database.
         """
         self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
-        # self.conn = pymysql.connect(user='root', password='vKCdduMYpg', host='34.124.212.17', database='capstone',
-        #                             port=3306) # Need to add the person's ip lmao idk anymore
         self.cursor = self.conn.cursor()
 
     def login(self, username, password, save):
