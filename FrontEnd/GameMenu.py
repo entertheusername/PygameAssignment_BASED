@@ -1,18 +1,33 @@
+# Import modules
 import sys
 import os
-
-from BackEnd.Settings import Settings
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from BackEnd.Settings import Settings
 from BackEnd.Authentication import Authentication
 from BackEnd.TutorialManage import TutorialManage
 from Popup import Popup
 
 
 class GameMenu:
+    """
+    Handle game menu interface, including play button, leaderboard button, setting button and exit button.
+    """
     def __init__(self, screen, display, manager, music, endGame):
+        """
+        Initialise the GameMenu class and setup the interface.
+
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display manager for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the game menu.
+        :param endGame: A function to call when exiting the game.
+        :return: None
+        """
         pygame.init()
 
         # Default
@@ -171,7 +186,7 @@ class GameMenu:
     def update(self, timeDelta):
         """
         Update game events.
-        :param timeDelta: Timing nonsense
+        :param timeDelta: The time elapsed since last update.
         :return: None
         """
         self.manager.update(timeDelta)

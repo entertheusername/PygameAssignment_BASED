@@ -1,14 +1,28 @@
+# Import module
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 
 class HintMenu:
+    """
+    Handle the hint menu including pagination function.
+    """
     def __init__(self, pauseInstance, manager, display, gameMode):
+        """
+        Initialise the HintMenu class and setup the interface.
+
+        :param pauseInstance: An instance from pause menu to manage pause functionality.
+        :param manager: The UI manager to handle UI elements.
+        :param display: The display surface for rendering.
+        :param gameMode: The current game mode.
+        :return: None
+        """
         pygame.init()
 
         # Default
@@ -29,11 +43,13 @@ class HintMenu:
         # Hint
         self.pageCount = 1
 
+        # Load character expressions
         annyTFHappy = pygame.image.load("../Assets/Character/AnnyTFHappy.png")
         annyTFSad = pygame.image.load("../Assets/Character/AnnyTFSad.png")
         annyTFTease = pygame.image.load("../Assets/Character/AnnyTFTease.png")
         self.annyTFList = [annyTFHappy, annyTFSad, annyTFTease]
 
+        # Hint list based on the game mode
         self.hintList = []
         match gameMode:
             case "conversion":
@@ -62,10 +78,10 @@ class HintMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Sets up the basic GUI for hint menu.
+        :return: None
         """
-        # Background Img
+        # Background image
         backgroundRect = pygame.Rect((0, 0), (948, 451))
         background = pygame_gui.elements.UIPanel(relative_rect=backgroundRect,
                                                       manager=self.manager,
@@ -87,7 +103,7 @@ class HintMenu:
 
         self.elements.append(background)
 
-        # title Img
+        # Title image
         titleImage = pygame.image.load(f"../Assets/WindowElements/AnnysHintTitle.png")
         titleRect = pygame.Rect((-5, 0), (422, 89))
         titleRect.top = 30
@@ -168,17 +184,17 @@ class HintMenu:
 
     def killAll(self):
         """
-
-        :return:
+        Remove all elements on screen.
+        :return: None
         """
         for i in self.elements:
             i.kill()
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check for events happened in this menu.
+        :param ev: Pygame event variable.
+        :return: None.
         """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
@@ -202,24 +218,24 @@ class HintMenu:
 
     def updateHintContent(self):
         """
-
-        :return:
+        Handle pagination function and update elements on screen.
+        :return: None
         """
         self.cheatSheet.set_image(self.hintList[self.pageCount - 1])
         self.annyTF.set_image(self.annyTFList[self.annyTFExpressionList[self.pageCount - 1]])
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events in this menu.
+        :param timeDelta: The time elapsed since last update.
+        :return: None.
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw elements onto the game.
+        :return: None
         """
         self.display.fill(pygame.Color('#FFE0E3'))
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))

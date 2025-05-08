@@ -1,11 +1,13 @@
+# Import modules
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 import re
+
+# Allow parent directory to system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Authentication import Authentication
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
@@ -21,9 +23,14 @@ from GameOverMenu import GameOverMenu
 from BackEnd.Settings import Settings
 from SettingsMenu import SettingMenu
 
-
 class Main:
+    """
+    Main class to handle the game loop and manage different screens in the application.
+    """
     def __init__(self):
+        """
+        Initialise the main application, setting up the display, music, and initial screen.
+        """
         pygame.init()
         pygame.display.set_caption("BASED")
         self.isRunning = True
@@ -37,9 +44,11 @@ class Main:
 
         self.currentMusic = ""
 
+        # Audio volume
         musicVolume = Settings().getKeyVariable("Music")
         pygame.mixer.music.set_volume(musicVolume)
 
+        # Silent login
         try:
             auth = Authentication()
             if auth.silentLogin():
@@ -56,9 +65,9 @@ class Main:
 
     def switchScreen(self, screen):
         """
-
-        :param screen:
-        :return:
+        Switch the screens based on the screen identifier.
+        :param screen: The identifier for the screen to switch to.
+        :return: None
         """
         self.screen = screen
         self.manager = pygame_gui.UIManager((1080, 640))
@@ -117,23 +126,23 @@ class Main:
 
     def switchMusic(self, music):
         """
-
-        :param music:
-        :return:
+        Switch the music theme based on screen.
+        :param music: The music to be played.
+        :return: None
         """
         self.currentMusic = music
 
     def endGame(self):
         """
-
-        :return:
+        End the game loop and sets the game state to false.
+        :return: None
         """
         self.isRunning = False
 
     def gameLoop(self):
         """
-
-        :return:
+        Main game loop to processes events, update displays, and render UI.
+        :return: None
         """
         clock = self.clock.tick(60)
         timeDelta = clock / 1000
@@ -152,7 +161,7 @@ class Main:
         self.currentDisplay.draw()
         pygame.display.update()
 
-
+# Start
 if __name__ == "__main__":
     main = Main()
     while main.isRunning:

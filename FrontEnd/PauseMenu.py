@@ -11,7 +11,19 @@ from BackEnd.Settings import Settings
 from FrontEnd.Hints import HintMenu
 
 class PauseMenu:
+    """
+    Handle pause menu including the buttons to resume, view hint and quit game.
+    """
     def __init__(self, gameInstance, display, manager, gameMode):
+        """
+        Initialise pause menu and setup the interface.
+
+        :param gameInstance: The current game instance for game state.
+        :param display: The display surface for rendering.
+        :param manager: The UI manager to handle UI elements.
+        :param gameMode: The current game mode.
+        :return: None
+        """
         pygame.init()
         self.game = gameInstance
         self.display = display
@@ -40,8 +52,8 @@ class PauseMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup basic GUI for pause menu.
+        :return: None
         """
         initialYElement = 100
         stackY = 90
@@ -98,33 +110,33 @@ class PauseMenu:
 
     def killAll(self):
         """
-
-        :return:
+        Remove all elements from screen.
+        :return: None
         """
         for i in self.elements:
             i.kill()
 
     def hideAll(self):
         """
-
-        :return:
+        Hide all elements from screen.
+        :return: None
         """
         for i in self.elements:
             i.hide()
 
     def showAll(self):
         """
-
-        :return:
+        Show all elements from screen.
+        :return: None
         """
         for i in self.elements:
             i.show()
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check the event happening in pause menu.
+        :param ev: Pygame event variable.
+        :return: None
         """
 
         if self.game.paused and self.hintMenu:
@@ -154,16 +166,16 @@ class PauseMenu:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events.
+        :param timeDelta: The time elapsed since last update.
+        :return: None
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw UI elements onto the screen.
+        :return: None
         """
         if self.game.paused and self.hintMenu:
             self.hintMenu.draw()

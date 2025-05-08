@@ -1,17 +1,32 @@
+# Import modules
 import json
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 from BackEnd.LeaderboardManage import LeaderboardManage
 
 
 class Leaderboard:
+    """
+    Handle leaderboard lists and setup the interface, including pagination function.
+    """
     def __init__(self, screen, display, manager, music, gameMode, timeFrame):
+        """
+        Initialise the Leaderboard class and setup the interface.
+
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display manager for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the leaderboard.
+        :param gameMode: The current leaderboard's game mode displayed.
+        :param timeFrame: The time frame for the leaderboard (monthly, all-time).
+        """
         pygame.init()
         # Default
         self.screen = screen
@@ -46,19 +61,18 @@ class Leaderboard:
         self.rightPageButton = None
         self.leftPageButton = None
 
-
         self.uiSetup()
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup the basic GUI for leaderboard pages.
+        :return: None.
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundBlur.png"), (0, 0))
 
-        # Background Img
+        # Background image
         backgroundRect = pygame.Rect((0, 0), (948, 451))
         self.background = pygame_gui.elements.UIPanel(relative_rect=backgroundRect,
                                                  manager=self.manager,
@@ -78,7 +92,7 @@ class Leaderboard:
             container=self.background
         )
 
-        # title Img
+        # Title image
         titlename = self.gameMode + self.timeFrame
         titleImage = pygame.image.load(f"../Assets/WindowElements/{titlename}.png")
         titleRect = pygame.Rect((-5, 0), (331, 89))
@@ -144,15 +158,18 @@ class Leaderboard:
 
     def updateLeaderboard(self, background):
         """
+        Update leaderboard display with the current data.
 
-        :param background:
-        :return:
+        :param background: The background panel where leaderboard rows will be displayed.
+        :return: None
         """
+        # Clear existing leaderboard rows
         if self.leaderboardRows:
             for i in self.leaderboardRows:
                 i.killAll()
             self.leaderboardRows.clear()
 
+        # Create a horizontal line for separation
         lineRect = pygame.Rect((0, 0), (930, 3))
         lineRect.top = 80
         line = pygame_gui.elements.UIPanel(relative_rect=lineRect,
@@ -165,6 +182,7 @@ class Leaderboard:
                                            anchors={'centerx': 'centerx',
                                                     'top': 'top'})
 
+        # Retrieve leaderboard data
         try:
             leaderboard = LeaderboardManage()
             if self.timeFrame == "month":
@@ -174,6 +192,7 @@ class Leaderboard:
         except:
             self.screen("error;Database Error Occurred:;Please contact Admin to resolve the matter.")
 
+        # Fill leaderbord rows with data
         initialY = 80
         stackY = 60
         times = -1
@@ -184,9 +203,9 @@ class Leaderboard:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check for event happening in leaderboar list.
+        :param ev: Pygame event variable.
+        :return: None
         """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
@@ -212,22 +231,35 @@ class Leaderboard:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events.
+        :param timeDelta: Time elapsed since last update.
+        :return: None
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw elements onto the game.
+        :return: None
         """
         pass
 
 
 class LeaderboardRow:
+    """
+    Handle leaderboard row displays with different data.
+    """
     def __init__(self, manager, container, data, y, title=False):
+        """
+        Initialise a row in the leaderboard with player data.
+
+        :param manager: The UI manager to handle UI elements.
+        :param container: The container of the leaderboard row.
+        :param data: The data for the leaderboard row (rank, player name, time taken, score).
+        :param y: The y position of the row.
+        :param title: A boolean indicating if this row is a title.
+        :return: None.
+        """
         self.manager = manager
         self.container = container
         self.data = data
@@ -240,15 +272,17 @@ class LeaderboardRow:
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup the basic GUI for the leaderboard rows.
+        :return: None
         """
+        # Load user data
         file = open("../loggedInUser.json", "r")
         data = json.load(file)
         file.close()
 
-        y = 62
+        y = 62 # Height for each row
 
+        # Set the panel and font class based on if it is a title row or the current user
         if self.title:
             panelClass = "@regularPanel"
             fontClass = "@titleFont"
@@ -265,6 +299,7 @@ class LeaderboardRow:
             shiftRightRank = 10
             shiftRightNeuro = 0
 
+        # Create background panel
         backgroundRect = pygame.Rect((0, 0), (930, y))
         backgroundRect.top = self.y
         background = pygame_gui.elements.UIPanel(relative_rect=backgroundRect,
@@ -278,6 +313,7 @@ class LeaderboardRow:
                                                           'top': 'top'})
         self.elements.append(background)
 
+        # Set rank ID based on the rank value (for different color display)
         match self.data[0]:
             case "1":
                 rankID = "#1"
@@ -288,6 +324,7 @@ class LeaderboardRow:
             case _:
                 rankID = "#default"
 
+        # Rank label
         rankRect = pygame.Rect((0, 0), (60, y))
         rankRect.left = 10 + shiftRightRank
         rank = pygame_gui.elements.UILabel(relative_rect=rankRect,
@@ -302,6 +339,7 @@ class LeaderboardRow:
                                                'centery': 'centery'})
         self.elements.append(rank)
 
+        # Display character image if the current user is on the leaderboard
         if data["username"] == self.data[1]:
             neuroImage = pygame.image.load("../Assets/Character/LeaderboardSprite.png")
             neuroRect = pygame.Rect((0, 0), (60, 60))
@@ -315,6 +353,7 @@ class LeaderboardRow:
                                                     'centery': 'centery'})
             self.elements.append(neuro)
 
+        # Player name
         nameRect = pygame.Rect((0, 0), (400, y))
         nameRect.left = 100 + shiftRightNeuro
         name = pygame_gui.elements.UILabel(relative_rect=nameRect,
@@ -329,6 +368,7 @@ class LeaderboardRow:
                                                'centery': 'centery'})
         self.elements.append(name)
 
+        # Time taken
         timeRect = pygame.Rect((0, 0), (150, y))
         timeRect.left = 590
         time = pygame_gui.elements.UILabel(relative_rect=timeRect,
@@ -343,6 +383,7 @@ class LeaderboardRow:
                                                'centery': 'centery'})
         self.elements.append(name)
 
+        # Score
         scoreRect = pygame.Rect((0, 0), (100, y))
         scoreRect.left = 810
         score = pygame_gui.elements.UILabel(relative_rect=scoreRect,
@@ -359,9 +400,8 @@ class LeaderboardRow:
 
     def killAll(self):
         """
-
-        :return:
+        Remove all elements on the screen.
+        :return: None
         """
         for i in self.elements:
             i.kill()
-

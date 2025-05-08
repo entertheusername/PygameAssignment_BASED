@@ -1,13 +1,26 @@
+# Import modules
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
 
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class Popup:
+    """
+    Handle pop-up messages and render the interface.
+    """
     def __init__(self, manager, display, message, type, purpose):
+        """
+        Initialise the Popup class and setup the interface.
+        :param manager: The UI manager to handle UI elements.
+        :param display: The display surface for rendering.
+        :param message: The message to be displayed inside pop-up window.
+        :param type: The type of pop-up (yes/no/ok).
+        :param purpose: The purpose of the pop-up (logout/exit).
+        :return: None.
+        """
         # Default
         self.manager = manager
         self.display = display
@@ -27,8 +40,8 @@ class Popup:
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup basic GUI for pop-up messages.
+        :return: None
         """
         # Popup itself
         popupRect = pygame.Rect((0, 0), (300, 150))
@@ -113,9 +126,9 @@ class Popup:
 
     def centerWindow(self, window: pygame_gui.elements.UIWindow):
         """
-
-        :param window:
-        :return:
+        Center the pop-up window.
+        :param window: The pop-up window to be centered.
+        :return: None
         """
         window_size = window.get_relative_rect().size
         displayX, displayY = self.display.get_size()
@@ -125,8 +138,8 @@ class Popup:
 
     def killAll(self):
         """
-
-        :return:
+        Remove all elements from the screen.
+        :return: None
         """
         for i in self.elements:
             i.kill()

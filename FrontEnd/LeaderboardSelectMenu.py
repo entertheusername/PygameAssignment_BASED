@@ -1,15 +1,28 @@
+# Import modules
 import sys
 import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import pygame_gui
+
+# Allow parent directory to system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 
-
 class LeaderboardSelectMenu:
+    """
+    Handle the leaderboard selection menu and allow user to view different leaderboard lists.
+    """
     def __init__(self, screen, display, manager, music):
+        """
+        Initialise the LeaderboardSelectMenu class and setup the interface.
+
+        :param screen: The pygame screen surface for rendering.
+        :param display: The display manager for the game.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played in the menu.
+        :return: None
+        """
         pygame.init()
 
         # Default
@@ -43,8 +56,8 @@ class LeaderboardSelectMenu:
 
     def uiSetup(self):
         """
-
-        :return:
+        Sets up the basic GUI for leaderboard selection menu.
+        :return: None
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
@@ -53,7 +66,7 @@ class LeaderboardSelectMenu:
         initialXElement = 87
         stackX = 291
 
-        # Background Img
+        # Background image
         backgroundRect = pygame.Rect((0, 0), (948, 451))
         background = pygame_gui.elements.UIPanel(relative_rect=backgroundRect,
                                                  manager=self.manager,
@@ -70,7 +83,7 @@ class LeaderboardSelectMenu:
             container=background
         )
 
-        # Title Img
+        # Title image
         titleImage = pygame.image.load("../Assets/WindowElements/LeaderboardSelectTitle.png")
         titleRect = pygame.Rect((-5, 0), (331, 89))
         titleRect.top = 50
@@ -80,7 +93,7 @@ class LeaderboardSelectMenu:
                                             anchors={'centerx': 'centerx',
                                                      'top': 'top'})
 
-        # Game Mode Board Img
+        # Game Mode Board image
         gamemodeImage = pygame.image.load("../Assets/WindowElements/GameModeBoard.png")
         gamemodeRect = pygame.Rect((0, 0), (855, 294))
         gamemode = pygame_gui.elements.UIImage(relative_rect=gamemodeRect,
@@ -90,7 +103,7 @@ class LeaderboardSelectMenu:
                                             anchors={'centerx': 'centerx',
                                                      'centery': 'centery'})
 
-        # Conversion button
+        # Conversion monthly button
         conversionMonthButtonRect = pygame.Rect((0, 0), (197, 57))
         conversionMonthButtonRect.left = initialXElement
         self.conversionMonthButton = pygame_gui.elements.UIButton(relative_rect=conversionMonthButtonRect,
@@ -103,6 +116,7 @@ class LeaderboardSelectMenu:
                                                              anchors={'left': 'left',
                                                                       'centery': 'centery'})
 
+        # Conversion all time button
         conversionAllButtonRect = pygame.Rect((0, 70), (197, 57))
         conversionAllButtonRect.left = initialXElement
         self.conversionAllButton = pygame_gui.elements.UIButton(relative_rect=conversionAllButtonRect,
@@ -115,7 +129,7 @@ class LeaderboardSelectMenu:
                                                              anchors={'left': 'left',
                                                                       'centery': 'centery'})
 
-        # Calculation button
+        # Basic Calculation monthly button
         calculationMonthButtonRect = pygame.Rect((0, 0), (197, 57))
         calculationMonthButtonRect.left = initialXElement + stackX
         self.calculationMonthButton = pygame_gui.elements.UIButton(relative_rect=calculationMonthButtonRect,
@@ -128,6 +142,7 @@ class LeaderboardSelectMenu:
                                                               anchors={'left': 'left',
                                                                       'centery': 'centery'})
 
+        # Basic Calculation all time button
         calculationAllButtonRect = pygame.Rect((0, 70), (197, 57))
         calculationAllButtonRect.left = initialXElement + stackX
         self.calculationAllButton = pygame_gui.elements.UIButton(relative_rect=calculationAllButtonRect,
@@ -140,7 +155,7 @@ class LeaderboardSelectMenu:
                                                               anchors={'left': 'left',
                                                                        'centery': 'centery'})
 
-        # Mixed Calculation button
+        # Mixed Calculation monthly button
         mixedCalculationMonthButtonRect = pygame.Rect((0, 0), (197, 57))
         mixedCalculationMonthButtonRect.left = initialXElement + (stackX * 2)
         self.mixedCalculationMonthButton = pygame_gui.elements.UIButton(relative_rect=mixedCalculationMonthButtonRect,
@@ -153,6 +168,7 @@ class LeaderboardSelectMenu:
                                                                    anchors={'left': 'left',
                                                                       'centery': 'centery'})
 
+        # Mixed Calculation all time button
         mixedCalculationAllButtonRect = pygame.Rect((0, 70), (197, 57))
         mixedCalculationAllButtonRect.left = initialXElement + (stackX * 2)
         self.mixedCalculationAllButton = pygame_gui.elements.UIButton(relative_rect=mixedCalculationAllButtonRect,
@@ -179,9 +195,9 @@ class LeaderboardSelectMenu:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check for events happening in this menu.
+        :param ev: Pygame event variable.
+        :return: None
         """
         match ev.type:
             case pygame_gui.UI_BUTTON_PRESSED:
@@ -211,15 +227,15 @@ class LeaderboardSelectMenu:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events.
+        :param timeDelta: Time elapsed since last update.
+        :return: None
         """
         self.manager.update(timeDelta)
 
     def draw(self):
         """
-
-        :return:
+        Draw elements onto the game.
+        :return: None
         """
         pass

@@ -1,17 +1,30 @@
+# Import modules
 import json
 import sys
 import os
 import pygame
 import pygame_gui
 
+# Allow parent directory to system paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BackEnd.Settings import Settings
 from BackEnd.TutorialManage import TutorialManage
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-
 class Tutorial:
+    """
+    Handle the tutorial intergaces to guide users through tutorial stages.
+    """
     def __init__(self, screen, display, manager, music, stage):
+        """
+        Initialise the tutorial class and setup the interface.
+        :param screen: The pygame screen surface to be swithched.
+        :param display: The display surface for rendering.
+        :param manager: The UI manager to handle UI elements.
+        :param music: The music to be played during the tutorial.
+        :param stage: The current stage of the tutorial.
+        return: None.
+        """
         pygame.init()
 
         # Default
@@ -66,8 +79,8 @@ class Tutorial:
 
     def uiSetup(self):
         """
-
-        :return:
+        Setup basic GUI for the interface.
+        :return: None.
         """
         # Background
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
@@ -162,9 +175,9 @@ class Tutorial:
 
     def eventCheck(self, ev):
         """
-
-        :param ev:
-        :return:
+        Check the events happening in tutorial.
+        :param ev: Pygame event variable.
+        :return: None
         """
         match ev.type:
             case pygame.MOUSEBUTTONDOWN:
@@ -177,8 +190,8 @@ class Tutorial:
 
     def updateDialog(self):
         """
-
-        :return:
+        Changes the dialog on the tutorial stage.
+        :return: None
         """
         self.page += 1
         self.dialog = self.dialogs[self.stage][str(self.page)]
@@ -187,12 +200,12 @@ class Tutorial:
 
     def updateArrow(self, blit=True, x=0, y=0, degree=0):
         """
-
-        :param blit:
-        :param x:
-        :param y:
-        :param degree:
-        :return:
+        Changes the arrow position and direction for tutorial guide.
+        :param blit: Whether to draw the arrow.
+        :param x: The x position for the arrow.
+        :param y: The y position for the arrow.
+        :param degree: The rotation angle for the arrow.
+        :return: None
         """
         self.display.fill(pygame.Color('#FFE0E3'))  # Flooding the bg with pink make the pic brighter
         self.display.blit(pygame.image.load("../Assets/Background/BackgroundTutorial.png"), (0, 0))
@@ -203,9 +216,9 @@ class Tutorial:
 
     def update(self, timeDelta):
         """
-
-        :param timeDelta:
-        :return:
+        Update the events and UI elements.
+        :param timeDelta: The time elapsed since last update.
+        :return: None
         """
         self.manager.update(timeDelta)
 
@@ -216,15 +229,15 @@ class Tutorial:
 
     def draw(self):
         """
-
-        :return:
+        Draw UI elements onto the game.
+        :return: None
         """
         pass
 
     def checkPage(self):
         """
-
-        :return:
+        Changes the UI elements on the screen based on tutorial stage.
+        :return: None.
         """
         match self.stage:
             case "1":
