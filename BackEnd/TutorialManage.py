@@ -15,7 +15,7 @@ class TutorialManage:
         """
         Initialise the TutorialManage class and connect to database.
         """
-        self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
+        self.conn = pymysql.connect(user='root', password='', host='localhost', database='based')
         self.cursor = self.conn.cursor()
 
     def checkTutorial(self):
