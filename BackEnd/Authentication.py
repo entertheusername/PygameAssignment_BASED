@@ -20,7 +20,7 @@ class Authentication:
         """
         Initialize the authentication and connect to the MySQL database.
         """
-        self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
+        self.conn = pymysql.connect(user='root', password='', host='localhost', database='based')
         self.cursor = self.conn.cursor()
 
     def login(self, username, password, save):
