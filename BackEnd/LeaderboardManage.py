@@ -13,7 +13,7 @@ class LeaderboardManage:
     Handle scores in database, including data acquisition and manipulation.
     """
     def __init__(self):
-        self.conn = pymysql.connect(user='root', password='', host='localhost', database='capstoneproject')
+        self.conn = pymysql.connect(user='root', password='', host='localhost', database='based')
         self.cursor = self.conn.cursor()
         self.high_score = {}
 
