@@ -9,7 +9,7 @@ Follow the steps below to set up and run the system successfully:
 2. **Set Up the Database**
    * Launch **WampServer**.
    * Open **phpMyAdmin** from localhost.
-   * Create a new database named "based.
+   * Create a new database named "**based**".
    * Import the provided SQL file into the newly created database.
 
 3. **Configure the Python Environment**
