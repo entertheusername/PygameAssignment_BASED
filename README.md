@@ -26,6 +26,7 @@ Follow the steps below to set up and run the system successfully:
    * Navigate to the `/FrontEnd` folder in your editor.
    * Run the main application script `/FrontEnd/Main.py`.
    * If using **Visual Studio Code**, run the main application script using the pre-configured `launch.json` file.
+   * Register new account or login to the system using `Player[number]` as the username and password.
 
 
 ---
